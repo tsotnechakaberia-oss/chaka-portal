@@ -1,0 +1,111 @@
+/* ==========================================================
+   pages.css — კლინიკების რუკა, კალკულატორები, გუნდი, ქვე-გვერდები
+   ========================================================== */
+.page-hero { padding-block: clamp(3rem, 7vw, 5rem) 1rem; }
+.page-hero h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); }
+.crumbs { font-size: .78rem; letter-spacing: .14em; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; }
+.crumbs a { color: var(--mint); }
+.main-nav a.current { color: var(--text); background: color-mix(in srgb, var(--mint) 14%, transparent); }
+.warn-banner { display: flex; gap: .8rem; align-items: flex-start; padding: .9rem 1.1rem; border-radius: var(--radius-sm); font-size: .9rem; background: color-mix(in srgb, var(--amber) 12%, transparent); border: 1px solid color-mix(in srgb, var(--amber) 50%, transparent); margin-top: 1.2rem; }
+
+/* ---------- რუკა ---------- */
+.map-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: 1.4rem; align-items: start; margin-top: 1.2rem; }
+.map-card { padding: .6rem; overflow: hidden; }
+.map-wrap { position: relative; border-radius: calc(var(--radius) - 8px); overflow: hidden; background: var(--bg-2); }
+.geo-svg { display: block; width: 100%; height: auto; cursor: grab; user-select: none; -webkit-user-select: none; }
+.geo-svg.grab { cursor: grabbing; }
+.map-sea { fill: color-mix(in srgb, var(--sky) 12%, var(--bg-2)); }
+.map-sea-dot { fill: color-mix(in srgb, var(--sky) 35%, transparent); }
+.map-land { fill: color-mix(in srgb, var(--mint) 14%, var(--surface-solid)); stroke: var(--mint); stroke-linejoin: round; filter: drop-shadow(0 0 10px color-mix(in srgb, var(--mint) 35%, transparent)); }
+.map-lbl { font-family: var(--font); font-size: calc(11px * var(--u, 1)); fill: var(--muted); text-anchor: middle; pointer-events: none; }
+.map-lbl.sea { font-style: italic; font-size: calc(14px * var(--u, 1)); fill: color-mix(in srgb, var(--sky) 70%, var(--muted)); letter-spacing: .2em; }
+.map-lbl.nb { font-size: calc(12px * var(--u, 1)); letter-spacing: .24em; opacity: .55; text-transform: uppercase; }
+.map-lbl.city { text-anchor: start; transform: translate(calc(17px * var(--u, 1)), calc(4px * var(--u, 1))); font-size: calc(10.5px * var(--u, 1)); fill: var(--text); opacity: .75; }
+.map-lbl.city.major { font-weight: 700; font-size: calc(12px * var(--u, 1)); opacity: 1; }
+.map-city { fill: var(--text); r: calc(2.2px * var(--u, 1)); opacity: .7; }
+.mk { cursor: pointer; outline: none; }
+.mk .dot { stroke: var(--bg); transition: r .2s; }
+.mk .dot-plus { stroke: #fff; stroke-linecap: round; }
+.mk:hover .dot, .mk:focus-visible .dot { filter: drop-shadow(0 0 6px currentColor); stroke: #fff; }
+.mk .cl-bg { fill: color-mix(in srgb, var(--mint) 85%, #000); stroke: #fff; stroke-width: calc(2px * var(--u, 1)); filter: drop-shadow(0 0 8px var(--mint)); }
+.mk .cl-n { fill: var(--on-accent); text-anchor: middle; font-weight: 800; font-family: var(--mono); pointer-events: none; }
+.mk .sel-ring { fill: none; stroke: var(--coral); animation: ringPulse 1.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes ringPulse { from { transform: scale(.7); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
+.map-ctl { position: absolute; right: .7rem; top: .7rem; display: grid; gap: .4rem; z-index: 2; }
+.map-ctl button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); backdrop-filter: blur(8px); font-size: 1.1rem; font-weight: 700; }
+.map-ctl button:hover { border-color: var(--mint); color: var(--mint); }
+.map-ctl .txt { font-size: .62rem; font-family: var(--mono); letter-spacing: .04em; }
+.map-hint { position: absolute; left: .8rem; bottom: .6rem; font-size: .68rem; color: var(--muted); font-family: var(--mono); letter-spacing: .06em; pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; padding: .8rem .6rem .3rem; font-size: .82rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: .4rem; }
+.legend i { width: 11px; height: 11px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
+
+.clinic-side { display: grid; gap: 1rem; }
+.clinic-detail { animation: popIn .4s var(--ease); }
+.clinic-detail h3 { margin-bottom: .2rem; }
+.clinic-detail .en { color: var(--muted); font-size: .85rem; margin-bottom: .8rem; }
+.clinic-detail dl { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; margin: .8rem 0; font-size: .9rem; }
+.clinic-detail dt { color: var(--muted); } .clinic-detail dd { margin: 0; }
+.tag-row { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; }
+.tag.t-public { color: var(--sky); border-color: color-mix(in srgb, var(--sky) 45%, transparent); background: color-mix(in srgb, var(--sky) 12%, transparent); }
+.tag.t-private { color: var(--violet); border-color: color-mix(in srgb, var(--violet) 45%, transparent); background: color-mix(in srgb, var(--violet) 12%, transparent); }
+.tag.t-municipal { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 45%, transparent); background: color-mix(in srgb, var(--amber) 12%, transparent); }
+.clinic-list { max-height: 520px; overflow: auto; display: grid; gap: .5rem; padding-right: .3rem; }
+.clinic-item { display: grid; gap: .1rem; width: 100%; text-align: left; padding: .7rem .9rem; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface-2); transition: border-color .2s, transform .2s; }
+.clinic-item:hover, .clinic-item.is-active { border-color: var(--mint); transform: translateX(3px); }
+.clinic-item b { font-size: .92rem; line-height: 1.3; }
+.clinic-item small { color: var(--muted); }
+.filters-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: .8rem; }
+.mini-map-card { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.6rem; align-items: center; }
+.mini-map-card .map-wrap { pointer-events: none; }
+
+/* ---------- კალკულატორები ---------- */
+.calc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: 1.3rem; margin-top: 1.4rem; }
+.calc { display: flex; flex-direction: column; gap: 1rem; animation: popIn .45s var(--ease) both; }
+.calc-head { display: flex; gap: .9rem; align-items: flex-start; }
+.calc-head .ico-wrap { width: 46px; height: 46px; flex-shrink: 0; color: var(--mint); border: 1px solid var(--line-strong); border-radius: 14px; padding: 9px; background: color-mix(in srgb, var(--mint) 10%, transparent); }
+.calc-head h3 { margin: 0 0 .2rem; font-size: 1.1rem; }
+.calc-head p { margin: 0; color: var(--muted); font-size: .86rem; }
+.calc-form { display: grid; grid-template-columns: 1fr 1fr; gap: .2rem .9rem; }
+.calc-form .f { display: grid; gap: .3rem; margin-bottom: .5rem; align-content: start; }
+.calc-form .f.wide { grid-column: 1 / -1; }
+.calc-form label { font-size: .8rem; color: var(--muted); }
+.calc-form .inp { position: relative; }
+.calc-form .inp .u { position: absolute; right: .8rem; top: 50%; transform: translateY(-50%); font-size: .72rem; color: var(--muted); pointer-events: none; font-family: var(--mono); }
+.calc-form .inp input { padding-right: 4.2rem; }
+.calc-out { border-radius: var(--radius-sm); border: 1px solid var(--line-strong); background: var(--surface-2); padding: 1rem 1.1rem; min-height: 120px; }
+.calc-out.err { border-color: var(--coral); }
+.calc-out .big { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.calc-out .big b { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; font-family: var(--mono); }
+.calc-out .big span { color: var(--muted); font-size: .85rem; }
+.chip-res { display: inline-block; margin-top: .4rem; padding: .25rem .8rem; border-radius: 99px; font-weight: 700; font-size: .85rem; }
+.tone-ok { background: color-mix(in srgb, var(--mint) 18%, transparent); color: var(--mint); }
+.tone-warn { background: color-mix(in srgb, var(--amber) 18%, transparent); color: var(--amber); }
+.tone-bad { background: color-mix(in srgb, var(--coral) 18%, transparent); color: var(--coral); }
+.tone-info { background: color-mix(in srgb, var(--sky) 18%, transparent); color: var(--sky); }
+.scale { position: relative; height: 10px; border-radius: 10px; margin: 1rem 0 .4rem; display: flex; overflow: visible; }
+.scale i { display: block; height: 100%; }
+.scale i:first-child { border-radius: 10px 0 0 10px; } .scale i:last-child { border-radius: 0 10px 10px 0; }
+.scale em { position: absolute; top: -5px; width: 4px; height: 20px; margin-left: -2px; border-radius: 3px; background: var(--text); box-shadow: 0 0 10px var(--text); transition: left .6s var(--ease); }
+.res-lines { display: grid; gap: .25rem; margin: .8rem 0 0; font-size: .88rem; }
+.res-lines div { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px dashed var(--line); padding-bottom: .25rem; }
+.res-lines dt { color: var(--muted); } .res-lines dd { margin: 0; font-family: var(--mono); text-align: right; }
+.res-note { margin: .8rem 0 0; font-size: .8rem; color: var(--muted); }
+.calc-src { font-size: .78rem; color: var(--muted); }
+.calc-src summary { cursor: pointer; color: var(--mint); }
+.calc-src p { margin: .5rem 0 0; }
+.calc-src code { font-family: var(--mono); font-size: .76rem; color: var(--text); word-break: break-word; }
+.calc .err-txt { color: var(--coral); font-size: .88rem; margin: 0; }
+.trust-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-top: 2rem; }
+.trust-row .card { padding: 1.1rem 1.2rem; font-size: .88rem; color: var(--muted); }
+.trust-row b { display: block; color: var(--text); margin-bottom: .2rem; }
+
+/* ---------- ფუტერის/ჰედერის დამატებები ---------- */
+.tools-cta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-bottom: 1.2rem; }
+
+@media (max-width: 960px) {
+  .map-layout, .mini-map-card { grid-template-columns: 1fr; }
+  .filters-grid { grid-template-columns: 1fr; }
+  .clinic-list { max-height: 380px; }
+}
+@media (max-width: 520px) { .calc-form { grid-template-columns: 1fr; } }
