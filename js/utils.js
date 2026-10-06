@@ -1,0 +1,80 @@
+'use strict';
+/* ==========================================================
+   utils.js — დამხმარე ფუნქციები (DOM, storage, toast…)
+   ========================================================== */
+window.Vita = window.Vita || {};
+
+(() => {
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+  /** ელემენტის დინამიური შექმნა: el('div', {class:'a', onClick(){}}, 'ტექსტი', childNode) */
+  const el = (tag, props = {}, ...children) => {
+    const node = document.createElement(tag);
+    for (const [key, val] of Object.entries(props || {})) {
+      if (val === null || val === undefined || val === false) continue;
+      if (key === 'class') node.className = val;
+      else if (key === 'text') node.textContent = val;
+      else if (key === 'html') node.innerHTML = val;
+      else if (key === 'dataset') Object.assign(node.dataset, val);
+      else if (key.startsWith('on') && typeof val === 'function') node.addEventListener(key.slice(2).toLowerCase(), val);
+      else node.setAttribute(key, val === true ? '' : val);
+    }
+    for (const child of children.flat()) {
+      if (child === null || child === undefined || child === false) continue;
+      node.append(child.nodeType ? child : document.createTextNode(String(child)));
+    }
+    return node;
+  };
+
+  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+  const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const debounce = (fn, ms = 200) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+  const pad = (n) => String(n).padStart(2, '0');
+  const todayKey = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+  /** უსაფრთხო localStorage */
+  const store = {
+    get(key, fallback) {
+      try { const raw = localStorage.getItem('vita.' + key); return raw === null ? fallback : JSON.parse(raw); }
+      catch { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem('vita.' + key, JSON.stringify(value)); } catch { /* private mode */ }
+    },
+  };
+
+  /** შეტყობინება (toast) */
+  const toast = (message, type = 'ok', ms = 3600) => {
+    const host = $('#toasts');
+    if (!host) return;
+    const node = el('div', { class: `toast ${type === 'error' ? 'error' : ''}`, role: 'status' },
+      el('span', { text: type === 'error' ? '⚠' : '✓', style: `color:var(--${type === 'error' ? 'coral' : 'mint'});font-weight:800` }),
+      el('span', { text: message }));
+    host.append(node);
+    setTimeout(() => { node.classList.add('out'); setTimeout(() => node.remove(), 400); }, ms);
+  };
+
+  /** range input-ის შევსების პროგრესი (CSS --p) */
+  const paintRange = (input) => {
+    const min = +input.min || 0, max = +input.max || 100;
+    input.style.setProperty('--p', `${((input.value - min) / (max - min)) * 100}%`);
+  };
+
+  /** ფორმის ვალიდაციის დამხმარეები */
+  const setError = (input, message) => {
+    const slot = document.querySelector(`[data-err="${input.id}"]`);
+    if (slot) slot.textContent = message || '';
+    if (input.classList) {
+      input.classList.toggle('invalid', Boolean(message));
+      input.classList.toggle('valid', !message && Boolean(input.value));
+      input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    }
+    return !message;
+  };
+  const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  /** ქართული მობილური: +995 5XX XX XX XX ან 5XXXXXXXX */
+  const isGePhone = (v) => /^(\+?995)?\s?5\d{2}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}$/.test(v.trim());
+
+  Object.assign(window.Vita, { $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone });
+})();
