@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ვიტა — სამედიცინო პორტალი</title>
+  <meta name="description" content="ვიტა — ინტერაქტიული სამედიცინო პორტალი: სიმპტომების რუკა, ექიმების კატალოგი, ჯანმრთელობის ხელსაწყოები, პირველადი დახმარება და სამედიცინო ენციკლოპედია.">
+  <meta name="theme-color" content="#050a14">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5' fill='%23050a14' stroke='%232df5c4' stroke-width='4'/%3E%3Cpath d='M12 34H24L28 24L34 44L38 30L41 34H52' fill='none' stroke='%232df5c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ანიმირებული ჩამტვირთავი (splash) -->
+  <div id="loader" role="status" aria-label="იტვირთება">
+    <div class="loader-inner">
+      <div data-logo="draw" class="loader-logo"></div>
+      <div class="loader-word" aria-hidden="true">ვ<span>ი</span>ტ<span>ა</span></div>
+      <div class="loader-bar"><i></i></div>
+      <p class="loader-text mono">სისტემის დიაგნოსტიკა…</p>
+    </div>
+  </div>
+
+  <!-- ფონის ეფექტები -->
+  <div class="bg-fx" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <a class="skip-link" href="#main">გადასვლა შინაარსზე</a>
+
+  <!-- ჰედერი -->
+  <header class="site-header" id="top">
+    <div class="container header-row">
+      <a href="#home" class="brand" aria-label="ვიტა — მთავარი გვერდი">
+        <span data-logo="mark" class="brand-mark"></span>
+        <span class="brand-name">ვიტა<small class="mono">MED·PORTAL</small></span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="მთავარი მენიუ">
+        <a href="#symptoms" data-spy="symptoms">სიმპტომები</a>
+        <a href="#doctors" data-spy="doctors">ექიმები</a>
+        <a href="clinics.html">კლინიკები</a>
+        <a href="calculators.html">კალკულატორები</a>
+        <a href="#firstaid" data-spy="firstaid">პირველი დახმარება</a>
+        <a href="#library" data-spy="library">ბიბლიოთეკა</a>
+        <a href="#contact" data-spy="contact">კონტაქტი</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:112" class="sos-btn" aria-label="გადაუდებელი დახმარება 112"><i class="sos-dot"></i>112</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="თემის შეცვლა" title="ბნელი / ნათელი თემა">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== 00 / HERO ===== -->
+    <section class="hero" id="home">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="live-badge reveal"><i class="live-dot"></i><span class="mono">ახლავე დაჯავშნე:</span> <b class="rotator" id="rotator">კარდიოლოგი</b></p>
+          <h1 class="hero-title reveal" style="--d:.08s">მომავლის <em class="grad-text">სამედიცინო</em> სივრცე — უკვე შენს ეკრანზე</h1>
+          <p class="hero-lead reveal" style="--d:.16s">ვიტა აერთიანებს სიმპტომების ინტერაქტიულ რუკას, ექიმების კატალოგს, ჯანმრთელობის კალკულატორებს, პირველადი დახმარების ინსტრუქციებს და სამედიცინო ბიბლიოთეკას — მარტივად, ერთ სივრცეში.</p>
+          <div class="hero-cta reveal" style="--d:.24s">
+            <a href="#symptoms" class="btn btn-primary" data-magnetic>შეამოწმე სიმპტომები <span aria-hidden="true">→</span></a>
+            <a href="#doctors" class="btn btn-ghost" data-magnetic>იპოვე ექიმი</a>
+          </div>
+          <ul class="stat-row reveal" style="--d:.32s" aria-label="პორტალის სტატისტიკა">
+            <li><b class="mono" data-count="doctors">0</b><span>ექიმი</span></li>
+            <li><b class="mono" data-count="specs">0</b><span>სპეციალობა</span></li>
+            <li><b class="mono" data-count="articles">0</b><span>სტატია</span></li>
+            <li><b class="mono" data-count="aid">0</b><span>სასწრაფო გიდი</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual reveal" style="--d:.2s" aria-hidden="true">
+          <div data-logo="emblem" class="emblem"></div>
+          <div class="float-chip fc1 mono"><i></i>112 · სასწრაფო</div>
+          <div class="float-chip fc2 mono"><i></i><span id="bpm-chip">BPM 72</span></div>
+          <div class="float-chip fc3 mono"><i></i>SpO₂ 98%</div>
+          <div class="ecg-card">
+            <div class="ecg-head mono"><span>ᲔᲙᲒ · ᲡᲘᲛᲣᲚᲐᲪᲘᲐ</span><b id="bpm-live">72</b></div>
+            <div class="ecg-strip" id="ecg-strip"></div>
+          </div>
+        </div>
+      </div>
+      <a href="#how" class="scroll-hint mono" aria-label="ქვემოთ გადასვლა"><span></span>SCROLL</a>
+    </section>
+
+    <!-- ===== პარტნიორების მარკეტი (ანიმირებული ლოგოები) ===== -->
+    <section class="partners" aria-label="დემო პარტნიორი კლინიკები">
+      <p class="partners-label mono">დემო პარტნიორი კლინიკები · გამოგონილი ბრენდები</p>
+      <div class="marquee"><div class="marquee-track" id="partner-track"></div></div>
+    </section>
+
+    <!-- ===== 01 / HOW ===== -->
+    <section class="section" id="how">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">01 // როგორ მუშაობს</p>
+          <h2>სამი მარტივი ნაბიჯი ჯანმრთელობისკენ</h2>
+          <p class="section-lead">არანაირი რთული რეგისტრაცია — აირჩიე, იპოვე, დაჯავშნე.</p>
+        </header>
+        <ol class="steps-grid">
+          <li class="step-card card holo reveal" style="--d:.0s">
+            <span class="step-num mono">01</span>
+            <div class="step-ico" data-icon="body"></div>
+            <h3>მონიშნე სიმპტომი</h3>
+            <p>სხეულის რუკაზე დააჭირე იმ ადგილს, სადაც დისკომფორტი გაქვს და აირჩიე სიმპტომები.</p>
+          </li>
+          <li class="step-card card holo reveal" style="--d:.1s">
+            <span class="step-num mono">02</span>
+            <div class="step-ico" data-icon="stethoscope"></div>
+            <h3>მიიღე მიმართულება</h3>
+            <p>გაიგე, რომელი სპეციალისტი გჭირდება და რამდენად სასწრაფოა ვიზიტი.</p>
+          </li>
+          <li class="step-card card holo reveal" style="--d:.2s">
+            <span class="step-num mono">03</span>
+            <div class="step-ico" data-icon="calendar"></div>
+            <h3>დაჯავშნე ვიზიტი</h3>
+            <p>აირჩიე ექიმი, თარიღი და დრო — ჯავშნის კოდს მაშინვე მიიღებ.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 02 / SYMPTOMS ===== -->
+    <section class="section" id="symptoms">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">02 // სიმპტომების რუკა</p>
+          <h2>სად გტკივა? დააჭირე რუკაზე</h2>
+          <p class="section-lead">ინტერაქტიული სკანერი გიჩვენებს, რომელ სპეციალისტს მიმართო. ეს არის საინფორმაციო ხელსაწყო და არა დიაგნოზი.</p>
+        </header>
+
+        <div class="symptom-layout">
+          <div class="body-panel card reveal">
+            <div class="body-stage">
+              <svg viewBox="0 0 200 410" class="body-svg" id="body-svg" role="group" aria-label="სხეულის ინტერაქტიული რუკა">
+                <defs>
+                  <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="var(--mint)" stop-opacity=".35"/>
+                    <stop offset="1" stop-color="var(--violet)" stop-opacity=".18"/>
+                  </linearGradient>
+                </defs>
+                <rect class="body-decor" x="90" y="66" width="20" height="16" rx="6"/>
+                <circle class="region" data-region="head" cx="100" cy="42" r="28" tabindex="0" role="button" aria-label="თავი"/>
+                <path class="region" data-region="chest" d="M64 86 Q100 76 136 86 L132 152 Q100 158 68 152 Z" tabindex="0" role="button" aria-label="მკერდი"/>
+                <path class="region" data-region="abdomen" d="M68 158 Q100 164 132 158 L128 216 Q100 226 72 216 Z" tabindex="0" role="button" aria-label="მუცელი"/>
+                <rect class="region" data-region="arms" x="26" y="90" width="26" height="130" rx="13" transform="rotate(7 39 90)" tabindex="0" role="button" aria-label="მკლავი"/>
+                <rect class="region" data-region="arms" x="148" y="90" width="26" height="130" rx="13" transform="rotate(-7 161 90)" tabindex="0" role="button" aria-label="მკლავი"/>
+                <rect class="region" data-region="legs" x="69" y="224" width="30" height="176" rx="15" tabindex="0" role="button" aria-label="ფეხი"/>
+                <rect class="region" data-region="legs" x="101" y="224" width="30" height="176" rx="15" tabindex="0" role="button" aria-label="ფეხი"/>
+                <g class="pins" aria-hidden="true">
+                  <circle cx="100" cy="42" r="3.5"/><circle cx="100" cy="118" r="3.5"/><circle cx="100" cy="188" r="3.5"/>
+                  <circle cx="39" cy="150" r="3.5"/><circle cx="161" cy="150" r="3.5"/>
+                  <circle cx="84" cy="310" r="3.5"/><circle cx="116" cy="310" r="3.5"/>
+                </g>
+              </svg>
+              <i class="scan-line" aria-hidden="true"></i>
+            </div>
+            <button class="btn btn-ghost btn-sm region-general" type="button" data-region="general">⚕ ზოგადი სიმპტომები</button>
+            <p class="body-hint mono" id="body-hint">აირჩიე სხეულის ზონა</p>
+          </div>
+
+          <div class="symptom-panel card reveal" style="--d:.1s">
+            <div class="sp-head">
+              <h3 id="sp-title">აირჩიე ზონა</h3>
+              <label class="switch"><input type="checkbox" id="child-toggle"><span class="switch-ui"></span><span>პაციენტი ბავშვია (18-მდე)</span></label>
+            </div>
+            <div id="symptom-chips" class="chip-wrap" aria-live="polite">
+              <p class="empty-note">სხეულის რუკაზე დააჭირე ზონას — აქ გამოჩნდება შესაბამისი სიმპტომები.</p>
+            </div>
+            <div class="field-row">
+              <label for="duration">რამდენი ხანია გრძელდება?</label>
+              <select id="duration" class="input">
+                <option value="short">3 დღემდე</option>
+                <option value="mid">3–14 დღე</option>
+                <option value="long">2 კვირაზე მეტი</option>
+              </select>
+            </div>
+            <div class="sp-actions">
+              <button class="btn btn-primary" id="analyze-btn" type="button">გაანალიზება</button>
+              <button class="btn btn-ghost" id="reset-symptoms" type="button">გასუფთავება</button>
+            </div>
+            <div id="symptom-result" class="result-box" aria-live="polite" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 / DOCTORS ===== -->
+    <section class="section" id="doctors">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">03 // ექიმების კატალოგი</p>
+          <h2>იპოვე სპეციალისტი და დაჯავშნე ვიზიტი</h2>
+          <p class="section-lead">ფილტრი, ძებნა და დალაგება — ყველაფერი რეალურ დროში. ექიმები დემო/გამოგონილი პერსონაჟები არიან.</p>
+        </header>
+
+        <div class="toolbar card reveal">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" id="doc-search" class="input" placeholder="მოძებნე სახელით ან სპეციალობით…" aria-label="ექიმის ძებნა">
+          </div>
+          <select id="doc-sort" class="input" aria-label="დალაგება">
+            <option value="rating">რეიტინგი ↓</option>
+            <option value="exp">გამოცდილება ↓</option>
+            <option value="price">ფასი ↑</option>
+            <option value="name">სახელი ა→ჰ</option>
+          </select>
+          <label class="switch"><input type="checkbox" id="doc-today"><span class="switch-ui"></span><span>მხოლოდ დღეს თავისუფალი</span></label>
+        </div>
+        <div class="chip-wrap spec-filter reveal" id="spec-filter" role="group" aria-label="სპეციალობის ფილტრი"></div>
+        <p class="result-count mono" id="doc-count" aria-live="polite"></p>
+        <div class="doc-grid" id="doc-grid"></div>
+
+        <div class="bookings card reveal" id="bookings-box">
+          <div class="bookings-head">
+            <h3>ჩემი ჯავშნები</h3>
+            <span class="mono tag" id="bookings-count">0</span>
+          </div>
+          <ul id="bookings-list" class="bookings-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03b / CLINICS TEASER ===== -->
+    <section class="section" id="clinics-teaser">
+      <div class="container">
+        <div class="card holo mini-map-card reveal">
+          <div>
+            <p class="eyebrow mono">საქართველოს რუკა</p>
+            <h2>კლინიკები მთელ საქართველოში</h2>
+            <p class="section-lead">სახელმწიფო, საუნივერსიტეტო, რეგიონული და კერძო დაწესებულებები ინტერაქტიულ რუკაზე — რეგიონის, ტიპისა და პროფილის ფილტრით.</p>
+            <a href="clinics.html" class="btn btn-primary" data-magnetic>გახსენი რუკა <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="map-wrap"><svg id="mini-map" class="geo-svg" viewBox="0 0 1013 540" aria-hidden="true"></svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 / TOOLS ===== -->
+    <section class="section" id="tools">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">04 // ჯანმრთელობის ლაბორატორია</p>
+          <h2>ხუთი ხელსაწყო ყოველდღიური ზრუნვისთვის</h2>
+          <p class="section-lead">გამოთვლები სწრაფი ორიენტირებისთვისაა და არ ცვლის ექიმის რჩევას.</p>
+        </header>
+
+        <div class="tools-cta reveal"><a href="calculators.html" class="btn btn-ghost btn-sm" data-magnetic>🧮 ყველა ონლაინ კალკულატორი (12) →</a></div>
+        <div class="tabs reveal" role="tablist" aria-label="ხელსაწყოები" id="tool-tabs">
+          <button role="tab" class="tab is-active" data-tab="bmi" aria-selected="true">BMI</button>
+          <button role="tab" class="tab" data-tab="water" aria-selected="false">წყალი</button>
+          <button role="tab" class="tab" data-tab="pulse" aria-selected="false">პულსი</button>
+          <button role="tab" class="tab" data-tab="sleep" aria-selected="false">ძილი</button>
+          <button role="tab" class="tab" data-tab="tracker" aria-selected="false">დღიური</button>
+        </div>
+
+        <div class="tool-stage card reveal">
+          <!-- BMI -->
+          <div class="tab-panel is-active" data-panel="bmi" role="tabpanel">
+            <div class="tool-grid">
+              <form class="tool-form" id="bmi-form" novalidate>
+                <h3>სხეულის მასის ინდექსი</h3>
+                <div class="range-field">
+                  <label for="bmi-h">სიმაღლე: <b class="mono"><span id="bmi-h-out">170</span> სმ</b></label>
+                  <input type="range" id="bmi-h" min="100" max="220" value="170">
+                </div>
+                <div class="range-field">
+                  <label for="bmi-w">წონა: <b class="mono"><span id="bmi-w-out">70</span> კგ</b></label>
+                  <input type="range" id="bmi-w" min="25" max="200" value="70">
+                </div>
+                <p class="note">BMI არ ითვალისწინებს კუნთოვან მასას, ასაკს და სხეულის აგებულებას — გამოიყენეთ მხოლოდ ორიენტირად.</p>
+              </form>
+              <div class="tool-out">
+                <div class="gauge" id="bmi-gauge">
+                  <svg viewBox="0 0 220 130" aria-hidden="true">
+                    <path class="g-seg s1" d="M20 110 A90 90 0 0 1 46.4 46.4"/>
+                    <path class="g-seg s2" d="M46.4 46.4 A90 90 0 0 1 110 20"/>
+                    <path class="g-seg s3" d="M110 20 A90 90 0 0 1 173.6 46.4"/>
+                    <path class="g-seg s4" d="M173.6 46.4 A90 90 0 0 1 200 110"/>
+                    <g class="g-needle" id="bmi-needle"><line x1="110" y1="110" x2="110" y2="34"/><circle cx="110" cy="110" r="7"/></g>
+                  </svg>
+                  <div class="gauge-val"><b class="mono" id="bmi-val">24.2</b><span id="bmi-cat">ნორმა</span></div>
+                </div>
+                <p class="tool-note" id="bmi-note"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WATER -->
+          <div class="tab-panel" data-panel="water" role="tabpanel" hidden>
+            <div class="tool-grid">
+              <form class="tool-form" id="water-form" novalidate>
+                <h3>წყლის დღიური ორიენტირი</h3>
+                <div class="range-field"><label for="wt-w">წონა: <b class="mono"><span id="wt-w-out">70</span> კგ</b></label><input type="range" id="wt-w" min="25" max="160" value="70"></div>
+                <div class="range-field"><label for="wt-a">აქტივობა: <b class="mono"><span id="wt-a-out">30</span> წთ</b></label><input type="range" id="wt-a" min="0" max="180" step="10" value="30"></div>
+                <label class="switch"><input type="checkbox" id="wt-hot"><span class="switch-ui"></span><span>ცხელი ამინდია</span></label>
+                <p class="note">მიახლოებითი გამოთვლა. ექიმის შეზღუდვის შემთხვევაში (გულის, თირკმლის დაავადება) მიყევით მის რეკომენდაციას.</p>
+              </form>
+              <div class="tool-out">
+                <div class="bottle" id="bottle"><i id="bottle-fill"></i><b class="mono" id="wt-val">2.4 ლ</b></div>
+                <p class="tool-note" id="wt-note"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PULSE -->
+          <div class="tab-panel" data-panel="pulse" role="tabpanel" hidden>
+            <div class="tool-grid">
+              <form class="tool-form" id="pulse-form" novalidate>
+                <h3>პულსის ზონები და ტესტი</h3>
+                <div class="range-field"><label for="pl-age">ასაკი: <b class="mono"><span id="pl-age-out">30</span></b></label><input type="range" id="pl-age" min="10" max="90" value="30"></div>
+                <div class="pulse-tester">
+                  <button type="button" class="btn btn-primary" id="pulse-start">▶ დაიწყე 15-წამიანი ტესტი</button>
+                  <button type="button" class="beat-btn" id="beat-btn" disabled aria-label="დააჭირე ყოველ პულსაციაზე">♥ <span>დააჭირე</span></button>
+                  <p class="mono" id="pulse-status">გაზომე მაჯაზე პულსი და ყოველ დარტყმაზე დააჭირე ღილაკს.</p>
+                </div>
+              </form>
+              <div class="tool-out">
+                <p class="tool-note">მაქსიმალური პულსი ≈ <b class="mono" id="pl-max">190</b> დარტყმა/წთ (220 − ასაკი)</p>
+                <ul class="zones" id="zones"></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLEEP -->
+          <div class="tab-panel" data-panel="sleep" role="tabpanel" hidden>
+            <div class="tool-grid">
+              <form class="tool-form" id="sleep-form" novalidate>
+                <h3>ძილის ციკლების კალკულატორი</h3>
+                <div class="seg" role="group" aria-label="რეჟიმი">
+                  <button type="button" class="seg-btn is-active" data-mode="wake">გაღვიძების დრო</button>
+                  <button type="button" class="seg-btn" data-mode="now">ახლავე დავწვები</button>
+                </div>
+                <label for="sleep-time" class="field-label" id="sleep-time-label">როდის უნდა გაიღვიძო?</label>
+                <input type="time" id="sleep-time" class="input" value="07:00">
+                <p class="note">ძილის ციკლი ≈ 90 წუთი, ჩაძინებას ≈ 15 წუთი სჭირდება. მოზრდილებს ჩვეულებრივ 7–9 საათი ესაჭიროებათ.</p>
+              </form>
+              <div class="tool-out"><p class="tool-note" id="sleep-label"></p><ul class="time-pills" id="sleep-results"></ul></div>
+            </div>
+          </div>
+
+          <!-- TRACKER -->
+          <div class="tab-panel" data-panel="tracker" role="tabpanel" hidden>
+            <div class="tool-grid">
+              <div class="tool-form">
+                <h3>დღევანდელი ტრეკერი</h3>
+                <p class="field-label">წყალი (ჭიქა ≈ 250 მლ)</p>
+                <div class="glasses" id="glasses" role="group" aria-label="წყლის ჭიქები"></div>
+                <div class="range-field"><label for="tr-steps">ნაბიჯები: <b class="mono"><span id="tr-steps-out">0</span></b></label><input type="range" id="tr-steps" min="0" max="20000" step="250" value="0"></div>
+                <div class="range-field"><label for="tr-sleep">ძილი: <b class="mono"><span id="tr-sleep-out">0</span> სთ</b></label><input type="range" id="tr-sleep" min="0" max="12" step="0.5" value="0"></div>
+                <p class="field-label">განწყობა</p>
+                <div class="moods" id="moods" role="group" aria-label="განწყობა"></div>
+              </div>
+              <div class="tool-out">
+                <div class="score-ring" id="score-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="r-bg" cx="60" cy="60" r="52"/><circle class="r-fg" id="ring-fg" cx="60" cy="60" r="52"/></svg><div><b class="mono" id="score-val">0</b><span>დღის ქულა</span></div></div>
+                <p class="tool-note" id="score-note"></p>
+                <p class="field-label">ბოლო 7 დღე</p>
+                <div class="week-bars" id="week-bars"></div>
+                <p class="note">მონაცემები ინახება მხოლოდ შენს ბრაუზერში.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 / FIRST AID ===== -->
+    <section class="section" id="firstaid">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">05 // პირველადი დახმარება</p>
+          <h2>წამები ცხოვრებას წყვეტს — იცოდე რა უნდა გააკეთო</h2>
+          <p class="section-lead">ნაბიჯ-ნაბიჯ ინსტრუქციები. ნებისმიერ სერიოზულ შემთხვევაში პირველ რიგში დარეკე <b>112</b>-ზე.</p>
+        </header>
+        <div class="aid-grid" id="aid-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== 06 / LIBRARY ===== -->
+    <section class="section" id="library">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">06 // სამედიცინო ბიბლიოთეკა</p>
+          <h2>გასაგები ენით — დაავადებებზე და პრევენციაზე</h2>
+          <p class="section-lead">მოძებნე თემა ან აირჩიე კატეგორია. თითოეულ სტატიაში: ნიშნები, როდის მივმართოთ ექიმს, პრევენცია.</p>
+        </header>
+        <div class="toolbar card reveal">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" id="lib-search" class="input" placeholder="მაგ.: წნევა, ძილი, ასთმა…" aria-label="სტატიების ძებნა">
+          </div>
+        </div>
+        <div class="chip-wrap reveal" id="lib-cats" role="group" aria-label="კატეგორიები"></div>
+        <p class="result-count mono" id="lib-count" aria-live="polite"></p>
+        <div class="acc-list" id="lib-list"></div>
+
+        <!-- მითი თუ ფაქტი -->
+        <div class="myth card holo reveal" id="myth-game">
+          <div class="myth-head"><p class="eyebrow mono">MINI GAME</p><h3>მითი თუ ფაქტი?</h3><span class="tag mono" id="myth-score">0 / 0</span></div>
+          <p class="myth-q" id="myth-q" aria-live="polite"></p>
+          <div class="myth-actions">
+            <button class="btn btn-ghost" type="button" data-answer="myth">✕ მითია</button>
+            <button class="btn btn-primary" type="button" data-answer="fact">✓ ფაქტია</button>
+          </div>
+          <p class="myth-explain" id="myth-explain" aria-live="polite"></p>
+          <button class="btn btn-ghost btn-sm" id="myth-next" type="button" hidden>შემდეგი →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 / CONTACT ===== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow mono">07 // კონტაქტი და FAQ</p>
+          <h2>გვკითხე — ვუპასუხებთ</h2>
+        </header>
+        <div class="contact-grid">
+          <div class="faq reveal">
+            <h3>ხშირი კითხვები</h3>
+            <details class="faq-item"><summary>ვიტა ცვლის ექიმის კონსულტაციას?</summary><p>არა. პორტალი საინფორმაციო ხასიათისაა და არ სვამს დიაგნოზს. ჯანმრთელობის პრობლემის შემთხვევაში მიმართეთ ექიმს.</p></details>
+            <details class="faq-item"><summary>რამდენად უსაფრთხოა ჩემი მონაცემები?</summary><p>ტრეკერისა და ჯავშნების მონაცემები ინახება მხოლოდ თქვენს ბრაუზერში (localStorage) და არსად იგზავნება.</p></details>
+            <details class="faq-item"><summary>ექიმები რეალურები არიან?</summary><p>არა. ეს სასწავლო პროექტია — ექიმები, კლინიკები და სტატისტიკა დემონსტრაციისთვისაა შექმნილი.</p></details>
+            <details class="faq-item"><summary>რა ვქნა გადაუდებელ შემთხვევაში?</summary><p>დაუყოვნებლივ დარეკეთ <b>112</b>-ზე. ნუ დაელოდებით პორტალის შედეგს.</p></details>
+            <details class="faq-item"><summary>როგორ გავაუქმო ჯავშანი?</summary><p>გადადით „ჩემი ჯავშნები“ ბლოკში და დააჭირეთ „გაუქმება“-ს.</p></details>
+          </div>
+
+          <form class="contact-form card reveal" id="contact-form" novalidate style="--d:.1s">
+            <h3>მოგვწერე</h3>
+            <div class="form-row"><label for="c-name">სახელი</label><input class="input" id="c-name" name="name" type="text" autocomplete="name" placeholder="შენი სახელი"><small class="err" data-err="c-name"></small></div>
+            <div class="form-row"><label for="c-mail">ელ-ფოსტა</label><input class="input" id="c-mail" name="email" type="email" autocomplete="email" placeholder="name@example.com"><small class="err" data-err="c-mail"></small></div>
+            <div class="form-row"><label for="c-topic">თემა</label>
+              <select class="input" id="c-topic" name="topic"><option value="">აირჩიე თემა…</option><option>შეკითხვა ექიმებზე</option><option>ტექნიკური პრობლემა</option><option>თანამშრომლობა</option><option>სხვა</option></select><small class="err" data-err="c-topic"></small></div>
+            <div class="form-row"><label for="c-msg">შეტყობინება <span class="mono counter" id="c-count">0/500</span></label><textarea class="input" id="c-msg" name="message" rows="4" maxlength="500" placeholder="დაწერე შენი შეკითხვა…"></textarea><small class="err" data-err="c-msg"></small></div>
+            <label class="check"><input type="checkbox" id="c-ok"><span>ვეთანხმები, რომ ეს დემო პროექტია და მონაცემები არსად ინახება</span></label><small class="err" data-err="c-ok"></small>
+            <button class="btn btn-primary btn-block" type="submit" data-magnetic>გაგზავნა</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ფუტერი -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#home" class="brand"><span data-logo="mark" class="brand-mark"></span><span class="brand-name">ვიტა<small class="mono">MED·PORTAL</small></span></a>
+        <p class="footer-text">სასწავლო პროექტი (HTML · CSS · JavaScript). არ წარმოადგენს სამედიცინო რჩევას, დიაგნოსტიკას ან მკურნალობას.</p>
+      </div>
+      <div>
+        <h4>ნავიგაცია</h4>
+        <ul class="footer-links"><li><a href="#symptoms">სიმპტომები</a></li><li><a href="clinics.html">კლინიკები</a></li><li><a href="calculators.html">კალკულატორები</a></li><li><a href="#doctors">ექიმები</a></li><li><a href="#tools">ხელსაწყოები</a></li><li><a href="#firstaid">პირველი დახმარება</a></li><li><a href="#library">ბიბლიოთეკა</a></li></ul>
+      </div>
+      <div>
+        <h4>გადაუდებელი</h4>
+        <p class="footer-sos mono"><a href="tel:112">112</a></p>
+        <p class="footer-text">ერთიანი სასწრაფო ნომერი საქართველოში.</p>
+      </div>
+      <form id="news-form" class="news" novalidate>
+        <h4>სიახლეები</h4>
+        <div class="news-row"><input class="input" id="news-mail" type="email" placeholder="შენი ელ-ფოსტა" aria-label="ელ-ფოსტა"><button class="btn btn-primary btn-sm" type="submit">✓</button></div>
+        <small class="err" data-err="news-mail"></small>
+      </form>
+    </div>
+    <div class="container footer-bottom mono"><span>© <span id="year">2026</span> ვიტა · საფინალო პროექტი</span><span>Built with vanilla JS</span></div>
+  </footer>
+
+  <button id="to-top" class="to-top" type="button" aria-label="ზევით დაბრუნება">↑</button>
+
+  <!-- ჯავშნის მოდალი -->
+  <dialog id="booking-modal" class="modal" aria-labelledby="bk-title">
+    <form method="dialog" class="modal-close-form"><button class="modal-x" aria-label="დახურვა">✕</button></form>
+    <div id="bk-body"></div>
+  </dialog>
+
+  <!-- პირველადი დახმარების მოდალი -->
+  <dialog id="aid-modal" class="modal modal-wide" aria-labelledby="aid-title">
+    <form method="dialog" class="modal-close-form"><button class="modal-x" aria-label="დახურვა">✕</button></form>
+    <div id="aid-body"></div>
+  </dialog>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/logos.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/clinics-data.js"></script>
+  <script src="js/georgia-geo.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/page-clinics.js"></script>
+  <script src="js/symptoms.js"></script>
+  <script src="js/doctors.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/firstaid.js"></script>
+  <script src="js/library.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

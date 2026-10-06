@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>კლინიკები — ვიტა</title>
+  <meta name="description" content="საქართველოს სამედიცინო დაწესებულებების ინტერაქტიული რუკა: სახელმწიფო, კერძო, საუნივერსიტეტო და რეგიონული კლინიკები.">
+  <meta name="theme-color" content="#050a14">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5' fill='%23050a14' stroke='%232df5c4' stroke-width='4'/%3E%3Cpath d='M12 34H24L28 24L34 44L38 30L41 34H52' fill='none' stroke='%232df5c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ანიმირებული ჩამტვირთავი (splash) -->
+  <div id="loader" role="status" aria-label="იტვირთება">
+    <div class="loader-inner">
+      <div data-logo="draw" class="loader-logo"></div>
+      <div class="loader-word" aria-hidden="true">ვ<span>ი</span>ტ<span>ა</span></div>
+      <div class="loader-bar"><i></i></div>
+      <p class="loader-text mono">სისტემის დიაგნოსტიკა…</p>
+    </div>
+  </div>
+
+  <!-- ფონის ეფექტები -->
+  <div class="bg-fx" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <a class="skip-link" href="#main">გადასვლა შინაარსზე</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-row">
+      <a href="index.html" class="brand" aria-label="ვიტა — მთავარი გვერდი">
+        <span data-logo="mark" class="brand-mark"></span>
+        <span class="brand-name">ვიტა<small class="mono">MED·PORTAL</small></span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="მთავარი მენიუ">
+        <a href="index.html#symptoms">სიმპტომები</a>
+        <a href="index.html#doctors">ექიმები</a>
+        <a href="clinics.html" class="current" aria-current="page">კლინიკები</a>
+        <a href="calculators.html">კალკულატორები</a>
+        <a href="index.html#firstaid">პირველი დახმარება</a>
+        <a href="index.html#library">ბიბლიოთეკა</a>
+        <a href="index.html#contact">კონტაქტი</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:112" class="sos-btn" aria-label="გადაუდებელი დახმარება 112"><i class="sos-dot"></i>112</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="თემის შეცვლა" title="ბნელი / ნათელი თემა">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumbs mono reveal"><a href="index.html">მთავარი</a> / კლინიკები</p>
+        <h1 class="reveal" style="--d:.05s">საქართველოს <em class="grad-text">სამედიცინო</em> რუკა</h1>
+        <p class="section-lead reveal" style="--d:.1s">სახელმწიფო, საუნივერსიტეტო, რეგიონული და კერძო დაწესებულებები — ერთ ინტერაქტიულ რუკაზე. გაფილტრე რეგიონით, ტიპით ან პროფილით.</p>
+        <div class="warn-banner reveal" style="--d:.15s"><span aria-hidden="true">⚠</span><div>სია სასწავლო/საინფორმაციოა და <b>სრული არ არის</b>. მარკერები მიახლოებით ადგილს აჩვენებს (ქალაქის/უბნის დონეზე) — მისამართი, სამუშაო საათები და ტელეფონი გადაამოწმეთ ოფიციალურ წყაროში. გადაუდებელ შემთხვევაში დარეკეთ <b>112</b>-ზე.</div></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:2rem">
+      <div class="container">
+        <div class="toolbar card reveal">
+          <div class="filters-grid" style="width:100%">
+            <div class="search-box"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="f-search" class="input" placeholder="მოძებნე სახელით, ქალაქით ან პროფილით…" aria-label="კლინიკის ძებნა"></div>
+            <select id="f-region" class="input" aria-label="რეგიონი"><option value="all">ყველა რეგიონი</option></select>
+            <select id="f-profile" class="input" aria-label="პროფილი"><option value="all">ყველა პროფილი</option></select>
+          </div>
+          <div class="chip-wrap" id="f-types" role="group" aria-label="ტიპი"></div>
+        </div>
+        <p class="result-count mono" id="clinic-count" aria-live="polite"></p>
+
+        <div class="map-layout">
+          <div class="card map-card reveal">
+            <div class="map-wrap">
+              <svg id="geo-map" class="geo-svg" viewBox="0 0 1013 540"></svg>
+              <div class="map-ctl">
+                <button type="button" id="zoom-in" aria-label="გადიდება">+</button>
+                <button type="button" id="zoom-out" aria-label="დაპატარავება">−</button>
+                <button type="button" id="zoom-reset" class="txt" aria-label="მთელი საქართველო" title="მთელი საქართველო">GE</button>
+                <button type="button" id="zoom-tbilisi" class="txt" aria-label="თბილისი" title="თბილისი">TBS</button>
+              </div>
+              <p class="map-hint">გადაათრიე · ორმაგი დაჭერა = zoom · Ctrl + scroll</p>
+            </div>
+            <div class="legend" id="legend"></div>
+          </div>
+          <aside class="clinic-side">
+            <div class="card" id="clinic-detail" aria-live="polite"></div>
+            <div class="card"><h3>დაწესებულებების სია</h3><div class="clinic-list" id="clinic-list"></div></div>
+          </aside>
+        </div>
+        <p class="note">რუკის საზღვარი: Natural Earth (public domain) მონაცემებით, გამარტივებულია. რეფერალური ჰოსპიტალების სახელები: GePhA-ს საჯარო სია; ზოგიერთი კერძო კლინიკის მისამართი: დიდი ბრიტანეთის საელჩოს სამედიცინო დაწესებულებების სია.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ფუტერი -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span data-logo="mark" class="brand-mark"></span><span class="brand-name">ვიტა<small class="mono">MED·PORTAL</small></span></a>
+        <p class="footer-text">სასწავლო პროექტი (HTML · CSS · JavaScript). არ წარმოადგენს სამედიცინო რჩევას, დიაგნოსტიკას ან მკურნალობას.</p>
+      </div>
+      <div>
+        <h4>ნავიგაცია</h4>
+        <ul class="footer-links"><li><a href="index.html#symptoms">სიმპტომები</a></li><li><a href="clinics.html">კლინიკები</a></li><li><a href="calculators.html">კალკულატორები</a></li><li><a href="index.html#doctors">ექიმები</a></li><li><a href="index.html#tools">ხელსაწყოები</a></li><li><a href="index.html#firstaid">პირველი დახმარება</a></li><li><a href="index.html#library">ბიბლიოთეკა</a></li></ul>
+      </div>
+      <div>
+        <h4>გადაუდებელი</h4>
+        <p class="footer-sos mono"><a href="tel:112">112</a></p>
+        <p class="footer-text">ერთიანი სასწრაფო ნომერი საქართველოში.</p>
+      </div>
+      <form id="news-form" class="news" novalidate>
+        <h4>სიახლეები</h4>
+        <div class="news-row"><input class="input" id="news-mail" type="email" placeholder="შენი ელ-ფოსტა" aria-label="ელ-ფოსტა"><button class="btn btn-primary btn-sm" type="submit">✓</button></div>
+        <small class="err" data-err="news-mail"></small>
+      </form>
+    </div>
+    <div class="container footer-bottom mono"><span>© <span id="year">2026</span> ვიტა · საფინალო პროექტი</span><span>Built with vanilla JS</span></div>
+  </footer>
+
+  <button id="to-top" class="to-top" type="button" aria-label="ზევით დაბრუნება">↑</button>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/logos.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/clinics-data.js"></script>
+  <script src="js/georgia-geo.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/page-clinics.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/page.js"></script>
+</body>
+</html>
