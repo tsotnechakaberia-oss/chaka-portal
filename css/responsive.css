@@ -1,0 +1,52 @@
+/* ==========================================================
+   responsive.css — ადაპტური დიზაინი (Mobile-first overrides)
+   ========================================================== */
+@media (max-width: 1080px) {
+  .main-nav a { padding: .5rem .6rem; font-size: .86rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 960px) {
+  .burger { display: flex; }
+  .main-nav {
+    position: fixed; left: 0; right: 0; top: var(--header-h); flex-direction: column; gap: .2rem; padding: 1rem;
+    background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line);
+    transform: translateY(-12px); opacity: 0; visibility: hidden; transition: all .35s var(--ease);
+  }
+  .main-nav.open { transform: none; opacity: 1; visibility: visible; }
+  .main-nav a { padding: .9rem 1rem; font-size: 1rem; }
+  .hero-grid { grid-template-columns: 1fr; text-align: left; }
+  .hero-visual { min-height: 360px; order: -1; margin-bottom: 1rem; }
+  .emblem { width: min(280px, 70%); }
+  .symptom-layout, .tool-grid, .contact-grid { grid-template-columns: 1fr; }
+  .ecg-card { position: relative; margin-top: -30px; }
+  .hero-visual { display: flex; flex-direction: column; }
+}
+
+@media (max-width: 640px) {
+  :root { --header-h: 64px; }
+  .brand-mark { width: 38px; height: 38px; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar select { width: 100%; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-2 { grid-template-columns: 1fr; }
+  .tabs { border-radius: 22px; }
+  .tab { padding: .55rem .9rem; }
+  .modal-in { padding: 1.4rem 1.1rem; }
+  .float-chip { display: none; }
+  .hero { padding-top: 1.5rem; }
+  .sos-btn { padding: .45rem .75rem; }
+  .step-num { font-size: 2.2rem; }
+  .myth-head .tag { position: static; margin-top: .4rem; }
+  .scroll-hint { display: none; }
+}
+
+@media (hover: none) {
+  #cursor-glow { display: none; }
+}
+
+@media print {
+  .site-header, #loader, .bg-fx, #cursor-glow, .to-top, #hero-canvas { display: none !important; }
+  .reveal { opacity: 1 !important; translate: none !important; }
+}

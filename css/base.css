@@ -1,0 +1,99 @@
+/* ==========================================================
+   base.css — დიზაინ-ტოკენები, reset, ტიპოგრაფია
+   ========================================================== */
+:root {
+  --bg: #050a14;
+  --bg-2: #09111f;
+  --surface: rgba(16, 27, 48, .72);
+  --surface-solid: #0e182b;
+  --surface-2: rgba(255, 255, 255, .04);
+  --line: rgba(120, 200, 255, .14);
+  --line-strong: rgba(120, 220, 255, .32);
+  --text: #e8f1ff;
+  --muted: #93a4c0;
+  --mint: #2df5c4;
+  --sky: #47b8ff;
+  --violet: #8f7bff;
+  --coral: #ff5f7a;
+  --amber: #ffc65a;
+  --on-accent: #03130f;
+  --grad: linear-gradient(120deg, var(--mint), var(--sky) 48%, var(--violet));
+  --radius: 22px;
+  --radius-sm: 12px;
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, .7);
+  --glow: 0 0 40px -6px color-mix(in srgb, var(--mint) 55%, transparent);
+  --font: 'Noto Sans Georgian', 'BPG Glaho', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --header-h: 72px;
+  --ease: cubic-bezier(.22, .9, .3, 1);
+}
+
+[data-theme="light"] {
+  --bg: #f2f7fb;
+  --bg-2: #e7eff7;
+  --surface: rgba(255, 255, 255, .82);
+  --surface-solid: #ffffff;
+  --surface-2: rgba(10, 40, 80, .04);
+  --line: rgba(10, 50, 100, .12);
+  --line-strong: rgba(10, 80, 140, .3);
+  --text: #0b1b33;
+  --muted: #53647f;
+  --mint: #009c78;
+  --sky: #0a77c4;
+  --violet: #5a44e6;
+  --coral: #dd2f4b;
+  --amber: #a86a00;
+  --on-accent: #ffffff;
+  --shadow: 0 24px 50px -28px rgba(20, 50, 90, .35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+img, svg, canvas { display: block; max-width: 100%; }
+h1, h2, h3, h4 { margin: 0 0 .5em; line-height: 1.2; font-weight: 800; letter-spacing: -.01em; }
+h1 { font-size: clamp(2.2rem, 5.4vw, 4.4rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.8rem); }
+h3 { font-size: clamp(1.1rem, 1.8vw, 1.35rem); }
+p { margin: 0 0 1em; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.mono { font-family: var(--mono); }
+.grad-text {
+  font-style: normal;
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  background-size: 200% 100%;
+  animation: gradShift 6s linear infinite;
+}
+
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--mint); color: var(--on-accent); }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 1000;
+  background: var(--mint); color: var(--on-accent); padding: .6rem 1rem; border-radius: 10px; font-weight: 700;
+}
+.skip-link:focus { top: 1rem; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

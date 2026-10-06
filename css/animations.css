@@ -1,0 +1,120 @@
+/* ==========================================================
+   animations.css — keyframes, reveal, ანიმირებული ლოგოები
+   (translate/scale თვისებებია გამოყენებული, რომ holo-ის transform არ გადაიფაროს)
+   ========================================================== */
+
+/* ---------- reveal on scroll ---------- */
+.reveal {
+  opacity: 0; translate: 0 34px;
+  transition: opacity .9s var(--ease) var(--d, 0s), translate .9s var(--ease) var(--d, 0s), transform .25s var(--ease), border-color .3s, box-shadow .3s;
+}
+.reveal.in { opacity: 1; translate: 0 0; }
+.no-js .reveal { opacity: 1; translate: none; }
+
+/* ---------- keyframes ---------- */
+@keyframes gradShift { to { background-position: 200% 0; } }
+@keyframes drift { to { transform: translate(8vw, 6vh) scale(1.15); } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes ping { 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes float { 50% { translate: 0 -12px; } }
+@keyframes scrollHint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+@keyframes pinPulse { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.9; opacity: .4; } }
+@keyframes scan { 0% { top: 0; } 50% { top: calc(100% - 3px); } 100% { top: 0; } }
+@keyframes popIn { from { opacity: 0; translate: 0 14px; scale: .96; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes modalIn { from { opacity: 0; transform: translateY(30px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes shake { 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+@keyframes redPulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--coral) 18%, transparent); } }
+@keyframes wave { to { transform: translateX(25%); } }
+@keyframes wiggle { 25% { rotate: -10deg; } 75% { rotate: 10deg; } }
+@keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.28); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateX(40px); } }
+@keyframes load { to { width: 100%; } }
+@keyframes blink { 50% { opacity: .2; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spinRev { to { transform: rotate(-360deg); } }
+@keyframes dashFlow { to { stroke-dashoffset: -200; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes ecgRun { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes hexGlow { 50% { filter: drop-shadow(0 0 7px var(--mint)); stroke-width: 3.4; } }
+@keyframes checkDraw { to { stroke-dashoffset: 0; } }
+@keyframes ringPop { 0% { scale: .4; opacity: 0; } 60% { scale: 1.1; opacity: 1; } 100% { scale: 1; } }
+@keyframes eyeBlink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.08); } }
+@keyframes leafGrow { 0% { transform: scale(.6) rotate(-8deg); } 100% { transform: scale(1) rotate(0); } }
+@keyframes dropBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes ripple { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+/* ---------- ანიმირებული ლოგო: მთავარი ნიშანი ---------- */
+.lg { width: 100%; height: 100%; overflow: visible; }
+.lg-hex { fill: color-mix(in srgb, var(--bg) 60%, transparent); stroke-width: 2.6; animation: hexGlow 3s ease-in-out infinite; }
+.lg-orbit { fill: none; stroke: var(--mint); stroke-width: 1.2; stroke-dasharray: 3 7; opacity: .6; transform-origin: 32px 32px; animation: spin 14s linear infinite; }
+.lg-heart { fill: color-mix(in srgb, var(--coral) 85%, transparent); transform-box: fill-box; transform-origin: center; animation: beat 1.4s ease-in-out infinite; filter: drop-shadow(0 0 5px var(--coral)); }
+.lg-ecg { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 90; stroke-dashoffset: 90; animation: ecgDraw 2.2s ease-in-out infinite; }
+[data-theme="light"] .lg-ecg { stroke: #0b1b33; }
+@keyframes ecgDraw { 0% { stroke-dashoffset: 90; } 55%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -90; } }
+.brand:hover .lg-hex { animation-duration: 1s; }
+.brand:hover .lg-orbit { animation-duration: 3s; }
+
+/* loader: рисование */
+.lg-draw .d { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; stroke-dasharray: 260; stroke-dashoffset: 260; animation: draw 1.4s var(--ease) forwards; }
+.lg-draw .d1 { stroke: url(#GRAD); } .lg-draw .d2 { stroke: var(--coral); animation-delay: .35s; } .lg-draw .d3 { stroke: var(--text); animation-delay: .7s; }
+
+/* ---------- ემბლემა ---------- */
+.em { width: 100%; height: 100%; overflow: visible; }
+.em .ring { fill: none; transform-origin: 150px 150px; }
+.em .r1 { stroke: var(--mint); stroke-width: 1.4; stroke-dasharray: 2 9; animation: spin 40s linear infinite; }
+.em .r2 { stroke: var(--sky); stroke-width: 2; stroke-dasharray: 60 30 8 30; animation: spinRev 26s linear infinite; opacity: .8; }
+.em .r3 { stroke: var(--violet); stroke-width: 1.2; stroke-dasharray: 1 5; animation: spin 18s linear infinite; }
+.em .orb { transform-origin: 150px 150px; animation: spin 9s linear infinite; }
+.em .orb.o2 { animation-duration: 15s; animation-direction: reverse; }
+.em .orb circle { fill: var(--mint); filter: drop-shadow(0 0 8px var(--mint)); }
+.em .orb.o2 circle { fill: var(--coral); filter: drop-shadow(0 0 8px var(--coral)); }
+.em .core-hex { fill: color-mix(in srgb, var(--bg) 75%, transparent); stroke-width: 3; animation: hexGlow 3s ease-in-out infinite; }
+.em .tick { stroke: var(--line-strong); stroke-width: 1; }
+.em .cross { stroke: var(--mint); stroke-width: 9; stroke-linecap: round; opacity: .95; }
+.em .ecg-core { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 160; animation: ecgDraw 2.4s ease-in-out infinite; }
+[data-theme="light"] .em .ecg-core { stroke: #0b1b33; }
+
+/* ---------- ECG strip ---------- */
+.ecg-strip { height: 64px; overflow: hidden; position: relative; margin-top: .4rem; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.ecg-strip svg { width: 200%; height: 100%; animation: ecgRun 4s linear infinite; }
+.ecg-strip path { fill: none; stroke: var(--mint); stroke-width: 2; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--mint)); vector-effect: non-scaling-stroke; }
+
+/* ---------- პარტნიორების ლოგოები ---------- */
+.pl-item { display: inline-flex; align-items: center; gap: .8rem; color: var(--muted); transition: color .3s; white-space: nowrap; }
+.pl-item:hover { color: var(--text); }
+.pl-item svg { width: 44px; height: 44px; overflow: visible; }
+.pl-item span { font-weight: 800; letter-spacing: .04em; font-size: 1.05rem; }
+.pl-item small { display: block; font-family: var(--mono); font-weight: 400; font-size: .56rem; letter-spacing: .22em; color: var(--muted); }
+.pl-fill { fill: currentColor; } .pl-stroke { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pl-item:hover .pl-fill, .pl-item:hover .pl-stroke { color: var(--mint); }
+.pl-accent { fill: var(--mint); } .pl-accent-s { fill: none; stroke: var(--mint); stroke-width: 2; }
+.pl-item svg g, .pl-item svg path, .pl-item svg ellipse, .pl-item svg circle { transform-box: fill-box; transform-origin: center; }
+.pl-spin { animation: spin 7s linear infinite; }
+.pl-shield { animation: shieldPulse 2.4s ease-in-out infinite; }
+.pl-leaf { animation: leafGrow 2.6s ease-in-out infinite alternate; transform-origin: 50% 100% !important; }
+.pl-drop { animation: dropBounce 1.8s ease-in-out infinite; }
+.pl-ripple { fill: none; stroke: var(--mint); stroke-width: 1.5; animation: ripple 1.8s ease-out infinite; }
+.pl-eye { animation: eyeBlink 4s infinite; }
+.pl-atom { animation: spin 9s linear infinite; }
+.pl-orbit-dot { animation: spinRev 3s linear infinite; }
+.pl-flow { stroke-dasharray: 8 8; animation: dashFlow 4s linear infinite; }
+
+/* ---------- ჯავშნის წარმატება ---------- */
+.ok-ring { fill: none; stroke: var(--mint); stroke-width: 4; transform-origin: center; animation: ringPop .7s var(--ease) both; }
+.ok-check { fill: none; stroke: var(--mint); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: checkDraw .6s .4s var(--ease) forwards; }
+
+/* ---------- ანიმირებული ხატულები ---------- */
+.ico { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.ico .ia { transform-box: fill-box; transform-origin: center; }
+.ico-heart .ia { animation: beat 1.5s infinite; }
+.ico-lungs .ia { animation: shieldPulse 3.2s ease-in-out infinite; }
+.ico-eye .ia { animation: eyeBlink 4s infinite; }
+.ico-brain .ia { animation: shieldPulse 2.4s ease-in-out infinite; }
+.ico-tooth .ia { animation: dropBounce 2.4s ease-in-out infinite; }
+.ico-bone .ia { animation: wiggle 3s ease-in-out infinite; }
+.ico-peds .ia { animation: dropBounce 2s ease-in-out infinite; }
+.ico-therapy .ia { animation: wiggle 3.4s ease-in-out infinite; }
+.ico-body .ia, .ico-calendar .ia, .ico-stethoscope .ia { animation: shieldPulse 3s ease-in-out infinite; }
+.chip:hover .ico .ia, .doc-card:hover .ico .ia { animation-duration: .7s; }
