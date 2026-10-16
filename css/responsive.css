@@ -1,12 +1,12 @@
 /* ==========================================================
    responsive.css — ადაპტური დიზაინი (Mobile-first overrides)
    ========================================================== */
-@media (max-width: 1080px) {
+@media (max-width: 1280px) {
   .main-nav a { padding: .5rem .6rem; font-size:var(--fs-sm); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1060px) {
   .burger { display: flex; }
   .main-nav {
     position: fixed; left: 0; right: 0; top: var(--header-h); flex-direction: column; gap: .2rem; padding: 1rem;

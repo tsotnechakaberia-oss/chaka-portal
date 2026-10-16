@@ -47,7 +47,7 @@
 .brand-name { font-weight: 800; font-size:var(--fs-xl); line-height: 1; display: flex; flex-direction: column; letter-spacing: .02em; }
 .brand-name small { font-size:var(--fs-2xs); letter-spacing: .28em; color: var(--mint); margin-top: 4px; font-weight: 600; }
 
-.main-nav { display: flex; gap: .2rem; }
+.main-nav { display: flex; gap: .2rem; white-space: nowrap; }
 .main-nav a {
   position: relative; padding: .55rem .85rem; border-radius: 999px; color: var(--muted);
   font-size:var(--fs-md); font-weight: 500; transition: color .25s, background .25s;
