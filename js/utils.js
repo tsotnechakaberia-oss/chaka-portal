@@ -76,5 +76,8 @@ window.Vita = window.Vita || {};
   /** ქართული მობილური: +995 5XX XX XX XX ან 5XXXXXXXX */
   const isGePhone = (v) => /^(\+?995)?\s?5\d{2}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}$/.test(v.trim());
 
-  Object.assign(window.Vita, { $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone });
+  const lang = store.get('lang', 'ka') === 'en' ? 'en' : 'ka';
+  const locale = () => (lang === 'en' ? 'en-GB' : 'ka-GE');
+
+  Object.assign(window.Vita, { lang, locale, $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone });
 })();

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   V.logos.mount();
   V.clinicsPage?.init();
   V.calculators?.init();
+  V.diary?.init();
   V.contact.init();
   V.effects.initNav();
   V.effects.initRanges();
