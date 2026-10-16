@@ -50,8 +50,8 @@
 .lg-hex { fill: color-mix(in srgb, var(--bg) 60%, transparent); stroke-width: 2.6; animation: hexGlow 3s ease-in-out infinite; }
 .lg-orbit { fill: none; stroke: var(--mint); stroke-width: 1.2; stroke-dasharray: 3 7; opacity: .6; transform-origin: 32px 32px; animation: spin 14s linear infinite; }
 .lg-heart { fill: color-mix(in srgb, var(--coral) 85%, transparent); transform-box: fill-box; transform-origin: center; animation: beat 1.4s ease-in-out infinite; filter: drop-shadow(0 0 5px var(--coral)); }
-.lg-ecg { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 90; stroke-dashoffset: 90; animation: ecgDraw 2.2s ease-in-out infinite; }
-[data-theme="light"] .lg-ecg { stroke: #0b1b33; }
+.lg-ecg { fill: none; stroke: var(--white); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 90; stroke-dashoffset: 90; animation: ecgDraw 2.2s ease-in-out infinite; }
+[data-theme="light"] .lg-ecg { stroke: var(--ink); }
 @keyframes ecgDraw { 0% { stroke-dashoffset: 90; } 55%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -90; } }
 .brand:hover .lg-hex { animation-duration: 1s; }
 .brand:hover .lg-orbit { animation-duration: 3s; }
@@ -73,11 +73,11 @@
 .em .core-hex { fill: color-mix(in srgb, var(--bg) 75%, transparent); stroke-width: 3; animation: hexGlow 3s ease-in-out infinite; }
 .em .tick { stroke: var(--line-strong); stroke-width: 1; }
 .em .cross { stroke: var(--mint); stroke-width: 9; stroke-linecap: round; opacity: .95; }
-.em .ecg-core { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 160; animation: ecgDraw 2.4s ease-in-out infinite; }
-[data-theme="light"] .em .ecg-core { stroke: #0b1b33; }
+.em .ecg-core { fill: none; stroke: var(--white); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 160; animation: ecgDraw 2.4s ease-in-out infinite; }
+[data-theme="light"] .em .ecg-core { stroke: var(--ink); }
 
 /* ---------- ECG strip ---------- */
-.ecg-strip { height: 64px; overflow: hidden; position: relative; margin-top: .4rem; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.ecg-strip { height: 64px; overflow: hidden; position: relative; margin-top: .4rem; mask-image: linear-gradient(90deg, transparent, var(--black) 12%, var(--black) 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, var(--black) 12%, var(--black) 88%, transparent); }
 .ecg-strip svg { width: 200%; height: 100%; animation: ecgRun 4s linear infinite; }
 .ecg-strip path { fill: none; stroke: var(--mint); stroke-width: 2; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--mint)); vector-effect: non-scaling-stroke; }
 
@@ -85,8 +85,8 @@
 .pl-item { display: inline-flex; align-items: center; gap: .8rem; color: var(--muted); transition: color .3s; white-space: nowrap; }
 .pl-item:hover { color: var(--text); }
 .pl-item svg { width: 44px; height: 44px; overflow: visible; }
-.pl-item span { font-weight: 800; letter-spacing: .04em; font-size: 1.05rem; }
-.pl-item small { display: block; font-family: var(--mono); font-weight: 400; font-size: .56rem; letter-spacing: .22em; color: var(--muted); }
+.pl-item span { font-weight: 800; letter-spacing: .04em; font-size:var(--fs-base); }
+.pl-item small { display: block; font-family: var(--mono); font-weight: 400; font-size:var(--fs-2xs); letter-spacing: .22em; color: var(--muted); }
 .pl-fill { fill: currentColor; } .pl-stroke { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .pl-item:hover .pl-fill, .pl-item:hover .pl-stroke { color: var(--mint); }
 .pl-accent { fill: var(--mint); } .pl-accent-s { fill: none; stroke: var(--mint); stroke-width: 2; }
