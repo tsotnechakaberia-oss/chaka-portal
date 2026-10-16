@@ -24,6 +24,10 @@ GitHub Pages-ზე: *Settings → Pages → Deploy from branch → main / root*
 - **სიმპტომების რუკა** (SVG): ზონა → სიმპტომები → გადაუდებლობა + რეკომენდებული სპეციალისტი
 - **ექიმები**: ფილტრი, ძებნა, დალაგება; ჯავშანი ფორმის ვალიდაციით, `localStorage`
 - **კლინიკების რუკა**: საზღვარი Natural Earth-იდან (public domain), საკუთარი zoom/pan და კლასტერიზაცია
+- **ჩემთან ახლოს** (Geolocation API): კლინიკების დალაგება მანძილით, თქვენი წერტილი რუკაზე
+- **ჯავშნები**: გაუქმება, დასრულებული ვიზიტების გამოყოფა, კალენდარში დამატება (`.ics`)
+- **ჯანმრთელობის დღიური** (`diary.html`): წონა/წნევა/პულსი, canvas გრაფიკი (ბიბლიოთეკის გარეშე), სტატისტიკა, CSV ექსპორტი
+- **ორენოვანი ინტერფეისი** (ქართ/ინგლ): ლექსიკონი `js/i18n-en.js`, ძრავა `js/i18n.js`. სამედიცინო სტატიები, სიმპტომები, პირველადი დახმარების ტექსტები და ექიმების ბიოგრაფიები ჯერ მხოლოდ ქართულადაა
 - **კალკულატორები**: BMI, BMR/კალორიები, ჯანსაღი წონა, WHtR/WHR, სხეულის ცხიმი (US Navy), BSA, წყალი, პულსის ზონები, წნევა (ACC/AHA), ძილის ციკლები, მშობიარობის თარიღი (Naegele), eGFR (CKD-EPI 2021)
 - **პირველადი დახმარება**: CPR მეტრონომით, FAST, გაჩხირვა, სისხლდენა, დამწვრობა
 - **ბიბლიოთეკა** + „მითი თუ ფაქტი“, ბნელი/ნათელი თემა, ანიმირებული SVG ლოგოები, canvas (DNA + ნაწილაკები), reduced-motion მხარდაჭერა
@@ -34,7 +38,7 @@ GitHub Pages-ზე: *Settings → Pages → Deploy from branch → main / root*
 css/   style (ცვლადები) · layout · components · animations · pages · responsive
 js/    utils · data · logos · effects · map · georgia-geo · clinics-data
        symptoms · doctors · tools · firstaid · library · contact
-       calc-defs (წმინდა ფორმულები) · calculators · page-clinics · main · page
+       calc-defs (წმინდა ფორმულები) · calculators · page-clinics · diary · i18n · i18n-en · main · page
 docs/  დავალება-1-პროექტის-იდეა.docx
 ```
 

@@ -15,7 +15,7 @@ window.Vita = window.Vita || {};
   const first = (...errs) => errs.find(Boolean);
   const pad = (n) => String(n).padStart(2, '0');
   const hhmm = (d) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  const fmtDate = (d) => d.toLocaleDateString('ka-GE', { day: 'numeric', month: 'long', year: 'numeric' });
+  const fmtDate = (d) => d.toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'long', year: 'numeric' });
 
   const CALCS = [
     /* ---------------- BMI ---------------- */

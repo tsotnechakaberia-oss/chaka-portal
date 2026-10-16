@@ -138,3 +138,7 @@
 .diary-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: var(--sp-3); }
 @media (max-width: 860px) { .diary-layout { grid-template-columns: 1fr; } }
 .chart-empty[hidden] { display: none; }
+
+/* ენის გადამრთველი */
+.lang-btn { font-family: var(--mono); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: .04em; }
+html[lang="en"] .clinic-detail .en { display: none; }

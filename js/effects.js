@@ -11,6 +11,7 @@
   const initLoader = () => {
     const loader = $('#loader');
     if (!loader) return;
+    try { if (sessionStorage.getItem('vita.noLoader')) { sessionStorage.removeItem('vita.noLoader'); loader.remove(); return; } } catch { /* */ }
     const hide = () => { loader.classList.add('done'); setTimeout(() => loader.remove(), 1000); };
     const started = performance.now();
     const finish = () => setTimeout(hide, Math.max(0, 1700 - (performance.now() - started)));

@@ -179,7 +179,7 @@
       $$('#glasses .glass').forEach((gl, i) => { gl.classList.toggle('is-full', i < r.water); gl.setAttribute('aria-pressed', String(i < r.water)); });
       $$('#moods .mood').forEach((m, i) => m.classList.toggle('is-active', r.mood === i));
       if (!fromRange) { $('#tr-steps').value = r.steps; $('#tr-sleep').value = r.sleep; Vita.paintRange($('#tr-steps')); Vita.paintRange($('#tr-sleep')); }
-      $('#tr-steps-out').textContent = r.steps.toLocaleString('ka-GE'); $('#tr-sleep-out').textContent = r.sleep;
+      $('#tr-steps-out').textContent = r.steps.toLocaleString(Vita.locale()); $('#tr-sleep-out').textContent = r.sleep;
       $('#score-val').textContent = s;
       const fg = $('#ring-fg'); fg.style.strokeDashoffset = 327 * (1 - s / 100);
       fg.style.stroke = s >= 80 ? 'var(--mint)' : s >= 50 ? 'var(--amber)' : 'var(--coral)';

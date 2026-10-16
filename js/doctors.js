@@ -10,7 +10,7 @@
 
   const initials = (name) => name.split(' ').map((p) => p[0]).join('').slice(0, 2);
   const stars = (r) => '★'.repeat(Math.round(r)) + '☆'.repeat(5 - Math.round(r));
-  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString('ka-GE', { weekday: 'long', day: 'numeric', month: 'long' });
+  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString(Vita.locale(), { weekday: 'long', day: 'numeric', month: 'long' });
 
   const avatar = (d) => {
     const hue = (d.id * 47) % 360;

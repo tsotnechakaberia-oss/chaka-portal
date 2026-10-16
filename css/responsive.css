@@ -1,15 +1,15 @@
 /* ==========================================================
    responsive.css — ადაპტური დიზაინი (Mobile-first overrides)
    ========================================================== */
-@media (max-width: 1280px) {
-  .main-nav a { padding: .5rem .6rem; font-size:var(--fs-sm); }
+@media (max-width: 1440px) {
+  .main-nav a { padding: .5rem .45rem; font-size: var(--fs-sm); }
 }
 
 @media (max-width: 1080px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1180px) {
   .burger { display: flex; }
   .main-nav {
     position: fixed; left: 0; right: 0; top: var(--header-h); flex-direction: column; gap: .2rem; padding: 1rem;
@@ -52,4 +52,17 @@
 @media print {
   .site-header, #loader, .bg-fx, #cursor-glow, .to-top, #hero-canvas { display: none !important; }
   .reveal { opacity: 1 !important; translate: none !important; }
+}
+
+@media (max-width: 480px) {
+  .header-row { gap: .5rem; }
+  .header-actions { gap: .35rem; }
+  .icon-btn { width: 38px; height: 38px; }
+  .sos-btn { padding: .45rem .7rem; }
+}
+
+@media (max-width: 380px) {
+  .brand-name small { display: none; }
+  .brand-mark { width: 34px; height: 34px; }
+  .sos-btn { padding: .4rem .55rem; gap: .35rem; }
 }

@@ -15,7 +15,7 @@
   let entries = [], metric = 'weight', hover = null, progress = 1;
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const num = (v) => (v === '' || v === null || v === undefined ? null : Number(v));
-  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString('ka-GE', { day: 'numeric', month: 'short' });
+  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'short' });
   const save = () => store.set('diary', entries);
   const valuesFor = (m) => entries.filter((e) => METRICS[m].series.some((s) => e[s.key] != null)).sort((a, b) => a.date.localeCompare(b.date));
 
@@ -77,7 +77,7 @@
     $('#d-count').textContent = entries.length;
     if (!sorted.length) { list.replaceChildren(el('li', { class: 'empty-note', text: 'ჩანაწერები ჯერ არ არის. დაამატეთ პირველი გაზომვა მარცხნივ.' })); return; }
     list.replaceChildren(...sorted.slice(0, 40).map((e) => el('li', { class: 'booking-item' },
-      el('div', {}, el('b', { text: new Date(e.date + 'T00:00').toLocaleDateString('ka-GE', { day: 'numeric', month: 'long', year: 'numeric' }) }),
+      el('div', {}, el('b', { text: new Date(e.date + 'T00:00').toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'long', year: 'numeric' }) }),
         el('small', { text: [e.weight != null ? `${e.weight} კგ` : null, e.sys != null ? `${e.sys}/${e.dia} (${bpNote(e)})` : null, e.pulse != null ? `${e.pulse} დ/წთ` : null, e.note || null].filter(Boolean).join(' · ') })),
       el('button', { type: 'button', class: 'btn btn-ghost btn-sm btn-danger', 'aria-label': 'ჩანაწერის წაშლა', onClick: () => { entries = entries.filter((x) => x.id !== e.id); save(); renderAll(); toast('ჩანაწერი წაიშალა'); } }, 'წაშლა'))));
   };
