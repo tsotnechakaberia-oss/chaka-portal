@@ -117,6 +117,7 @@
     schedule() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = 0; this.render(); }); }
 
     /* ---------- მონაცემები და რენდერი ---------- */
+    setUser(lon, lat) { this.user = lon == null ? null : { lon, lat }; this.render(); }
     setData(list) { this.clinics = list; if (this.selected && !list.includes(this.selected)) this.selected = null; this.render(); }
     select(c, { fly = true } = {}) {
       this.selected = c; this.render();
@@ -159,6 +160,11 @@
         }
         return g;
       }));
+      if (this.user) {
+        const [ux, uy] = this.P(this.user.lon, this.user.lat);
+        this.layer.append(svgEl('g', { class: 'user-mk', transform: `translate(${ux} ${uy})`, 'aria-label': 'თქვენი მდებარეობა' },
+          svgEl('circle', { r: 16 * u, class: 'user-pulse' }), svgEl('circle', { r: 6.5 * u, class: 'user-dot', 'stroke-width': 2.5 * u }), svgEl('title', {}, document.createTextNode('თქვენ აქ ხართ'))));
+      }
     }
   }
 

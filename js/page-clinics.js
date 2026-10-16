@@ -5,7 +5,16 @@
 (() => {
   const { $, el, debounce } = Vita;
   const state = { q: '', region: 'all', type: 'all', profile: 'all' };
-  let map, list = [];
+  let map, list = [], me = null;
+
+  /* მანძილი ორ წერტილს შორის (ჰავერსინუსი), კმ */
+  const km = (aLat, aLon, bLat, bLon) => {
+    const r = (d) => d * Math.PI / 180, dLat = r(bLat - aLat), dLon = r(bLon - aLon);
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(r(aLat)) * Math.cos(r(bLat)) * Math.sin(dLon / 2) ** 2;
+    return 12742 * Math.asin(Math.sqrt(h));
+  };
+  const dist = (c) => (me ? km(me.lat, me.lon, c.lat, c.lon) : null);
+  const fmtKm = (d) => (d < 10 ? d.toFixed(1) : Math.round(d)) + ' კმ';
 
   const osm = (c) => `https://www.openstreetmap.org/?mlat=${c.lat}&mlon=${c.lon}#map=16/${c.lat}/${c.lon}`;
 
@@ -37,10 +46,11 @@
 
   const renderList = () => {
     list = filtered();
+    if (me) list.sort((a, b) => dist(a) - dist(b));
     $('#clinic-count').textContent = `ნაპოვნია: ${list.length} / ${Vita.CLINICS.length}`;
     const box = $('#clinic-list');
     box.replaceChildren(...(list.length ? list.map((c) => el('button', { type: 'button', class: 'clinic-item', dataset: { id: c.id }, onClick: () => select(c) },
-      el('b', { text: c.name }), el('small', { text: `${c.city} · ${Vita.CLINIC_TYPES[c.type].name} · ${c.profiles.slice(0, 2).join(', ')}` }))) : [el('p', { class: 'empty-note', text: '😕 ამ ფილტრით დაწესებულება ვერ მოიძებნა.' })]));
+      el('b', { text: c.name }), me ? el('span', { class: 'dist', text: `📍 ${fmtKm(dist(c))}` }) : null, el('small', { text: `${c.city} · ${Vita.CLINIC_TYPES[c.type].name} · ${c.profiles.slice(0, 2).join(', ')}` }))) : [el('p', { class: 'empty-note', text: '😕 ამ ფილტრით დაწესებულება ვერ მოიძებნა.' })]));
     map.setData(list);
   };
 
@@ -66,7 +76,30 @@
     $('#f-search').addEventListener('input', debounce((e) => { state.q = e.target.value; renderList(); }, 150));
     $('#f-region').addEventListener('change', (e) => { state.region = e.target.value; renderList(); if (state.region !== 'all') { const l = filtered(); if (l.length) map.focusPoint(l.reduce((a, c) => a + c.lon, 0) / l.length, l.reduce((a, c) => a + c.lat, 0) / l.length, state.region === 'თბილისი' ? 70 : 180); } else map.reset(); });
     $('#f-profile').addEventListener('change', (e) => { state.profile = e.target.value; renderList(); });
+    initNear();
     renderList(); showDetail(null);
+  };
+
+  /* ---------- „ჩემთან ახლოს“ (Geolocation API) ---------- */
+  const initNear = () => {
+    const btn = $('#near-me'), clear = $('#near-clear');
+    if (!btn) return;
+    const setMe = (pos) => {
+      me = pos; map.setUser(pos ? pos.lon : null, pos ? pos.lat : null);
+      clear.hidden = !pos; btn.hidden = Boolean(pos);
+      renderList();
+      if (pos && list.length) { const n = list[0]; map.focusPoint((pos.lon + n.lon) / 2, (pos.lat + n.lat) / 2, Math.max(60, Math.abs(pos.lon - n.lon) * 110)); showDetail(n); }
+      if (!pos) map.reset();
+    };
+    btn.addEventListener('click', () => {
+      if (!navigator.geolocation) { Vita.toast('თქვენი ბრაუზერი მდებარეობას არ უჭერს მხარს', 'error'); return; }
+      btn.disabled = true; btn.textContent = '⏳ ვეძებ…';
+      navigator.geolocation.getCurrentPosition(
+        (p) => { btn.disabled = false; btn.textContent = '📍 ჩემთან ახლოს'; setMe({ lat: p.coords.latitude, lon: p.coords.longitude }); Vita.toast('კლინიკები დალაგდა მანძილის მიხედვით'); },
+        (err) => { btn.disabled = false; btn.textContent = '📍 ჩემთან ახლოს'; Vita.toast(err.code === 1 ? 'მდებარეობაზე წვდომა უარყოფილია' : 'მდებარეობის დადგენა ვერ მოხერხდა', 'error'); },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+    });
+    clear.addEventListener('click', () => setMe(null));
   };
 
   Vita.clinicsPage = { init };
