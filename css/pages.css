@@ -117,3 +117,7 @@
 @keyframes userPulse { from { transform: scale(.5); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
 .near-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
 .dist { color: var(--mint); font-family: var(--mono); font-size: var(--fs-xs); }
+
+/* ჯავშნები */
+.booking-item.is-past { opacity: .55; }
+.booking-all { display: flex; justify-content: flex-end; padding-top: .4rem; }

@@ -166,7 +166,9 @@
         el('p', { text: `${doc.name} · ${fmtDate(rec.date)}, ${rec.time}` }),
         el('div', { class: 'code', text: rec.code }),
         el('p', { class: 'note', text: 'შეინახეთ ჯავშნის კოდი. ჯავშნების გაუქმება შესაძლებელია ქვემოთ, „ჩემი ჯავშნები“ ბლოკიდან.' }),
-        el('button', { class: 'btn btn-ghost', type: 'button', onClick: () => dlg.close() }, 'დახურვა')));
+        el('div', { style: 'display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap' },
+          el('button', { class: 'btn btn-primary', type: 'button', onClick: () => downloadIcs([rec], `vizit-${rec.code}`) }, '📅 კალენდარში დამატება'),
+          el('button', { class: 'btn btn-ghost', type: 'button', onClick: () => dlg.close() }, 'დახურვა'))));
       toast('ჯავშანი წარმატებით დაემატა');
     };
 
@@ -179,19 +181,48 @@
 
   const validateField = (input, fn) => () => setError(input, fn());
 
+  /* ---------- კალენდარში დამატება (.ics, RFC 5545) ---------- */
+  const icsEscape = (t) => String(t).replace(/[\\;,]/g, (m) => '\\' + m).replace(/\n/g, '\\n');
+  const icsStamp = (date, time, addMin = 0) => {
+    const d = new Date(`${date}T${time}`); d.setMinutes(d.getMinutes() + addMin);
+    return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  };
+  const icsEvent = (b) => {
+    const d = Vita.DOCTORS.find((x) => x.id === b.docId);
+    const title = d ? `ვიზიტი: ${d.name} (${Vita.SPECS[d.spec].name})` : 'ვიზიტი ექიმთან';
+    return ['BEGIN:VEVENT', `UID:${b.code}@chaka-med-portal`, `DTSTAMP:${icsStamp(todayKey(), '00:00')}`,
+      `DTSTART:${icsStamp(b.date, b.time)}`, `DTEND:${icsStamp(b.date, b.time, 30)}`,
+      `SUMMARY:${icsEscape(title)}`, `DESCRIPTION:${icsEscape(`ჯავშნის კოდი: ${b.code}\nპაციენტი: ${b.patient}`)}`,
+      'BEGIN:VALARM', 'TRIGGER:-PT60M', 'ACTION:DISPLAY', 'DESCRIPTION:ვიზიტი ერთ საათში', 'END:VALARM', 'END:VEVENT'].join('\r\n');
+  };
+  const downloadIcs = (items, name) => {
+    const body = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ჩაკა//Med Portal//KA', 'CALSCALE:GREGORIAN', ...items.map(icsEvent), 'END:VCALENDAR'].join('\r\n');
+    const url = URL.createObjectURL(new Blob([body], { type: 'text/calendar;charset=utf-8' }));
+    const a = el('a', { href: url, download: `${name}.ics` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('კალენდრის ფაილი ჩამოიტვირთა');
+  };
+
   /* ---------- ჩემი ჯავშნები ---------- */
   const renderBookings = () => {
     const list = $('#bookings-list');
     $('#bookings-count').textContent = bookings.length;
     if (!bookings.length) { list.replaceChildren(el('li', { class: 'empty-note', text: 'ჯერ არ გაქვთ დაჯავშნილი ვიზიტი.' })); return; }
-    list.replaceChildren(...[...bookings].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time)).map((b) => {
+    const nowKey = todayKey() + ' ' + `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`;
+    const sorted = [...bookings].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+    const upcoming = sorted.filter((b) => `${b.date} ${b.time}` >= nowKey);
+    const rows = sorted.map((b) => {
       const d = Vita.DOCTORS.find((x) => x.id === b.docId);
-      return el('li', { class: 'booking-item' },
+      const past = `${b.date} ${b.time}` < nowKey;
+      return el('li', { class: `booking-item${past ? ' is-past' : ''}` },
         el('div', {}, el('b', { text: d ? `${d.name} · ${Vita.SPECS[d.spec].name}` : 'ექიმი' }), el('small', { text: `${fmtDate(b.date)}, ${b.time} · ${b.patient}` })),
         el('div', { style: 'display:flex;gap:.8rem;align-items:center' },
           el('span', { class: 'booking-code', text: b.code }),
+          past ? el('span', { class: 'tag mono', text: 'დასრულდა' }) : el('button', { type: 'button', class: 'btn btn-ghost btn-sm', title: 'კალენდარში დამატება (.ics)', onClick: () => downloadIcs([b], `vizit-${b.code}`) }, '📅 .ics'),
           el('button', { type: 'button', class: 'btn btn-ghost btn-sm btn-danger', onClick: () => { bookings = bookings.filter((x) => x.code !== b.code); store.set('bookings', bookings); renderBookings(); toast('ჯავშანი გაუქმდა'); } }, 'გაუქმება')));
-    }));
+    });
+    list.replaceChildren(...rows, upcoming.length > 1 ? el('li', { class: 'booking-all' }, el('button', { type: 'button', class: 'btn btn-primary btn-sm', onClick: () => downloadIcs(upcoming, 'chaka-vizitebi') }, `📅 ყველა მომავალი ვიზიტის ჩამოტვირთვა (${upcoming.length})`)) : null);
   };
 
   const init = () => {
