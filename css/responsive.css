@@ -3,6 +3,9 @@
    ========================================================== */
 @media (max-width: 1280px) {
   .main-nav a { padding: .5rem .6rem; font-size:var(--fs-sm); }
+}
+
+@media (max-width: 1080px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
