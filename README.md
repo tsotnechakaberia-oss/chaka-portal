@@ -31,7 +31,7 @@ GitHub Pages-ზე: *Settings → Pages → Deploy from branch → main / root*
 ## სტრუქტურა
 
 ```
-css/   base · layout · components · animations · pages · responsive
+css/   style (ცვლადები) · layout · components · animations · pages · responsive
 js/    utils · data · logos · effects · map · georgia-geo · clinics-data
        symptoms · doctors · tools · firstaid · library · contact
        calc-defs (წმინდა ფორმულები) · calculators · page-clinics · main · page

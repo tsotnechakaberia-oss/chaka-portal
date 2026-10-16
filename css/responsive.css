@@ -2,7 +2,7 @@
    responsive.css — ადაპტური დიზაინი (Mobile-first overrides)
    ========================================================== */
 @media (max-width: 1080px) {
-  .main-nav a { padding: .5rem .6rem; font-size: .86rem; }
+  .main-nav a { padding: .5rem .6rem; font-size:var(--fs-sm); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -14,7 +14,7 @@
     transform: translateY(-12px); opacity: 0; visibility: hidden; transition: all .35s var(--ease);
   }
   .main-nav.open { transform: none; opacity: 1; visibility: visible; }
-  .main-nav a { padding: .9rem 1rem; font-size: 1rem; }
+  .main-nav a { padding: .9rem 1rem; font-size:var(--fs-base); }
   .hero-grid { grid-template-columns: 1fr; text-align: left; }
   .hero-visual { min-height: 360px; order: -1; margin-bottom: 1rem; }
   .emblem { width: min(280px, 70%); }
@@ -37,7 +37,7 @@
   .float-chip { display: none; }
   .hero { padding-top: 1.5rem; }
   .sos-btn { padding: .45rem .75rem; }
-  .step-num { font-size: 2.2rem; }
+  .step-num { font-size:var(--fs-2xl); }
   .myth-head .tag { position: static; margin-top: .4rem; }
   .scroll-hint { display: none; }
 }
