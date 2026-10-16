@@ -109,3 +109,11 @@
   .clinic-list { max-height: 380px; }
 }
 @media (max-width: 520px) { .calc-form { grid-template-columns: 1fr; } }
+
+/* „ჩემთან ახლოს“ */
+.user-dot { fill: var(--sky); stroke: var(--white); }
+.user-pulse { fill: color-mix(in srgb, var(--sky) 35%, transparent); transform-box: fill-box; transform-origin: center; animation: userPulse 2s ease-out infinite; }
+.user-mk { pointer-events: none; }
+@keyframes userPulse { from { transform: scale(.5); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+.near-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.dist { color: var(--mint); font-family: var(--mono); font-size: var(--fs-xs); }
