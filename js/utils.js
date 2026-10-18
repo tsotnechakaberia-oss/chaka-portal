@@ -69,8 +69,15 @@ window.Vita = window.Vita || {};
 
   const isGePhone = (v) => /^(\+?995)?\s?5\d{2}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}$/.test(v.trim());
 
+  const formatGePhone = (v) => {
+    let d = String(v).replace(/\D/g, '');
+    if (d.startsWith('995')) d = d.slice(3);
+    d = d.slice(0, 9);
+    return [d.slice(0, 3), d.slice(3, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' ');
+  };
+
   const lang = store.get('lang', 'ka') === 'en' ? 'en' : 'ka';
   const locale = () => (lang === 'en' ? 'en-GB' : 'ka-GE');
 
-  Object.assign(window.Vita, { lang, locale, $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone });
+  Object.assign(window.Vita, { lang, locale, $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone, formatGePhone });
 })();

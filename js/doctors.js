@@ -148,6 +148,7 @@
       el('button', { class: 'btn btn-primary btn-block', type: 'submit' }, 'ვიზიტის დადასტურება'));
 
     f.name.addEventListener('blur', validateField(f.name, () => f.name.value.trim().split(/\s+/).length >= 2 ? '' : 'შეიყვანეთ სახელი და გვარი'));
+    f.phone.addEventListener('input', () => { f.phone.value = Vita.formatGePhone(f.phone.value); });
     f.phone.addEventListener('blur', validateField(f.phone, () => (isGePhone(f.phone.value) ? '' : 'ფორმატი: 5XX XX XX XX')));
     f.date.addEventListener('change', () => paintSlots(f.date.value || min));
     paintSlots(startDate);

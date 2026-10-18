@@ -345,6 +345,7 @@ Vita.I18N_EN = {
   "ელ-ფოსტის ფორმატი არასწორია": "The e-mail format is invalid",
   "სახელი მინიმუმ 2 სიმბოლოა": "The name must be at least 2 characters",
   "შეიყვანეთ ელ-ფოსტა": "Enter an e-mail",
+  "ტელეფონის ფორმატი არასწორია — მაგ.: 5XX XX XX XX": "The phone format is invalid — e.g. 5XX XX XX XX",
   "შეიყვანეთ სწორი ელ-ფოსტა": "Enter a valid e-mail",
   "შეტყობინება მინიმუმ 10 სიმბოლოა": "The message must be at least 10 characters",
 
