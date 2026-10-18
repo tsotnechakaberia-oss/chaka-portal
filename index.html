@@ -407,11 +407,16 @@
         <div class="contact-grid">
           <div class="faq reveal">
             <h3>ხშირი კითხვები</h3>
+            <div class="search-box faq-search">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input type="search" id="faq-search" class="input" placeholder="მოძებნე შეკითხვა…" aria-label="ხშირი შეკითხვების ძებნა" autocomplete="off">
+            </div>
             <details class="faq-item"><summary>ჩაკა ცვლის ექიმის კონსულტაციას?</summary><p>არა. პორტალი საინფორმაციო ხასიათისაა და არ სვამს დიაგნოზს. ჯანმრთელობის პრობლემის შემთხვევაში მიმართეთ ექიმს.</p></details>
             <details class="faq-item"><summary>რამდენად უსაფრთხოა ჩემი მონაცემები?</summary><p>ტრეკერისა და ჯავშნების მონაცემები ინახება მხოლოდ თქვენს ბრაუზერში (localStorage) და არსად იგზავნება.</p></details>
             <details class="faq-item"><summary>ექიმები რეალურები არიან?</summary><p>არა. ეს სასწავლო პროექტია — ექიმები, კლინიკები და სტატისტიკა დემონსტრაციისთვისაა შექმნილი.</p></details>
             <details class="faq-item"><summary>რა ვქნა გადაუდებელ შემთხვევაში?</summary><p>დაუყოვნებლივ დარეკეთ <b>112</b>-ზე. ნუ დაელოდებით პორტალის შედეგს.</p></details>
             <details class="faq-item"><summary>როგორ გავაუქმო ჯავშანი?</summary><p>გადადით „ჩემი ჯავშნები“ ბლოკში და დააჭირეთ „გაუქმება“-ს.</p></details>
+            <p class="no-results faq-empty" id="faq-empty" hidden>🔍 ასეთი შეკითხვა ვერ მოიძებნა. სცადე სხვა სიტყვა ან მოგვწერე ქვემოთ.</p>
           </div>
 
           <form class="contact-form card reveal" id="contact-form" novalidate style="--d:.1s">

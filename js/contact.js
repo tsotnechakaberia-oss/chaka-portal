@@ -43,5 +43,26 @@
     });
   };
 
-  Vita.contact = { init() { if ($('#contact-form')) initContact(); if ($('#news-form')) initNewsletter(); } };
+  const initFaq = () => {
+    const search = $('#faq-search'), empty = $('#faq-empty');
+    const items = [...document.querySelectorAll('.faq-item')];
+    items.forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if (!item.open) return;
+        items.forEach((other) => { if (other !== item) other.open = false; });
+      });
+    });
+    search.addEventListener('input', Vita.debounce(() => {
+      const q = search.value.trim().toLowerCase();
+      let shown = 0;
+      items.forEach((item) => {
+        const match = !q || item.textContent.toLowerCase().includes(q);
+        item.hidden = !match;
+        if (match) shown += 1; else item.open = false;
+      });
+      empty.hidden = shown > 0;
+    }, 120));
+  };
+
+  Vita.contact = { init() { if ($('#contact-form')) initContact(); if ($('#news-form')) initNewsletter(); if ($('#faq-search')) initFaq(); } };
 })();

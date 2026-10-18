@@ -314,6 +314,8 @@ mark { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inh
 .myth-explain span { color: var(--muted); display: block; margin-top: .3rem; }
 
 .faq h3 { margin-bottom: 1rem; }
+.faq-search { margin-bottom: .6rem; }
+.faq-empty { padding: 1.4rem 0; }
 .faq-item { border-bottom: 1px solid var(--line); padding: .3rem 0; }
 .faq-item summary { cursor: pointer; padding: .9rem 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
 .faq-item summary::-webkit-details-marker { display: none; }
