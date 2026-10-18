@@ -28,6 +28,7 @@
   .brand-mark { width: 38px; height: 38px; }
   .stat-row { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
   .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar .search-box { flex: 0 0 auto; }
   .toolbar select { width: 100%; }
   .footer-grid { grid-template-columns: 1fr; }
   .form-2 { grid-template-columns: 1fr; }
