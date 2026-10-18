@@ -22,14 +22,21 @@
     });
     phone.addEventListener('input', () => { phone.value = formatGePhone(phone.value); });
     ok.addEventListener('change', rules.ok);
-    msg.addEventListener('input', () => { $('#c-count').textContent = `${msg.value.length}/500`; });
+    const count = $('#c-count');
+    const paintCount = () => {
+      const n = msg.value.length;
+      count.textContent = `${n}/500`;
+      count.classList.toggle('warn', n >= 450 && n < 500);
+      count.classList.toggle('full', n >= 500);
+    };
+    msg.addEventListener('input', paintCount);
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const results = Object.values(rules).map((fn) => fn());
       if (results.includes(false)) { toast('გთხოვთ, შეავსოთ ყველა ველი სწორად', 'error'); form.querySelector('.invalid')?.focus(); return; }
       toast(`გმადლობთ, ${name.value.trim()}! შეტყობინება მიღებულია (დემო).`);
-      form.reset(); $('#c-count').textContent = '0/500';
+      form.reset(); paintCount();
       form.querySelectorAll('.input').forEach((i) => i.classList.remove('valid', 'invalid'));
     });
   };
