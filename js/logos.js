@@ -1,8 +1,5 @@
 'use strict';
-/* ==========================================================
-   logos.js — ანიმირებული ლოგოები, ხატულები და ECG
-   ყველა SVG გენერირდება JavaScript-ით და DOM-ში ემატება.
-   ========================================================== */
+
 (() => {
   const { $, $$, el } = Vita;
   let uid = 0;
@@ -15,7 +12,6 @@
   const HEART = 'M32 47 C 22 39 15 33 15 25 C 15 20 19 17 23 17 C 27 17 30 19 32 22 C 34 19 37 17 41 17 C 45 17 49 20 49 25 C 49 33 42 39 32 47 Z';
   const ECG = 'M8 33 H23 L27 24 L33 43 L38 29 L41 33 H56';
 
-  /** მთავარი ლოგო: ექვსკუთხედი + ორბიტა + გული + ECG */
   const mark = () => {
     const g = nextId('lgm');
     return `<svg class="lg" viewBox="0 0 64 64" aria-hidden="true"><defs>${GRAD(g)}</defs>
@@ -25,7 +21,6 @@
       <path class="lg-ecg" d="${ECG}" pathLength="90"/></svg>`;
   };
 
-  /** ჩამტვირთავის ლოგო: ხაზები „იხატება“ */
   const draw = () => {
     const g = nextId('lgd');
     return `<svg class="lg lg-draw" viewBox="0 0 64 64" aria-hidden="true"><defs>${GRAD(g).replace('id="' + g + '"', 'id="' + g + '"')}</defs>
@@ -34,7 +29,6 @@
       <path class="d d3" d="${ECG}"/></svg>`;
   };
 
-  /** დიდი ემბლემა: ბრუნვადი რგოლები, ორბიტალური წერტილები, ცენტრში ლოგო */
   const emblem = () => {
     const g = nextId('lge');
     let ticks = '';
@@ -55,7 +49,6 @@
       <path class="ecg-core" d="M104 152 H132 L141 132 L153 172 L162 146 L168 152 H196" pathLength="160" stroke-dasharray="160"/></svg>`;
   };
 
-  /** პარტნიორი კლინიკების ლოგოები (გამოგონილი) — თითო განსხვავებული ანიმაციით */
   const partnerSVG = (kind) => {
     const shapes = {
       spin:   `<g class="pl-spin"><rect class="pl-fill" x="26" y="10" width="12" height="44" rx="5"/><rect class="pl-fill" x="10" y="26" width="44" height="12" rx="5"/></g><circle class="pl-accent" cx="32" cy="32" r="5"/>`,
@@ -70,7 +63,6 @@
     return `<svg viewBox="0 0 64 64" aria-hidden="true">${shapes[kind] || shapes.spin}</svg>`;
   };
 
-  /** ხატულები (24×24). .ia — ანიმირებადი ნაწილი */
   const ICONS = {
     heart:   '<path class="ia" d="M12 21 C 5 16 2 12 2 8.500 C 2 5.500 4.300 3.500 7 3.500 C 9 3.500 11 4.700 12 6.500 C 13 4.700 15 3.500 17 3.500 C 19.700 3.500 22 5.500 22 8.500 C 22 12 19 16 12 21 Z"/><path d="M5 11 H9 L10.500 8 L13 14 L14.500 11 H19" stroke-width="1.300"/>',
     brain:   '<g class="ia"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-2 5 a3 3 0 0 0 2 5 a3 3 0 0 0 6 1 V5 a2 2 0 0 0-3-1 z"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 2 5 a3 3 0 0 1-2 5 a3 3 0 0 1-6 1 V5 a2 2 0 0 1 3-1 z"/></g>',
@@ -93,7 +85,6 @@
   };
   const icon = (name) => `<svg class="ico ico-${name}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] || ICONS.heart}</svg>`;
 
-  /** ECG ტალღის გენერირება (PQRST) – ორჯერ გამეორებული უწყვეტი ანიმაციისთვის */
   const ecgPath = (beats = 4, w = 400, h = 64) => {
     const seg = w / beats, mid = h / 2;
     let d = `M0 ${mid}`;
@@ -107,7 +98,6 @@
   };
   const ecgSVG = () => `<svg viewBox="0 0 800 64" preserveAspectRatio="none" aria-hidden="true"><path d="${ecgPath(8, 800)}"/></svg>`;
 
-  /** DOM-ში ჩაშენება */
   const mount = () => {
     $$('[data-logo]').forEach((n) => {
       const kind = n.dataset.logo;
@@ -118,7 +108,7 @@
     const track = $('#partner-track');
     if (track) {
       const items = Vita.PARTNERS.map((p) => el('div', { class: 'pl-item', html: partnerSVG(p.kind) + `<span>${p.name}<small>${p.tag}</small></span>` }));
-      // ორჯერ ვაკოპირებთ, რომ მარკეტი უწყვეტად მოძრაობდეს
+
       track.append(...items, ...items.map((n) => n.cloneNode(true)));
       track.lastElementChild && $$('.pl-item', track).slice(items.length).forEach((n) => n.setAttribute('aria-hidden', 'true'));
     }

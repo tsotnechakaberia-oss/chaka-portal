@@ -1,9 +1,3 @@
-/* ==========================================================
-   animations.css — keyframes, reveal, ანიმირებული ლოგოები
-   (translate/scale თვისებებია გამოყენებული, რომ holo-ის transform არ გადაიფაროს)
-   ========================================================== */
-
-/* ---------- reveal on scroll ---------- */
 .reveal {
   opacity: 0; translate: 0 34px;
   transition: opacity .9s var(--ease) var(--d, 0s), translate .9s var(--ease) var(--d, 0s), transform .25s var(--ease), border-color .3s, box-shadow .3s;
@@ -11,7 +5,6 @@
 .reveal.in { opacity: 1; translate: 0 0; }
 .no-js .reveal { opacity: 1; translate: none; }
 
-/* ---------- keyframes ---------- */
 @keyframes gradShift { to { background-position: 200% 0; } }
 @keyframes drift { to { transform: translate(8vw, 6vh) scale(1.15); } }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -45,7 +38,6 @@
 @keyframes ripple { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
 @keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-/* ---------- ანიმირებული ლოგო: მთავარი ნიშანი ---------- */
 .lg { width: 100%; height: 100%; overflow: visible; }
 .lg-hex { fill: color-mix(in srgb, var(--bg) 60%, transparent); stroke-width: 2.6; animation: hexGlow 3s ease-in-out infinite; }
 .lg-orbit { fill: none; stroke: var(--mint); stroke-width: 1.2; stroke-dasharray: 3 7; opacity: .6; transform-origin: 32px 32px; animation: spin 14s linear infinite; }
@@ -56,11 +48,9 @@
 .brand:hover .lg-hex { animation-duration: 1s; }
 .brand:hover .lg-orbit { animation-duration: 3s; }
 
-/* loader: рисование */
 .lg-draw .d { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; stroke-dasharray: 260; stroke-dashoffset: 260; animation: draw 1.4s var(--ease) forwards; }
 .lg-draw .d1 { stroke: url(#GRAD); } .lg-draw .d2 { stroke: var(--coral); animation-delay: .35s; } .lg-draw .d3 { stroke: var(--text); animation-delay: .7s; }
 
-/* ---------- ემბლემა ---------- */
 .em { width: 100%; height: 100%; overflow: visible; }
 .em .ring { fill: none; transform-origin: 150px 150px; }
 .em .r1 { stroke: var(--mint); stroke-width: 1.4; stroke-dasharray: 2 9; animation: spin 40s linear infinite; }
@@ -76,12 +66,10 @@
 .em .ecg-core { fill: none; stroke: var(--white); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 160; animation: ecgDraw 2.4s ease-in-out infinite; }
 [data-theme="light"] .em .ecg-core { stroke: var(--ink); }
 
-/* ---------- ECG strip ---------- */
 .ecg-strip { height: 64px; overflow: hidden; position: relative; margin-top: .4rem; mask-image: linear-gradient(90deg, transparent, var(--black) 12%, var(--black) 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, var(--black) 12%, var(--black) 88%, transparent); }
 .ecg-strip svg { width: 200%; height: 100%; animation: ecgRun 4s linear infinite; }
 .ecg-strip path { fill: none; stroke: var(--mint); stroke-width: 2; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--mint)); vector-effect: non-scaling-stroke; }
 
-/* ---------- პარტნიორების ლოგოები ---------- */
 .pl-item { display: inline-flex; align-items: center; gap: .8rem; color: var(--muted); transition: color .3s; white-space: nowrap; }
 .pl-item:hover { color: var(--text); }
 .pl-item svg { width: 44px; height: 44px; overflow: visible; }
@@ -101,11 +89,9 @@
 .pl-orbit-dot { animation: spinRev 3s linear infinite; }
 .pl-flow { stroke-dasharray: 8 8; animation: dashFlow 4s linear infinite; }
 
-/* ---------- ჯავშნის წარმატება ---------- */
 .ok-ring { fill: none; stroke: var(--mint); stroke-width: 4; transform-origin: center; animation: ringPop .7s var(--ease) both; }
 .ok-check { fill: none; stroke: var(--mint); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: checkDraw .6s .4s var(--ease) forwards; }
 
-/* ---------- ანიმირებული ხატულები ---------- */
 .ico { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
 .ico .ia { transform-box: fill-box; transform-origin: center; }
 .ico-heart .ia { animation: beat 1.5s infinite; }

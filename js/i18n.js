@@ -1,25 +1,18 @@
 'use strict';
-/* ==========================================================
-   i18n.js — ენის გადართვა (ქართ ↔ ინგლ) ვანილა JS-ით
-   პრინციპი: ქართული ტექსტი რჩება წყაროდ (ორიგინალი ინახება),
-   ინგლისურ რეჟიმში ტექსტური კვანძები და ატრიბუტები ითარგმნება
-   ლექსიკონით (i18n-en.js). MutationObserver ამუშავებს JS-ით
-   დინამიურად შექმნილ ელემენტებსაც. გადართვისას გვერდი
-   თავიდან იტვირთება, რომ თარიღები/ფორმატებიც განახლდეს.
-   ========================================================== */
+
 (() => {
   const { store, el, toast } = Vita;
   const lang = Vita.lang;
   const ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
 
   const note = () => {
-    try { if (sessionStorage.getItem('vita.langnote')) { sessionStorage.removeItem('vita.langnote'); setTimeout(() => toast('Interface translated. Medical articles, symptoms and first-aid texts are currently available in Georgian only.', 'ok', 6500), 2200); } } catch { /* */ }
+    try { if (sessionStorage.getItem('vita.langnote')) { sessionStorage.removeItem('vita.langnote'); setTimeout(() => toast('Interface translated. Medical articles, symptoms and first-aid texts are currently available in Georgian only.', 'ok', 6500), 2200); } } catch {  }
   };
 
   const switchLang = () => {
     const next = lang === 'en' ? 'ka' : 'en';
     store.set('lang', next);
-    try { sessionStorage.setItem('vita.noLoader', '1'); if (next === 'en') sessionStorage.setItem('vita.langnote', '1'); } catch { /* */ }
+    try { sessionStorage.setItem('vita.noLoader', '1'); if (next === 'en') sessionStorage.setItem('vita.langnote', '1'); } catch {  }
     location.reload();
   };
 
@@ -33,7 +26,6 @@
   document.addEventListener('DOMContentLoaded', () => { mountButton(); });
   if (lang !== 'en') return;
 
-  /* ---------- თარგმნის ძრავა ---------- */
   const dict = new Map(Object.entries(Vita.I18N_EN).map(([k, v]) => [k.trim(), v]));
   const hasGeo = (s) => /[Ⴀ-ჿ]/.test(s);
 
@@ -57,8 +49,8 @@
 
   Vita.CLINICS?.forEach((c) => { if (c.nameEn) dict.set(c.name, c.nameEn); });
 
-  const textState = new WeakMap(); // node → { orig, written }
-  const attrState = new WeakMap(); // element → { attr: { orig, written } }
+  const textState = new WeakMap();
+  const attrState = new WeakMap();
 
   const doText = (node) => {
     const st = textState.get(node);
@@ -93,7 +85,7 @@
         else if (r.type === 'characterData') doText(r.target);
         else if (r.type === 'attributes') doAttr(r.target, r.attributeName);
       }
-      obs.takeRecords(); // ჩვენივე ცვლილებები აღარ დავამუშაოთ
+      obs.takeRecords();
     });
     obs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
     note();

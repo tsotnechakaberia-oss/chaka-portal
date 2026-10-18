@@ -19,7 +19,6 @@
 </head>
 <body>
 
-  <!-- ანიმირებული ჩამტვირთავი (splash) -->
   <div id="loader" role="status" aria-label="იტვირთება">
     <div class="loader-inner">
       <div data-logo="draw" class="loader-logo"></div>
@@ -29,14 +28,12 @@
     </div>
   </div>
 
-  <!-- ფონის ეფექტები -->
   <div class="bg-fx" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i></div>
   <div id="cursor-glow" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <a class="skip-link" href="#main">გადასვლა შინაარსზე</a>
 
-  <!-- ჰედერი -->
   <header class="site-header" id="top">
     <div class="container header-row">
       <a href="#home" class="brand" aria-label="ჩაკა — მთავარი გვერდი">
@@ -65,7 +62,6 @@
 
   <main id="main">
 
-    <!-- ===== 00 / HERO ===== -->
     <section class="hero" id="home">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="container hero-grid">
@@ -99,13 +95,11 @@
       <a href="#how" class="scroll-hint mono" aria-label="ქვემოთ გადასვლა"><span></span>SCROLL</a>
     </section>
 
-    <!-- ===== პარტნიორების მარკეტი (ანიმირებული ლოგოები) ===== -->
     <section class="partners" aria-label="დემო პარტნიორი კლინიკები">
       <p class="partners-label mono">დემო პარტნიორი კლინიკები · გამოგონილი ბრენდები</p>
       <div class="marquee"><div class="marquee-track" id="partner-track"></div></div>
     </section>
 
-    <!-- ===== 01 / HOW ===== -->
     <section class="section" id="how">
       <div class="container">
         <header class="section-head reveal">
@@ -135,7 +129,6 @@
       </div>
     </section>
 
-    <!-- ===== 02 / SYMPTOMS ===== -->
     <section class="section" id="symptoms">
       <div class="container">
         <header class="section-head reveal">
@@ -199,7 +192,6 @@
       </div>
     </section>
 
-    <!-- ===== 03 / DOCTORS ===== -->
     <section class="section" id="doctors">
       <div class="container">
         <header class="section-head reveal">
@@ -234,7 +226,6 @@
       </div>
     </section>
 
-    <!-- ===== 03b / CLINICS TEASER ===== -->
     <section class="section" id="clinics-teaser">
       <div class="container">
         <div class="card holo mini-map-card reveal">
@@ -248,7 +239,6 @@
       </div>
     </section>
 
-    <!-- ===== 04 / TOOLS ===== -->
     <section class="section" id="tools">
       <div class="container">
         <header class="section-head reveal">
@@ -266,7 +256,6 @@
         </div>
 
         <div class="tool-stage card reveal">
-          <!-- BMI -->
           <div class="tab-panel is-active" data-panel="bmi" role="tabpanel">
             <div class="tool-grid">
               <form class="tool-form" id="bmi-form" novalidate>
@@ -297,7 +286,6 @@
             </div>
           </div>
 
-          <!-- WATER -->
           <div class="tab-panel" data-panel="water" role="tabpanel" hidden>
             <div class="tool-grid">
               <form class="tool-form" id="water-form" novalidate>
@@ -314,7 +302,6 @@
             </div>
           </div>
 
-          <!-- PULSE -->
           <div class="tab-panel" data-panel="pulse" role="tabpanel" hidden>
             <div class="tool-grid">
               <form class="tool-form" id="pulse-form" novalidate>
@@ -333,7 +320,6 @@
             </div>
           </div>
 
-          <!-- SLEEP -->
           <div class="tab-panel" data-panel="sleep" role="tabpanel" hidden>
             <div class="tool-grid">
               <form class="tool-form" id="sleep-form" novalidate>
@@ -350,7 +336,6 @@
             </div>
           </div>
 
-          <!-- TRACKER -->
           <div class="tab-panel" data-panel="tracker" role="tabpanel" hidden>
             <div class="tool-grid">
               <div class="tool-form">
@@ -375,7 +360,6 @@
       </div>
     </section>
 
-    <!-- ===== 05 / FIRST AID ===== -->
     <section class="section" id="firstaid">
       <div class="container">
         <header class="section-head reveal">
@@ -386,7 +370,6 @@
       </div>
     </section>
 
-    <!-- ===== 06 / LIBRARY ===== -->
     <section class="section" id="library">
       <div class="container">
         <header class="section-head reveal">
@@ -403,7 +386,6 @@
         <p class="result-count mono" id="lib-count" aria-live="polite"></p>
         <div class="acc-list" id="lib-list"></div>
 
-        <!-- მითი თუ ფაქტი -->
         <div class="myth card holo reveal" id="myth-game">
           <div class="myth-head"><h3>მითი თუ ფაქტი?</h3><span class="tag mono" id="myth-score">0 / 0</span></div>
           <p class="myth-q" id="myth-q" aria-live="polite"></p>
@@ -417,7 +399,6 @@
       </div>
     </section>
 
-    <!-- ===== 07 / CONTACT ===== -->
     <section class="section" id="contact">
       <div class="container">
         <header class="section-head reveal">
@@ -448,7 +429,6 @@
     </section>
   </main>
 
-  <!-- ფუტერი -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
@@ -475,13 +455,11 @@
 
   <button id="to-top" class="to-top" type="button" aria-label="ზევით დაბრუნება">↑</button>
 
-  <!-- ჯავშნის მოდალი -->
   <dialog id="booking-modal" class="modal" aria-labelledby="bk-title">
     <form method="dialog" class="modal-close-form"><button class="modal-x" aria-label="დახურვა">✕</button></form>
     <div id="bk-body"></div>
   </dialog>
 
-  <!-- პირველადი დახმარების მოდალი -->
   <dialog id="aid-modal" class="modal modal-wide" aria-labelledby="aid-title">
     <form method="dialog" class="modal-close-form"><button class="modal-x" aria-label="დახურვა">✕</button></form>
     <div id="aid-body"></div>

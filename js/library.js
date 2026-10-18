@@ -1,13 +1,9 @@
 'use strict';
-/* ==========================================================
-   library.js — სამედიცინო ბიბლიოთეკა (ძებნა, კატეგორიები,
-   აკორდეონი) და „მითი თუ ფაქტი“ მინი-თამაში
-   ========================================================== */
+
 (() => {
   const { $, $$, el, debounce } = Vita;
   const state = { cat: 'ყველა', q: '' };
 
-  /** ძებნილი ტექსტის მონიშვნა <mark>-ით */
   const hl = (text, q) => {
     if (!q) return [text];
     const out = []; const low = text.toLowerCase(); let i = 0;
@@ -58,7 +54,6 @@
     }));
   };
 
-  /* ---------- მითი თუ ფაქტი ---------- */
   const initMyth = () => {
     const qEl = $('#myth-q'), exp = $('#myth-explain'), next = $('#myth-next'), scoreEl = $('#myth-score');
     const btns = $$('[data-answer]');

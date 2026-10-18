@@ -1,8 +1,5 @@
 'use strict';
-/* ==========================================================
-   doctors.js — ექიმების კატალოგი (ფილტრი, ძებნა, დალაგება)
-   და ვიზიტის დაჯავშნა (ფორმის ვალიდაცია, localStorage)
-   ========================================================== */
+
 (() => {
   const { $, $$, el, store, toast, setError, isEmail, isGePhone, todayKey, pad } = Vita;
   const state = { spec: 'all', q: '', sort: 'rating', today: false };
@@ -20,7 +17,6 @@
       <text x="32" y="40" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" font-family="inherit">${initials(d.name)}</text></svg>`;
   };
 
-  /* ---------- ფილტრები ---------- */
   const renderChips = () => {
     const box = $('#spec-filter');
     box.replaceChildren(
@@ -54,7 +50,6 @@
     return list.sort(sorters[state.sort]);
   };
 
-  /* ---------- ბარათები ---------- */
   const card = (d, i) => {
     const sp = Vita.SPECS[d.spec];
     const isTeam = d.spec === 'team';
@@ -90,7 +85,6 @@
     setSpec('all');
   };
 
-  /* ---------- ჯავშანი ---------- */
   const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const makeSlots = () => { const a = []; for (let h = 9; h < 18; h++) { a.push(`${pad(h)}:00`); a.push(`${pad(h)}:30`); } return a; };
 
@@ -106,7 +100,7 @@
     const sp = Vita.SPECS[doc.spec];
     const min = todayKey(), maxD = new Date(); maxD.setDate(maxD.getDate() + 30);
     let chosen = null;
-    // თუ დღევანდელი დრო უკვე გავიდა, ნაგულისხმევი თარიღი ხვალაა
+
     const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
     const startDate = makeSlots().some((t) => slotState(doc, min, t) === 'free') ? min : todayKey(tomorrow);
 
@@ -153,7 +147,6 @@
       row('შენიშვნა', f.note, false),
       el('button', { class: 'btn btn-primary btn-block', type: 'submit' }, 'ვიზიტის დადასტურება'));
 
-    // რეალურ დროში ვალიდაცია blur-ზე
     f.name.addEventListener('blur', validateField(f.name, () => f.name.value.trim().split(/\s+/).length >= 2 ? '' : 'შეიყვანეთ სახელი და გვარი'));
     f.phone.addEventListener('blur', validateField(f.phone, () => (isGePhone(f.phone.value) ? '' : 'ფორმატი: 5XX XX XX XX')));
     f.date.addEventListener('change', () => paintSlots(f.date.value || min));
@@ -181,7 +174,6 @@
 
   const validateField = (input, fn) => () => setError(input, fn());
 
-  /* ---------- კალენდარში დამატება (.ics, RFC 5545) ---------- */
   const icsEscape = (t) => String(t).replace(/[\\;,]/g, (m) => '\\' + m).replace(/\n/g, '\\n');
   const icsStamp = (date, time, addMin = 0) => {
     const d = new Date(`${date}T${time}`); d.setMinutes(d.getMinutes() + addMin);
@@ -204,7 +196,6 @@
     toast('კალენდრის ფაილი ჩამოიტვირთა');
   };
 
-  /* ---------- ჩემი ჯავშნები ---------- */
   const renderBookings = () => {
     const list = $('#bookings-list');
     $('#bookings-count').textContent = bookings.length;
@@ -235,7 +226,6 @@
     dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   };
 
-  /** სხვა მოდულიდან (სიმპტომები) გამოძახება */
   const filterBy = (spec) => {
     state.q = ''; $('#doc-search').value = '';
     setSpec(spec);
