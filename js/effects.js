@@ -1,25 +1,19 @@
 'use strict';
-/* ==========================================================
-   effects.js — ვიზუალური ეფექტები და გვერდის ქცევა:
-   loader, თემა, nav, scroll-spy, reveal, counters, holo-tilt,
-   magnetic ღილაკები, კურსორის ნათება, canvas (DNA + ნაწილაკები)
-   ========================================================== */
+
 (() => {
   const { $, $$, clamp, prefersReduced, store, paintRange } = Vita;
 
-  /* ---------- ჩამტვირთავი ---------- */
   const initLoader = () => {
     const loader = $('#loader');
     if (!loader) return;
-    try { if (sessionStorage.getItem('vita.noLoader')) { sessionStorage.removeItem('vita.noLoader'); loader.remove(); return; } } catch { /* */ }
+    try { if (sessionStorage.getItem('vita.noLoader')) { sessionStorage.removeItem('vita.noLoader'); loader.remove(); return; } } catch {  }
     const hide = () => { loader.classList.add('done'); setTimeout(() => loader.remove(), 1000); };
     const started = performance.now();
     const finish = () => setTimeout(hide, Math.max(0, 1700 - (performance.now() - started)));
     if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish, { once: true });
-    setTimeout(hide, 4500); // უსაფრთხოების ბადე
+    setTimeout(hide, 4500);
   };
 
-  /* ---------- თემა ---------- */
   const initTheme = () => {
     const root = document.documentElement;
     const saved = store.get('theme', null);
@@ -32,7 +26,6 @@
     });
   };
 
-  /* ---------- ჰედერი, მენიუ, scroll-spy, progress ---------- */
   const initNav = () => {
     const header = $('.site-header'), nav = $('#main-nav'), burger = $('#burger');
     const bar = $('.scroll-progress span'), toTop = $('#to-top');
@@ -54,7 +47,6 @@
     onScroll();
     toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReduced() ? 'auto' : 'smooth' }));
 
-    // scroll-spy
     const links = new Map($$('[data-spy]').map((a) => [a.dataset.spy, a]));
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
@@ -66,7 +58,6 @@
     links.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   };
 
-  /* ---------- reveal on scroll ---------- */
   const initReveal = () => {
     const items = $$('.reveal');
     if (!('IntersectionObserver' in window) || prefersReduced()) { items.forEach((n) => n.classList.add('in')); return; }
@@ -77,7 +68,6 @@
     Vita.observeReveal = (n) => { if (n.classList.contains('reveal')) io.observe(n); };
   };
 
-  /* ---------- ციფრების ანიმაცია ---------- */
   const initCounters = () => {
     const targets = {
       doctors: Vita.DOCTORS.filter((d) => d.spec !== 'team').length,
@@ -101,7 +91,6 @@
     $$('[data-count]').forEach((n) => io.observe(n));
   };
 
-  /* ---------- holo / tilt ეფექტი (event delegation) ---------- */
   const initHolo = () => {
     if (!window.matchMedia('(hover: hover)').matches || prefersReduced()) return;
     document.addEventListener('pointermove', (e) => {
@@ -120,7 +109,6 @@
     });
   };
 
-  /* ---------- მაგნიტური ღილაკები და კურსორის ნათება ---------- */
   const initPointerFx = () => {
     if (!window.matchMedia('(hover: hover)').matches) return;
     const glow = $('#cursor-glow');
@@ -142,7 +130,6 @@
     document.addEventListener('pointerleave', () => glow.classList.remove('on'));
   };
 
-  /* ---------- hero: მბრუნავი სიტყვა, BPM ---------- */
   const initHeroText = () => {
     const rot = $('#rotator');
     const words = Object.entries(Vita.SPECS).filter(([k]) => k !== 'team').map(([, s]) => s.name);
@@ -161,7 +148,6 @@
     }, 1600);
   };
 
-  /* ---------- hero canvas: ნაწილაკების ქსელი + DNA სპირალი ---------- */
   const initCanvas = () => {
     const canvas = $('#hero-canvas');
     if (!canvas) return;
@@ -233,7 +219,7 @@
     canvas.parentElement.addEventListener('pointerleave', () => { mouse.x = mouse.y = -999; });
 
     if (prefersReduced()) { frame(0); running = false; return; }
-    // ვაჩერებთ, როცა hero ეკრანს გარეთაა ან ტაბი დაფარულია
+
     const io = new IntersectionObserver(([en]) => {
       const next = en.isIntersecting && !document.hidden;
       if (next && !running) { running = true; requestAnimationFrame(frame); } else if (!next) running = false;
@@ -243,7 +229,6 @@
     requestAnimationFrame(frame);
   };
 
-  /* ---------- range-ების შევსების პროგრესი ---------- */
   const initRanges = () => {
     $$('input[type="range"]').forEach((r) => { paintRange(r); r.addEventListener('input', () => paintRange(r)); });
   };

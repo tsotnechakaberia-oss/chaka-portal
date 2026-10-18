@@ -1,9 +1,5 @@
 'use strict';
-/* ==========================================================
-   map.js — საქართველოს ინტერაქტიული SVG რუკა (ბიბლიოთეკების გარეშე)
-   • საზღვარი: georgia-geo.js (Natural Earth, გამარტივებული)
-   • zoom / pan / კლასტერები / მარკერები (DOM + SVG)
-   ========================================================== */
+
 (() => {
   const { el, clamp, prefersReduced } = Vita;
   const NS = 'http://www.w3.org/2000/svg';
@@ -52,11 +48,10 @@
       });
     }
 
-    /* ---------- ხედვა ---------- */
     scale() { return (this.svg.getBoundingClientRect().width || 800) / this.vb.w; }
     apply() { const { x, y, w, h } = this.vb; this.svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`); }
     fit(box) {
-      // box: {x,y,w,h} → aspect-ratio-ს ვუნარჩუნებთ
+
       const ar = this.full.w / this.full.h; let { x, y, w, h } = box;
       if (w / h > ar) { const nh = w / ar; y -= (nh - h) / 2; h = nh; } else { const nw = h * ar; x -= (nw - w) / 2; w = nw; }
       return { x, y, w, h };
@@ -91,7 +86,6 @@
     }
     focusTbilisi() { this.focusPoint(44.79, 41.72, this.full.w / 34); }
 
-    /* ---------- ინტერაქცია ---------- */
     bind() {
       const { svg } = this; let drag = null;
       svg.style.touchAction = 'none';
@@ -116,7 +110,6 @@
     }
     schedule() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = 0; this.render(); }); }
 
-    /* ---------- მონაცემები და რენდერი ---------- */
     setUser(lon, lat) { this.user = lon == null ? null : { lon, lat }; this.render(); }
     setData(list) { this.clinics = list; if (this.selected && !list.includes(this.selected)) this.selected = null; this.render(); }
     select(c, { fly = true } = {}) {

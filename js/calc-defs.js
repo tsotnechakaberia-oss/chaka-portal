@@ -1,10 +1,5 @@
 'use strict';
-/* ==========================================================
-   calc-defs.js — სამედიცინო კალკულატორების განსაზღვრებები.
-   წმინდა ფუნქციებია (DOM-ის გარეშე), ამიტომ ადვილად ტესტირდება.
-   თითოეული კალკულატორი: fields, compute(values) → შედეგი | { error }
-   წყაროები მითითებულია თითოეულ ბარათზე.
-   ========================================================== */
+
 window.Vita = window.Vita || {};
 
 (() => {
@@ -18,7 +13,7 @@ window.Vita = window.Vita || {};
   const fmtDate = (d) => d.toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'long', year: 'numeric' });
 
   const CALCS = [
-    /* ---------------- BMI ---------------- */
+
     { id: 'bmi', group: 'body', title: 'სხეულის მასის ინდექსი (BMI)', icon: 'body',
       desc: 'წონისა და სიმაღლის თანაფარდობა — ზოგადი სკრინინგული ორიენტირი მოზრდილებისთვის.',
       fields: [
@@ -41,7 +36,6 @@ window.Vita = window.Vita || {};
         };
       } },
 
-    /* ---------------- BMR / TDEE ---------------- */
     { id: 'bmr', group: 'energy', title: 'კალორიები და ძირითადი ცვლა (BMR)', icon: 'flame',
       desc: 'დღიური ენერგიის საჭიროება ასაკის, სქესის და აქტივობის მიხედვით.',
       fields: [
@@ -63,7 +57,6 @@ window.Vita = window.Vita || {};
         };
       } },
 
-    /* ---------------- იდეალური წონა ---------------- */
     { id: 'ibw', group: 'body', title: 'ჯანსაღი წონის დიაპაზონი', icon: 'body',
       desc: 'ჯანსაღი წონა სიმაღლის მიხედვით (BMI-ზე დაფუძნებული) და Devine-ის ფორმულა.',
       fields: [
@@ -77,7 +70,6 @@ window.Vita = window.Vita || {};
         return { value: `${r1(18.5 * m * m)}–${r1(24.9 * m * m)}`, unit: 'კგ', label: 'ჯანსაღი დიაპაზონი', tone: 'ok', lines: [['Devine-ის ფორმულა', `${r1(dev)} კგ`]], note: 'ეს ორიენტირია და არა მიზანი — კუნთოვანი მასა, ასაკი და აგებულება განსხვავებულ შედეგს ამართლებს.' };
       } },
 
-    /* ---------------- ტალია ---------------- */
     { id: 'whtr', group: 'body', title: 'ტალიის ინდექსები (WHtR / WHR)', icon: 'body',
       desc: 'მუცლისმიერი ცხიმის რისკის შეფასება — ხშირად BMI-ზე ინფორმატიულია.',
       fields: [
@@ -95,7 +87,6 @@ window.Vita = window.Vita || {};
         return { value: r2(v).toFixed(2), unit: 'WHtR', label, tone, scale: { min: 0.3, max: 0.7, pos: v, bands: [[0.4, 'var(--sky)'], [0.5, 'var(--mint)'], [0.6, 'var(--amber)'], [0.7, 'var(--coral)']] }, lines, note: 'მიზანი: ტალია სიმაღლის ნახევარზე ნაკლები (WHtR < 0.5).' };
       } },
 
-    /* ---------------- ცხიმი (Navy) ---------------- */
     { id: 'bodyfat', group: 'body', title: 'სხეულის ცხიმი (US Navy)', icon: 'body',
       desc: 'ცხიმის მიახლოებითი პროცენტი სამი-ოთხი გაზომვიდან.',
       fields: [
@@ -118,7 +109,6 @@ window.Vita = window.Vita || {};
         return { value: r1(bf).toFixed(1), unit: '%', label, tone: label === 'მომატებული' ? 'warn' : 'ok', lines: [], note: 'ზუსტობა ±3–4%. DEXA-ს ან ბიოიმპედანსს ვერ ჩაანაცვლებს.' };
       } },
 
-    /* ---------------- BSA ---------------- */
     { id: 'bsa', group: 'body', title: 'სხეულის ზედაპირის ფართობი (BSA)', icon: 'body',
       desc: 'კლინიკურ პრაქტიკაში გამოიყენება დოზირებისთვის (მაგ. ონკოლოგიაში).',
       fields: [
@@ -131,7 +121,6 @@ window.Vita = window.Vita || {};
         return { value: r2(Math.sqrt((h * w) / 3600)).toFixed(2), unit: 'მ²', label: 'Mosteller', tone: 'info', lines: [], note: 'პრეპარატების დოზას მხოლოდ ექიმი ითვლის.' };
       } },
 
-    /* ---------------- წყალი ---------------- */
     { id: 'water', group: 'energy', title: 'წყლის დღიური ორიენტირი', icon: 'drop',
       desc: 'მიახლოებითი სითხის საჭიროება წონის, ვარჯიშისა და ამინდის მიხედვით.',
       fields: [
@@ -146,7 +135,6 @@ window.Vita = window.Vita || {};
         return { value: r1(ml / 1000).toFixed(1), unit: 'ლ', label: `≈ ${Math.round(ml / 250)} ჭიქა (250 მლ)`, tone: 'info', lines: [], note: 'გულის, თირკმლის დაავადებისას ან ექიმის მიერ სითხის შეზღუდვისას მიჰყევით ექიმის რეკომენდაციას.' };
       } },
 
-    /* ---------------- პულსი ---------------- */
     { id: 'hr', group: 'heart', title: 'პულსის ზონები', icon: 'heart',
       desc: 'მაქსიმალური პულსი და ვარჯიშის ინტენსივობის ზონები.',
       fields: [{ id: 'age', label: 'ასაკი', unit: 'წ', type: 'number', min: 10, max: 100, value: 30 }],
@@ -158,7 +146,6 @@ window.Vita = window.Vita || {};
         return { value: String(mx), unit: 'დ/წთ', label: 'მაქსიმალური პულსი', tone: 'info', lines: [['Tanaka-ს ფორმულა', `${Math.round(tk)} დ/წთ`], ...z.map(([n, a, b]) => [n, `${Math.round(mx * a)}–${Math.round(mx * b)}`])], note: 'ინდივიდუალური მაქსიმუმი შეიძლება ±10–12 დ/წთ-ით განსხვავდებოდეს. გულის დაავადებისას ვარჯიშის ზონა ექიმთან შეათანხმეთ.' };
       } },
 
-    /* ---------------- წნევა ---------------- */
     { id: 'bp', group: 'heart', title: 'არტერიული წნევის კატეგორია', icon: 'heart',
       desc: 'გაზომილი წნევის კლასიფიკაცია (მოზრდილებისთვის).',
       fields: [
@@ -179,7 +166,6 @@ window.Vita = window.Vita || {};
         return { value: `${sys}/${dia}`, unit: 'მმ ვწყ.სვ.', label, tone, lines: [], note };
       } },
 
-    /* ---------------- ძილი ---------------- */
     { id: 'sleep', group: 'energy', title: 'ძილის ციკლების კალკულატორი', icon: 'brain',
       desc: 'როდის დაიძინო ან გაიღვიძო, რომ ციკლის შუაში არ გამოგაღვიძონ.',
       fields: [
@@ -194,7 +180,6 @@ window.Vita = window.Vita || {};
         return { value: hhmm(opts[1].t), unit: '', label: mode === 'wake' ? 'ოპტიმალური დაძინების დრო (5 ციკლი)' : 'ოპტიმალური გაღვიძების დრო (5 ციკლი)', tone: 'ok', lines: opts.map(({ c, t }) => [`${c} ციკლი (${c * 1.5} სთ)`, hhmm(t)]), note: 'მოზრდილებისთვის რეკომენდებულია 7–9 სთ ძილი.' };
       } },
 
-    /* ---------------- ორსულობა ---------------- */
     { id: 'edd', group: 'pregnancy', title: 'მშობიარობის სავარაუდო თარიღი', icon: 'gyn',
       desc: 'ბოლო მენსტრუაციის პირველი დღიდან — ორსულობის კვირა და ტრიმესტრი.',
       fields: [
@@ -214,7 +199,6 @@ window.Vita = window.Vita || {};
         return { value: fmtDate(edd), unit: '', label: `ახლა: ${wk} კვირა და ${days % 7} დღე · ${tri}`, tone: 'info', lines: [['დარჩენილი დღეები', `${Math.max(0, Math.round((edd - today) / 86400000))}`]], note: 'სავარაუდო თარიღია — ბავშვების მხოლოდ ~5% იბადება ზუსტად ამ დღეს. თარიღს ექიმი ექოსკოპიით აზუსტებს.' };
       } },
 
-    /* ---------------- eGFR ---------------- */
     { id: 'egfr', group: 'heart', title: 'თირკმლის ფილტრაცია (eGFR)', icon: 'drop',
       desc: 'კრეატინინის მიხედვით — თირკმლის ფუნქციის ორიენტირი მოზრდილებისთვის.',
       fields: [

@@ -1,9 +1,5 @@
 'use strict';
-/* ==========================================================
-   calculators.js — კალკულატორების გვერდის ინტერფეისი.
-   ფორმები გენერირდება calc-defs.js-ის აღწერებიდან (DOM API),
-   შედეგი ითვლება ყოველ input-ზე რეალურ დროში.
-   ========================================================== */
+
 (() => {
   const { $, $$, el, clamp } = Vita;
   let group = 'all';
@@ -36,7 +32,7 @@
       return [f.id, f.type === 'number' ? (raw === '' ? NaN : parseFloat(raw)) : raw];
     }));
     const update = () => {
-      // სქესზე დამოკიდებული ველის დამალვა (თეძო ქალებისთვის Navy-ში)
+
       if (c.id === 'bodyfat') inputs.hip.closest('.f').hidden = inputs.sex.value !== 'f';
       renderResult(out, c.compute(read()));
     };

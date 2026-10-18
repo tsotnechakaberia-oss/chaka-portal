@@ -1,12 +1,8 @@
 'use strict';
-/* ==========================================================
-   tools.js — ჯანმრთელობის ხელსაწყოები:
-   BMI, წყალი, პულსი, ძილი, ყოველდღიური ტრეკერი
-   ========================================================== */
+
 (() => {
   const { $, $$, el, clamp, store, toast, todayKey, pad } = Vita;
 
-  /** რიცხვის გლუვი ანიმაცია */
   const tween = (node, to, { dec = 1, suffix = '' } = {}) => {
     const from = parseFloat(node.textContent) || 0, t0 = performance.now(), dur = 700;
     const step = (now) => {
@@ -17,7 +13,6 @@
     requestAnimationFrame(step);
   };
 
-  /* ---------- ტაბები ---------- */
   const initTabs = () => {
     const tabs = $$('#tool-tabs .tab');
     const show = (name) => {
@@ -35,7 +30,6 @@
     });
   };
 
-  /* ---------- BMI ---------- */
   const bmi = (() => {
     const h = $('#bmi-h'), w = $('#bmi-w');
     const angle = (b) => {
@@ -65,7 +59,6 @@
     return { update };
   })();
 
-  /* ---------- წყალი ---------- */
   const water = (() => {
     const w = $('#wt-w'), a = $('#wt-a'), hot = $('#wt-hot');
     const update = () => {
@@ -79,7 +72,6 @@
     return { update };
   })();
 
-  /* ---------- პულსი ---------- */
   const pulse = (() => {
     const age = $('#pl-age');
     const zones = [
@@ -101,7 +93,6 @@
     };
     age.addEventListener('input', update);
 
-    // 15-წამიანი ტესტი
     const start = $('#pulse-start'), beat = $('#beat-btn'), status = $('#pulse-status');
     let taps = 0, timer = null;
     start.addEventListener('click', () => {
@@ -122,7 +113,6 @@
     return { update };
   })();
 
-  /* ---------- ძილი ---------- */
   const sleep = (() => {
     const input = $('#sleep-time');
     let mode = 'wake';
@@ -154,7 +144,6 @@
     return { update };
   })();
 
-  /* ---------- ტრეკერი ---------- */
   const tracker = (() => {
     const MOODS = ['😞', '😐', '🙂', '😄', '🤩'];
     const score = (r) => Math.round(clamp(r.water / 8, 0, 1) * 35 + clamp(r.steps / 8000, 0, 1) * 35 + clamp(r.sleep / 7, 0, 1) * 30);
@@ -184,7 +173,7 @@
       const fg = $('#ring-fg'); fg.style.strokeDashoffset = 327 * (1 - s / 100);
       fg.style.stroke = s >= 80 ? 'var(--mint)' : s >= 50 ? 'var(--amber)' : 'var(--coral)';
       $('#score-note').textContent = s >= 80 ? 'შესანიშნავი დღეა! ასე გააგრძელე 💚' : s >= 50 ? 'კარგი ტემპია — კიდევ ცოტა წყალი ან გასეირნება.' : 'დღე ახლა იწყება: ერთი ჭიქა წყალი და 10-წუთიანი ნაბიჯები კარგი დასაწყისია.';
-      // 7 დღე
+
       const all = load(), bars = $('#week-bars'); const days = ['კვ', 'ორ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'];
       bars.replaceChildren(...Array.from({ length: 7 }, (_, k) => {
         const d = new Date(); d.setDate(d.getDate() - (6 - k));

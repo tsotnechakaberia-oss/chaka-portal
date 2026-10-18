@@ -1,8 +1,5 @@
 'use strict';
-/* ==========================================================
-   firstaid.js — პირველადი დახმარების ბარათები და
-   ნაბიჯ-ნაბიჯ ინსტრუქცია (CPR მეტრონომით)
-   ========================================================== */
+
 (() => {
   const { $, el } = Vita;
   let audioCtx = null, beepTimer = null;
@@ -15,7 +12,7 @@
       o.frequency.value = 880; g.gain.setValueAtTime(.18, audioCtx.currentTime);
       g.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .09);
       o.connect(g).connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + .1);
-    } catch { /* აუდიო მიუწვდომელია */ }
+    } catch {  }
   };
 
   const openAid = (item) => {

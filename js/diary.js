@@ -1,9 +1,5 @@
 'use strict';
-/* ==========================================================
-   diary.js — ჯანმრთელობის დღიური: წონა, წნევა, პულსი
-   • ჩანაწერები localStorage-ში • ფორმის ვალიდაცია
-   • canvas გრაფიკი (ბიბლიოთეკის გარეშე), hover ინფო, CSV ექსპორტი
-   ========================================================== */
+
 (() => {
   const { $, $$, el, store, toast, setError, todayKey, clamp, prefersReduced } = Vita;
 
@@ -19,7 +15,6 @@
   const save = () => store.set('diary', entries);
   const valuesFor = (m) => entries.filter((e) => METRICS[m].series.some((s) => e[s.key] != null)).sort((a, b) => a.date.localeCompare(b.date));
 
-  /* ---------- ფორმა ---------- */
   const RULES = {
     weight: [20, 300, 'წონა: 20–300 კგ'], sys: [70, 250, 'სისტოლური: 70–250'], dia: [40, 150, 'დიასტოლური: 40–150'], pulse: [30, 220, 'პულსი: 30–220'],
   };
@@ -48,14 +43,13 @@
       if (!v) { toast('გთხოვთ, გაასწოროთ ფორმა', 'error'); $('#diary-form .invalid')?.focus(); return; }
       entries.push({ id: Date.now().toString(36), date: f.date.value, weight: v.weight, sys: v.sys, dia: v.dia, pulse: v.pulse, note: f.note.value.trim().slice(0, 120) });
       save(); ['weight', 'sys', 'dia', 'pulse', 'note'].forEach((k) => { f[k].value = ''; f[k].classList.remove('valid'); });
-      // გადავრთოთ იმ ჩანართზე, სადაც ახალი მონაცემია
+
       metric = v.weight !== null ? 'weight' : v.sys !== null ? 'bp' : 'pulse';
       renderAll(true); toast('ჩანაწერი დაემატა');
     });
     ['weight', 'sys', 'dia', 'pulse'].forEach((k) => f[k].addEventListener('blur', () => validate(f)));
   };
 
-  /* ---------- სტატისტიკა და სია ---------- */
   const renderStats = () => {
     const box = $('#d-stats'), m = METRICS[metric], rows = valuesFor(metric);
     if (!rows.length) { box.replaceChildren(); return; }
@@ -90,7 +84,6 @@
     const a = el('a', { href: url, download: 'chaka-diary.csv' }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
-  /* ---------- გრაფიკი (Canvas 2D) ---------- */
   const cv = () => $('#d-chart');
   const geometry = (c) => ({ w: c.clientWidth, h: c.clientHeight, l: 46, r: 16, t: 18, b: 34 });
 
@@ -112,7 +105,6 @@
     const Y = (v) => g.t + (1 - (v - lo) / (hi - lo)) * (g.h - g.t - g.b);
     g.X = X; g.Y = Y; c._g = g;
 
-    // ბადე და ღერძები
     ctx.font = `11px ${css('--mono')}`; ctx.textBaseline = 'middle'; ctx.lineWidth = 1;
     for (let i = 0; i <= 4; i++) {
       const v = lo + ((hi - lo) * i) / 4, y = Y(v);
@@ -124,7 +116,6 @@
     const ticks = Math.min(rows.length, Math.max(2, Math.floor((g.w - g.l) / 90)));
     for (let i = 0; i < ticks; i++) { const r = rows[ticks === 1 ? 0 : Math.round((i * (rows.length - 1)) / (ticks - 1))]; ctx.fillText(fmtDate(r.date), clamp(X(r.date), g.l + 14, g.w - g.r - 14), g.h - g.b + 10); }
 
-    // ხაზები (გამოჩენის ანიმაცია მარცხნიდან მარჯვნივ)
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, g.l + (g.w - g.l) * progress, g.h); ctx.clip();
     m.series.forEach((s) => {
       const pts = rows.filter((r) => r[s.key] != null).map((r) => [X(r.date), Y(r[s.key]), r]);
@@ -180,7 +171,7 @@
   const renderAll = (anim = false) => { renderTabs(); renderStats(); renderList(); anim ? animate() : draw(); };
 
   const demo = () => {
-    // დემო მონაცემები გრაფიკის სანახავად
+
     const out = [];
     for (let i = 13; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i * 2); out.push({ id: `demo${i}`, date: todayKey(d), weight: +(78 - (13 - i) * 0.15 + Math.sin(i) * 0.3).toFixed(1), sys: 118 + Math.round(Math.sin(i * 1.3) * 8), dia: 76 + Math.round(Math.cos(i) * 5), pulse: 68 + Math.round(Math.sin(i * 2) * 7), note: i === 0 ? 'დემო მონაცემი' : '' }); }
     entries = entries.concat(out); save(); renderAll(true); toast('დემო მონაცემები დაემატა');

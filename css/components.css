@@ -1,8 +1,3 @@
-/* ==========================================================
-   components.css — ღილაკები, ბარათები, ფორმები, ხელსაწყოები…
-   ========================================================== */
-
-/* ---------- ღილაკები ---------- */
 .btn {
   --bx: 0px; --by: 0px;
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
@@ -30,7 +25,6 @@
 .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ---------- ბარათები და holo-ეფექტი ---------- */
 .card {
   position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   padding: clamp(1.1rem, 2.4vw, 1.8rem); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: var(--shadow);
@@ -52,14 +46,12 @@
 .note { font-size:var(--fs-sm); color: var(--muted); border-inline-start: 2px solid var(--line-strong); padding-inline-start: .8rem; margin-top: 1rem; }
 .empty-note { color: var(--muted); font-size:var(--fs-md); margin: 0; }
 
-/* ---------- ნაბიჯები ---------- */
 .step-card { padding-top: 2rem; }
 .step-num { position: absolute; right: 1.2rem; top: 1rem; font-size:var(--fs-3xl); font-weight: 600; color: transparent; -webkit-text-stroke: 1px var(--line-strong); }
 .step-ico { width: 64px; height: 64px; margin-bottom: 1rem; color: var(--mint); }
 .step-ico svg, .chip-ico svg { width: 100%; height: 100%; }
 .step-card p { color: var(--muted); margin: 0; }
 
-/* ---------- ფორმის ელემენტები ---------- */
 .input {
   width: 100%; padding: .8rem 1rem; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--line-strong);
   color: var(--text); transition: border-color .25s, box-shadow .25s, background .25s;
@@ -94,7 +86,6 @@ input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; h
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--surface-solid); border: 3px solid var(--mint); box-shadow: 0 0 14px var(--mint); cursor: grab; }
 input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--surface-solid); border: 3px solid var(--mint); box-shadow: 0 0 14px var(--mint); cursor: grab; }
 
-/* ---------- chips ---------- */
 .chip-wrap { display: flex; flex-wrap: wrap; gap: .55rem; }
 .chip {
   display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line-strong);
@@ -107,7 +98,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .spec-filter { margin: 1.1rem 0 .4rem; }
 .result-count { font-size:var(--fs-xs); color: var(--muted); margin: .8rem 0 0; letter-spacing: .08em; }
 
-/* ---------- toolbar ---------- */
 .toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; padding: 1rem 1.2rem; }
 .toolbar .search-box { flex: 1 1 260px; }
 .toolbar select { width: auto; min-width: 170px; }
@@ -115,7 +105,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
 .search-box .input { padding-left: 2.6rem; }
 
-/* ---------- სხეულის რუკა ---------- */
 .body-panel { text-align: center; }
 .body-stage { position: relative; width: min(250px, 70%); margin: 0 auto 1rem; overflow: hidden; border-radius: 16px; padding: .5rem; }
 .body-svg { width: 100%; height: auto; overflow: visible; }
@@ -155,7 +144,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .hint-list li { margin-bottom: .35rem; }
 .hint-list b { color: var(--text); }
 
-/* ---------- ექიმის ბარათი ---------- */
 .doc-card { display: flex; flex-direction: column; gap: .7rem; padding: 1.3rem; cursor: pointer; animation: popIn .5s var(--ease) both; }
 .doc-top { display: flex; align-items: center; gap: .9rem; }
 .doc-avatar { width: 64px; height: 64px; border-radius: 20px; flex-shrink: 0; }
@@ -173,7 +161,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .avail.off { background: var(--surface-2); color: var(--muted); }
 .no-results { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--muted); }
 
-/* ---------- ჯავშნები ---------- */
 .bookings { margin-top: 2.2rem; }
 .bookings-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .bookings-head h3 { margin: 0; }
@@ -185,7 +172,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .btn-danger { color: var(--coral); border-color: color-mix(in srgb, var(--coral) 50%, transparent); }
 .btn-danger:hover { background: var(--coral); color: var(--white); border-color: var(--coral); }
 
-/* ---------- მოდალი ---------- */
 .modal { width: min(560px, 94vw); max-height: 92vh; padding: 0; border: 1px solid var(--line-strong); border-radius: 26px; background: var(--surface-solid); color: var(--text); box-shadow: 0 40px 100px -20px rgba(0,0,0,.8), var(--glow); overflow: auto; }
 .modal-wide { width: min(720px, 94vw); }
 .modal[open] { animation: modalIn .45s var(--ease); }
@@ -206,7 +192,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .bk-ok svg { width: 96px; height: 96px; margin: 0 auto 1rem; }
 .bk-ok .code { display: inline-block; margin: .6rem 0 1.2rem; padding: .6rem 1.4rem; border-radius: 12px; border: 2px dashed var(--mint); color: var(--mint); font-family: var(--mono); font-size:var(--fs-xl); letter-spacing: .14em; }
 
-/* ---------- ტაბები და ხელსაწყოები ---------- */
 .tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; padding: .4rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); width: fit-content; max-width: 100%; }
 .tab { padding: .6rem 1.3rem; border-radius: 999px; border: 0; background: transparent; color: var(--muted); font-weight: 600; transition: all .3s var(--ease); }
 .tab:hover { color: var(--text); }
@@ -277,7 +262,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .wb i { width: 22px; border-radius: 6px 6px 3px 3px; background: var(--grad); min-height: 3px; transition: height .8s var(--ease); opacity: .9; }
 .wb.today i { box-shadow: 0 0 14px var(--mint); }
 
-/* ---------- პირველადი დახმარება ---------- */
 .aid-card { cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: .5rem; color: var(--text); width: 100%; font: inherit; }
 .aid-card .aid-ico { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; color: var(--c, var(--coral)); background: color-mix(in srgb, var(--c, var(--coral)) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c, var(--coral)) 40%, transparent); }
 .aid-card .aid-ico svg { width: 30px; height: 30px; }
@@ -299,7 +283,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .metro p { margin: 0; font-size:var(--fs-sm); color: var(--muted); flex: 1; }
 .metro b { color: var(--text); font-family: var(--mono); }
 
-/* ---------- აკორდეონი ---------- */
 .acc-list { display: grid; gap: .8rem; margin-top: 1rem; }
 .acc-item { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-sm); overflow: hidden; backdrop-filter: blur(10px); transition: border-color .3s; animation: popIn .45s var(--ease) both; }
 .acc-item.open { border-color: var(--line-strong); }
@@ -320,7 +303,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .acc-body .red-flag h4 { color: var(--coral); }
 mark { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inherit; border-radius: 4px; padding: 0 2px; }
 
-/* ---------- Myth game ---------- */
 .myth { margin-top: 2.4rem; text-align: center; }
 .myth-head { display: flex; flex-direction: column; align-items: center; gap: .3rem; position: relative; }
 .myth-head .tag { position: absolute; right: 0; top: 0; }
@@ -330,7 +312,6 @@ mark { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inh
 .myth-explain.ok { color: var(--mint); } .myth-explain.bad { color: var(--coral); }
 .myth-explain span { color: var(--muted); display: block; margin-top: .3rem; }
 
-/* ---------- FAQ ---------- */
 .faq h3 { margin-bottom: 1rem; }
 .faq-item { border-bottom: 1px solid var(--line); padding: .3rem 0; }
 .faq-item summary { cursor: pointer; padding: .9rem 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
@@ -340,7 +321,6 @@ mark { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inh
 .faq-item p { color: var(--muted); padding-bottom: .8rem; margin: 0; animation: popIn .4s var(--ease); }
 .contact-form h3 { margin-bottom: 1.2rem; }
 
-/* ---------- float chips, toasts, to-top ---------- */
 .float-chip { position: absolute; display: flex; align-items: center; gap: .5rem; padding: .45rem .9rem; font-size:var(--fs-xs); border-radius: 999px; background: var(--surface); border: 1px solid var(--line-strong); backdrop-filter: blur(8px); letter-spacing: .06em; z-index: 2; animation: float 5s ease-in-out infinite; }
 .float-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
 .fc1 { left: -4%; top: 12%; } .fc1 i { background: var(--coral); box-shadow: 0 0 8px var(--coral); }
@@ -355,7 +335,6 @@ mark { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inh
 .to-top:hover { border-color: var(--mint); color: var(--mint); }
 .news-row { display: flex; gap: .5rem; }
 
-/* ---------- loader ---------- */
 #loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--bg); transition: opacity .7s, visibility .7s, transform .9s var(--ease); }
 #loader.done { opacity: 0; visibility: hidden; transform: scale(1.08); }
 .loader-inner { display: grid; justify-items: center; gap: 1rem; }

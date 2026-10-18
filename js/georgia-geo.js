@@ -1,6 +1,5 @@
 'use strict';
-/* georgia-geo.js — საქართველოს საზღვრის გამარტივებული კონტური (Natural Earth, public domain, world-atlas),
-   დაპროექტებულია equirectangular მეთოდით. */
+
 window.Vita = window.Vita || {};
 Vita.GEO = {
   lon0: 39.9, lat0: 43.65, scale: 200, k: 0.73963, width: 1013, height: 540,

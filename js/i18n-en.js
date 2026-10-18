@@ -1,14 +1,9 @@
 'use strict';
-/* ==========================================================
-   i18n-en.js — ინგლისური ლექსიკონი (ქართული ტექსტი → ინგლისური)
-   გასაღები = ზუსტი ქართული ტექსტი ინტერფეისში.
-   არ ითარგმნება: სამედიცინო სტატიები, სიმპტომები, პირველადი
-   დახმარების ნაბიჯები, ექიმების ბიოგრაფიები და სახელები.
-   ========================================================== */
+
 window.Vita = window.Vita || {};
 
 Vita.I18N_EN = {
-  /* ---------- საერთო: header / footer ---------- */
+
   "ჩაკა": "Chaka",
   "ჩაკა — სამედიცინო პორტალი": "Chaka — Medical Portal",
   "იტვირთება": "Loading",
@@ -40,7 +35,6 @@ Vita.I18N_EN = {
   "სასწავლო პროექტი (HTML · CSS · JavaScript). არ წარმოადგენს სამედიცინო რჩევას, დიაგნოსტიკას ან მკურნალობას.": "A learning project (HTML · CSS · JavaScript). It is not medical advice, diagnosis or treatment.",
   "გამოწერა დაემატა (დემო) ✓": "Subscribed (demo) ✓",
 
-  /* ---------- მთავარი გვერდი ---------- */
   "ახლავე დაჯავშნე:": "Book now:",
   "კარდიოლოგი": "Cardiologist",
   "მომავლის": "The future of",
@@ -68,7 +62,6 @@ Vita.I18N_EN = {
   "დაჯავშნე ვიზიტი": "Book a visit",
   "აირჩიე ექიმი, თარიღი და დრო — ჯავშნის კოდს მაშინვე მიიღებ.": "Choose a doctor, date and time — you get a booking code right away.",
 
-  /* ---------- სიმპტომები ---------- */
   "02 // სიმპტომების რუკა": "02 // Symptom map",
   "სად გტკივა? დააჭირე რუკაზე": "Where does it hurt? Tap the map",
   "ინტერაქტიული სკანერი გიჩვენებს, რომელ სპეციალისტს მიმართო. ეს არის საინფორმაციო ხელსაწყო და არა დიაგნოზი.": "The interactive scanner shows which specialist to see. This is an informational tool, not a diagnosis.",
@@ -107,7 +100,6 @@ Vita.I18N_EN = {
   "ფეხები": "Legs",
   "ზოგადი სიმპტომები": "General symptoms",
 
-  /* ---------- ექიმები / ჯავშანი ---------- */
   "03 // ექიმების კატალოგი": "03 // Doctor catalogue",
   "იპოვე სპეციალისტი და დაჯავშნე ვიზიტი": "Find a specialist and book a visit",
   "ფილტრი, ძებნა და დალაგება — ყველაფერი რეალურ დროში. ექიმები დემო/გამოგონილი პერსონაჟები არიან.": "Filter, search and sort — all in real time. The doctors are demo / fictional characters.",
@@ -178,7 +170,6 @@ Vita.I18N_EN = {
   "კალენდრის ფაილი ჩამოიტვირთა": "Calendar file downloaded",
   "ექიმი ": "Doctor",
 
-  /* ---------- კლინიკები ---------- */
   "საქართველოს რუკა": "Map of Georgia",
   "კლინიკები მთელ საქართველოში": "Clinics across Georgia",
   "სახელმწიფო, საუნივერსიტეტო, რეგიონული და კერძო დაწესებულებები ინტერაქტიულ რუკაზე — რეგიონის, ტიპისა და პროფილის ფილტრით.": "State, university, regional and private facilities on an interactive map — filter by region, type and profile.",
@@ -228,7 +219,6 @@ Vita.I18N_EN = {
   "შავი ზღვა": "Black Sea", "რუსეთი": "Russia", "თურქეთი": "Türkiye", "სომხეთი": "Armenia", "აზერბაიჯანი": "Azerbaijan",
   "საქართველოს რუკა სამედიცინო დაწესებულებების მარკერებით": "Map of Georgia with markers of medical facilities",
 
-  /* ---------- ხელსაწყოები (მთავარი) ---------- */
   "04 // ჯანმრთელობის ლაბორატორია": "04 // Health lab",
   "ხუთი ხელსაწყო ყოველდღიური ზრუნვისთვის": "Five tools for everyday care",
   "გამოთვლები სწრაფი ორიენტირებისთვისაა და არ ცვლის ექიმის რჩევას.": "The calculations are quick guidelines and do not replace a doctor's advice.",
@@ -289,7 +279,6 @@ Vita.I18N_EN = {
   "მაქსიმუმი": "Maximum", "მსუბუქი": "Light", "ცხიმის წვის": "Fat burning", "აერობული": "Aerobic", "ანაერობული": "Anaerobic",
   "გახურება, აღდგენა": "Warm-up, recovery", "ხანგრძლივი მსუბუქი კარდიო": "Long light cardio", "გამძლეობის გაუმჯობესება": "Endurance improvement", "მაღალი ინტენსივობა": "High intensity", "მხოლოდ მოკლე ინტერვალები": "Short intervals only", "სიფიფქე": "Warm-up",
 
-  /* ---------- პირველადი დახმარება ---------- */
   "05 // პირველადი დახმარება": "05 // First aid",
   "წამები ცხოვრებას წყვეტს — იცოდე რა უნდა გააკეთო": "Seconds decide lives — know what to do",
   "ნაბიჯ-ნაბიჯ ინსტრუქციები. ნებისმიერ სერიოზულ შემთხვევაში პირველ რიგში დარეკე": "Step-by-step instructions. In any serious case, first call",
@@ -302,7 +291,6 @@ Vita.I18N_EN = {
   "🔊 ხმის გამორთვა": "🔊 Sound off",
   "დაწოლის ტემპი:": "Compression rate:",
 
-  /* ---------- ბიბლიოთეკა ---------- */
   "06 // სამედიცინო ბიბლიოთეკა": "06 // Medical library",
   "გასაგები ენით — დაავადებებზე და პრევენციაზე": "In plain language — about diseases and prevention",
   "მოძებნე თემა ან აირჩიე კატეგორია. თითოეულ სტატიაში: ნიშნები, როდის მივმართოთ ექიმს, პრევენცია.": "Search a topic or pick a category. Each article covers: signs, when to see a doctor, prevention.",
@@ -324,7 +312,6 @@ Vita.I18N_EN = {
   "შედეგის ნახვა": "See result",
   "↻ თავიდან": "↻ Restart",
 
-  /* ---------- კონტაქტი ---------- */
   "07 // კონტაქტი და FAQ": "07 // Contact and FAQ",
   "გვკითხე — ვუპასუხებთ": "Ask us — we'll answer",
   "ხშირი კითხვები": "Frequently asked questions",
@@ -361,7 +348,6 @@ Vita.I18N_EN = {
   "შეიყვანეთ სწორი ელ-ფოსტა": "Enter a valid e-mail",
   "შეტყობინება მინიმუმ 10 სიმბოლოა": "The message must be at least 10 characters",
 
-  /* ---------- კალკულატორების გვერდი ---------- */
   "კალკულატორები — ჩაკა": "Calculators — Chaka",
   "/ კალკულატორები": "/ Calculators",
   "ონლაინ": "Online",
@@ -477,7 +463,6 @@ Vita.I18N_EN = {
   "მოზრდილებისთვის რეკომენდებულია 7–9 სთ ძილი.": "7–9 hours of sleep are recommended for adults.",
   ". მარკერები მიახლოებით ადგილს აჩვენებს (ქალაქის/უბნის დონეზე) — მისამართი, სამუშაო საათები და ტელეფონი გადაამოწმეთ ოფიციალურ წყაროში. გადაუდებელ შემთხვევაში დარეკეთ": ". Markers show an approximate location (city/district level) — verify the address, opening hours and phone in an official source. In an emergency, call",
 
-  /* ---------- დღიური ---------- */
   "ჯანმრთელობის დღიური — ჩაკა": "Health diary — Chaka",
   "/ დღიური": "/ Diary",
   "ჯანმრთელობის": "Health",
@@ -506,7 +491,6 @@ Vita.I18N_EN = {
   "ექსპორტისთვის მონაცემი არ არის": "No data to export", "წაიშალოს ყველა ჩანაწერი?": "Delete all entries?", "დემო მონაცემი": "Demo entry",
 };
 
-/* ---------- შაბლონური ტექსტები (რიცხვებით) ---------- */
 Vita.I18N_PATTERNS = [
   [/^ნაპოვნია: (\d+) \/ (\d+)$/, (m) => `Found: ${m[1]} / ${m[2]}`],
   [/^სტატია: (\d+) \/ (\d+)$/, (m) => `Articles: ${m[1]} / ${m[2]}`],

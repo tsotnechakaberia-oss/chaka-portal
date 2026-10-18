@@ -1,14 +1,11 @@
 'use strict';
-/* ==========================================================
-   utils.js — დამხმარე ფუნქციები (DOM, storage, toast…)
-   ========================================================== */
+
 window.Vita = window.Vita || {};
 
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-  /** ელემენტის დინამიური შექმნა: el('div', {class:'a', onClick(){}}, 'ტექსტი', childNode) */
   const el = (tag, props = {}, ...children) => {
     const node = document.createElement(tag);
     for (const [key, val] of Object.entries(props || {})) {
@@ -33,18 +30,16 @@ window.Vita = window.Vita || {};
   const pad = (n) => String(n).padStart(2, '0');
   const todayKey = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 
-  /** უსაფრთხო localStorage */
   const store = {
     get(key, fallback) {
       try { const raw = localStorage.getItem('vita.' + key); return raw === null ? fallback : JSON.parse(raw); }
       catch { return fallback; }
     },
     set(key, value) {
-      try { localStorage.setItem('vita.' + key, JSON.stringify(value)); } catch { /* private mode */ }
+      try { localStorage.setItem('vita.' + key, JSON.stringify(value)); } catch {  }
     },
   };
 
-  /** შეტყობინება (toast) */
   const toast = (message, type = 'ok', ms = 3600) => {
     const host = $('#toasts');
     if (!host) return;
@@ -55,13 +50,11 @@ window.Vita = window.Vita || {};
     setTimeout(() => { node.classList.add('out'); setTimeout(() => node.remove(), 400); }, ms);
   };
 
-  /** range input-ის შევსების პროგრესი (CSS --p) */
   const paintRange = (input) => {
     const min = +input.min || 0, max = +input.max || 100;
     input.style.setProperty('--p', `${((input.value - min) / (max - min)) * 100}%`);
   };
 
-  /** ფორმის ვალიდაციის დამხმარეები */
   const setError = (input, message) => {
     const slot = document.querySelector(`[data-err="${input.id}"]`);
     if (slot) slot.textContent = message || '';
@@ -73,7 +66,7 @@ window.Vita = window.Vita || {};
     return !message;
   };
   const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
-  /** ქართული მობილური: +995 5XX XX XX XX ან 5XXXXXXXX */
+
   const isGePhone = (v) => /^(\+?995)?\s?5\d{2}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}$/.test(v.trim());
 
   const lang = store.get('lang', 'ka') === 'en' ? 'en' : 'ka';

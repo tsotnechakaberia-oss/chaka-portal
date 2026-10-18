@@ -1,13 +1,10 @@
 'use strict';
-/* ==========================================================
-   page-clinics.js — კლინიკების გვერდი: რუკა + ფილტრები + სია
-   ========================================================== */
+
 (() => {
   const { $, el, debounce } = Vita;
   const state = { q: '', region: 'all', type: 'all', profile: 'all' };
   let map, list = [], me = null;
 
-  /* მანძილი ორ წერტილს შორის (ჰავერსინუსი), კმ */
   const km = (aLat, aLon, bLat, bLon) => {
     const r = (d) => d * Math.PI / 180, dLat = r(bLat - aLat), dLon = r(bLon - aLon);
     const h = Math.sin(dLat / 2) ** 2 + Math.cos(r(aLat)) * Math.cos(r(bLat)) * Math.sin(dLon / 2) ** 2;
@@ -60,7 +57,6 @@
     $('#f-region').append(...regions.map((r) => el('option', { value: r, text: r })));
     $('#f-profile').append(...profiles.map((p) => el('option', { value: p, text: p })));
 
-    // ტიპის ჩიპები + ლეგენდა
     const chips = $('#f-types');
     const paintChips = () => chips.replaceChildren(...[['all', 'ყველა']].concat(Object.entries(Vita.CLINIC_TYPES).map(([k, v]) => [k, v.name])).map(([k, t]) =>
       el('button', { type: 'button', class: `chip${state.type === k ? ' is-active' : ''}`, 'aria-pressed': String(state.type === k), onClick: () => { state.type = k; paintChips(); renderList(); } }, t)));
@@ -80,7 +76,6 @@
     renderList(); showDetail(null);
   };
 
-  /* ---------- „ჩემთან ახლოს“ (Geolocation API) ---------- */
   const initNear = () => {
     const btn = $('#near-me'), clear = $('#near-clear');
     if (!btn) return;
@@ -104,7 +99,6 @@
 
   Vita.clinicsPage = { init };
 
-  /* მთავარი გვერდის მინი-რუკა (გამოიყენება index.html-ზე) */
   Vita.initMiniMap = () => {
     const svg = document.getElementById('mini-map'); if (!svg || !Vita.GeoMap) return;
     new Vita.GeoMap(svg, { clinics: Vita.CLINICS, interactive: false });
