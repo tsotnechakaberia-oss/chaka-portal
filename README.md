@@ -56,4 +56,4 @@ docs/  დავალება-1-პროექტის-იდეა.docx
 ## წყაროები
 
 WHO (BMI, WHR), ACC/AHA 2017 (წნევა), CKD-EPI 2021, Mifflin–St Jeor 1990, Mosteller 1987, US Navy ცხიმის ფორმულა, Naegele-ს წესი.
-რუკა: Natural Earth. რეფერალური ჰოსპიტალების სია: GePhA; ზოგი მისამართი — UK Embassy Georgia medical facilities list.
+რუკა: საზღვარი — @geo-maps/countries-land-250m (MIT); რეგიონები, მდინარე კურა, ტბები და მაგისტრალები — Natural Earth (public domain). რეფერალური ჰოსპიტალების სია: GePhA; ზოგი მისამართი — UK Embassy Georgia medical facilities list.
