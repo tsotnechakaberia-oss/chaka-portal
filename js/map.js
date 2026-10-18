@@ -38,9 +38,15 @@
         svgEl('defs', {}, svgEl('pattern', { id: 'seaDots', width: 14, height: 14, patternUnits: 'userSpaceOnUse' }, svgEl('circle', { cx: 2, cy: 2, r: 1, class: 'map-sea-dot' }))),
         this.sea = svgEl('rect', { x: -2000, y: -2000, width: 6000, height: 6000, class: 'map-sea' }),
         svgEl('rect', { x: -2000, y: -2000, width: 6000, height: 6000, fill: 'url(#seaDots)' }),
+        this.nb = svgEl('path', { d: G.neighbors, class: 'map-nb' }),
         this.land = svgEl('path', { d: G.path, class: 'map-land' }),
+        this.lakes = svgEl('path', { d: G.lakes, class: 'map-lake' }),
+        this.regions = svgEl('path', { d: G.regions, class: 'map-reg' }),
+        this.roads = svgEl('path', { d: G.roads, class: 'map-road' }),
+        this.rivers = svgEl('path', { d: G.rivers, class: 'map-river' }),
         this.labels = svgEl('g', { class: 'map-labels', 'aria-hidden': 'true' }),
         this.layer = svgEl('g', { class: 'map-markers' }));
+      G.regionNames.forEach(([t, x, y]) => this.labels.append(svgEl('text', { x, y, class: 'map-lbl reg' }, document.createTextNode(t))));
       LABELS.forEach(([t, lon, lat, cls]) => { const [x, y] = this.P(lon, lat); this.labels.append(svgEl('text', { x, y, class: `map-lbl ${cls}` }, document.createTextNode(t))); });
       CITIES.forEach(([t, lon, lat, major]) => {
         const [x, y] = this.P(lon, lat);
@@ -132,7 +138,7 @@
       const u = 1 / this.scale();
       this.labels.style.setProperty('--u', u);
       this.svg.style.setProperty('--u', u);
-      this.land.setAttribute('stroke-width', 1.4 * u);
+      this.svg.classList.toggle('z-in', this.vb.w < this.full.w / 3);
       this.layer.replaceChildren(...this.cluster().map((k) => {
         const g = svgEl('g', { class: 'mk', transform: `translate(${k.x} ${k.y})` });
         if (k.items.length > 1) {
