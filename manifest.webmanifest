@@ -1,0 +1,23 @@
+{
+  "name": "ჩაკა — სამედიცინო პორტალი",
+  "short_name": "ჩაკა",
+  "description": "სიმპტომების რუკა, ექიმები, ანალიზების ახსნა და ოფლაინ გადაუდებელი რეჟიმი.",
+  "lang": "ka",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050a14",
+  "theme_color": "#050a14",
+  "categories": ["health", "medical"],
+  "icons": [
+    { "src": "img/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "გადაუდებელი რეჟიმი", "short_name": "112", "url": "emergency.html", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "ანალიზის ახსნა", "short_name": "ანალიზები", "url": "labs.html", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "ვიზიტისთვის მომზადება", "short_name": "მომზადება", "url": "prep.html", "icons": [{ "src": "img/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
