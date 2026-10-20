@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ვიზიტისთვის მომზადება — ჩაკა</title>
+  <meta name="description" content="მოამზადე ერთგვერდიანი ფურცელი ექიმისთვის: საჩივარი, სიმპტომები, დღიურის მონაცემები, ანალიზები და შეკითხვები. დაბეჭდე ან შეინახე.">
+  <meta name="theme-color" content="#050a14">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+  <script>try{if(JSON.parse(localStorage.getItem('chaka.lang'))==='en')document.documentElement.classList.add('i18n-pending')}catch(e){}</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5' fill='%23050a14' stroke='%232df5c4' stroke-width='4'/%3E%3Cpath d='M12 34H24L28 24L34 44L38 30L41 34H52' fill='none' stroke='%232df5c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div id="loader" role="status" aria-label="იტვირთება">
+    <div class="loader-inner">
+      <div data-logo="draw" class="loader-logo"></div>
+      <div class="loader-word" aria-hidden="true">ჩ<span>ა</span>კ<span>ა</span></div>
+      <div class="loader-bar"><i></i></div>
+      <p class="loader-text mono">სისტემის დიაგნოსტიკა…</p>
+    </div>
+  </div>
+
+  <div class="bg-fx" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <a class="skip-link" href="#main">გადასვლა შინაარსზე</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-row">
+      <a href="index.html" class="brand">
+        <span data-logo="mark" class="brand-mark"></span>
+        <span class="brand-name">ჩაკა<small class="mono">MED·PORTAL</small></span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="მთავარი მენიუ">
+        <a href="index.html#symptoms">სიმპტომები</a>
+        <a href="index.html#doctors">ექიმები</a>
+        <a href="clinics.html">კლინიკები</a>
+        <a href="calculators.html">კალკულატორები</a>
+        <a href="diary.html">დღიური</a>
+        <a href="labs.html">ანალიზები</a>
+        <a href="index.html#firstaid">პირველი დახმარება</a>
+        <a href="index.html#library">ბიბლიოთეკა</a>
+        <a href="index.html#contact">კონტაქტი</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:112" class="sos-btn" aria-label="გადაუდებელი დახმარება 112"><i class="sos-dot"></i>112</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="თემის შეცვლა" title="ბნელი / ნათელი თემა">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero no-print">
+      <div class="container">
+        <p class="crumbs mono reveal"><a href="index.html">მთავარი</a> / ვიზიტის მომზადება</p>
+        <h1 class="reveal" style="--d:.05s">ვიზიტისთვის <em class="grad-text">მომზადება</em></h1>
+        <p class="section-lead reveal" style="--d:.1s">შეაგროვე ყველაფერი ერთ ფურცელზე: საჩივარი, სიმპტომები, დღიურის მონაცემები, ანალიზები და შეკითხვები ექიმისთვის. დაბეჭდე ან შეინახე და ვიზიტზე წაიღე.</p>
+        <div class="trust-row">
+          <div class="card reveal"><b>🔗 ყველაფერი ერთად</b>სიმპტომების რუკა, დღიური და ანალიზები ავტომატურად ემატება.</div>
+          <div class="card reveal" style="--d:.08s"><b>🔒 კონფიდენციალურობა</b>მონაცემები რჩება შენს ბრაუზერში და არსად იგზავნება.</div>
+          <div class="card reveal" style="--d:.16s"><b>🖨 ბეჭდვა და ექსპორტი</b>ბეჭდვა, PDF-ად შენახვა, ტექსტად ჩამოტვირთვა ან კოპირება.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-compact">
+      <div class="container prep-layout">
+        <form id="prep-form" class="prep-form no-print" novalidate autocomplete="off">
+          <div class="card reveal">
+            <h2 class="subhead">1. ვიზიტი და საჩივარი</h2>
+            <div class="form-row"><label for="prep-booking">ჯავშანი</label><select class="input" id="prep-booking"></select></div>
+            <div class="form-row"><label for="prep-name">სახელი და გვარი</label><input class="input" type="text" id="prep-name" maxlength="80"></div>
+            <div class="form-row"><label for="prep-complaint">რა გაწუხებთ? (საკუთარი სიტყვებით)</label><textarea class="input" id="prep-complaint" maxlength="600" placeholder="მაგ.: ბოლო ორი კვირაა დილაობით თავბრუსხვევა მაქვს"></textarea></div>
+            <div class="form-row"><label for="prep-duration">რამდენი ხანია გრძელდება?</label>
+              <select class="input" id="prep-duration"><option value="">—</option><option value="short">3 დღემდე</option><option value="mid">3–14 დღე</option><option value="long">2 კვირაზე მეტი</option><option value="month">თვეზე მეტი</option></select></div>
+          </div>
+          <div class="card reveal">
+            <h2 class="subhead">2. სიმპტომები</h2>
+            <div id="prep-symptoms" class="check-list"></div>
+          </div>
+          <div class="card reveal">
+            <h2 class="subhead">3. დღიურის მონაცემები</h2>
+            <label class="check-item"><input type="checkbox" id="prep-diary" checked><span>დღიურის მაჩვენებლების დამატება (წონა, წნევა, პულსი)</span></label>
+            <div class="form-row"><label for="prep-days">პერიოდი</label>
+              <select class="input" id="prep-days"><option value="14">ბოლო 14 დღე</option><option value="30">ბოლო 30 დღე</option><option value="90">ბოლო 90 დღე</option></select></div>
+            <p class="empty-note" id="prep-diary-note"></p>
+          </div>
+          <div class="card reveal">
+            <h2 class="subhead">4. ანალიზები</h2>
+            <div id="prep-labs" class="check-list"></div>
+          </div>
+          <div class="card reveal">
+            <h2 class="subhead">5. მედიკამენტები და ალერგიები</h2>
+            <div class="form-row"><label for="prep-medicines">მიმდინარე მედიკამენტები და დანამატები (დოზით)</label><textarea class="input" id="prep-medicines" maxlength="500"></textarea></div>
+            <div class="form-row"><label for="prep-allergies">ალერგიები</label><textarea class="input" id="prep-allergies" maxlength="300"></textarea></div>
+          </div>
+          <div class="card reveal">
+            <h2 class="subhead">6. შეკითხვები ექიმს</h2>
+            <div id="prep-questions" class="check-list"></div>
+            <div class="form-row"><label for="prep-custom">საკუთარი შეკითხვები (თითო ხაზზე ერთი)</label><textarea class="input" id="prep-custom" maxlength="600"></textarea></div>
+          </div>
+        </form>
+
+        <div class="prep-output">
+          <div class="prep-actions no-print">
+            <button type="button" class="btn btn-primary btn-sm" id="prep-print">🖨 ბეჭდვა / PDF</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="prep-download">⬇ ტექსტად</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="prep-copy">📋 კოპირება</button>
+            <button type="button" class="btn btn-ghost btn-sm btn-danger" id="prep-clear">გასუფთავება</button>
+          </div>
+          <article id="prep-sheet" class="prep-sheet" aria-live="polite"></article>
+        </div>
+      </div>
+    </section>
+  
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span data-logo="mark" class="brand-mark"></span><span class="brand-name">ჩაკა<small class="mono">MED·PORTAL</small></span></a>
+        <p class="footer-text">სასწავლო პროექტი (HTML · CSS · JavaScript). არ წარმოადგენს სამედიცინო რჩევას, დიაგნოსტიკას ან მკურნალობას.</p>
+      </div>
+      <div>
+        <h2>ნავიგაცია</h2>
+        <ul class="footer-links"><li><a href="index.html#symptoms">სიმპტომები</a></li><li><a href="clinics.html">კლინიკები</a></li><li><a href="calculators.html">კალკულატორები</a></li><li><a href="index.html#doctors">ექიმები</a></li><li><a href="index.html#tools">ხელსაწყოები</a></li><li><a href="index.html#firstaid">პირველი დახმარება</a></li><li><a href="index.html#library">ბიბლიოთეკა</a></li><li><a href="labs.html">ანალიზები</a></li><li><a href="prep.html">ვიზიტის მომზადება</a></li><li><a href="emergency.html">ოფლაინ გადაუდებელი</a></li></ul>
+      </div>
+      <div>
+        <h2>გადაუდებელი</h2>
+        <p class="footer-sos mono"><a href="tel:112">112</a></p>
+        <p class="footer-text">ერთიანი სასწრაფო ნომერი საქართველოში.</p>
+      </div>
+      <form id="news-form" class="news" novalidate>
+        <h2>სიახლეები</h2>
+        <div class="news-row"><input class="input" id="news-mail" type="email" placeholder="შენი ელ-ფოსტა" aria-label="ელ-ფოსტა"><button class="btn btn-primary btn-sm" type="submit">✓</button></div>
+        <small class="err" data-err="news-mail"></small>
+      </form>
+    </div>
+    <div class="container footer-bottom mono"><span>© <span id="year">2026</span> ჩაკა · საფინალო პროექტი</span><span>Built with vanilla JS</span></div>
+  </footer>
+
+  <button id="to-top" class="to-top" type="button" aria-label="ზევით დაბრუნება">↑</button>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/logos.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/lab-defs.js" defer></script>
+  <script src="js/prep.js" defer></script>
+  <script src="js/pwa.js" defer></script>
+  <script src="js/contact.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/page.js" defer></script>
+</body>
+</html>
