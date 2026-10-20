@@ -1,15 +1,16 @@
 'use strict';
 
 (() => {
-  const { $, $$, clamp, prefersReduced, store, paintRange } = Vita;
+  const MIN_LOADER_MS = 900;
+  const { $, $$, clamp, prefersReduced, store, paintRange } = Chaka;
 
   const initLoader = () => {
     const loader = $('#loader');
     if (!loader) return;
-    try { if (sessionStorage.getItem('vita.noLoader')) { sessionStorage.removeItem('vita.noLoader'); loader.remove(); return; } } catch {  }
+    try { if (sessionStorage.getItem('chaka.noLoader')) { sessionStorage.removeItem('chaka.noLoader'); loader.remove(); return; } } catch { /* storage or audio unavailable */ }
     const hide = () => { loader.classList.add('done'); setTimeout(() => loader.remove(), 1000); };
     const started = performance.now();
-    const finish = () => setTimeout(hide, Math.max(0, 1700 - (performance.now() - started)));
+    const finish = () => setTimeout(hide, Math.max(0, MIN_LOADER_MS - (performance.now() - started)));
     if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish, { once: true });
     setTimeout(hide, 4500);
   };
@@ -18,7 +19,7 @@
     const root = document.documentElement;
     const saved = store.get('theme', null);
     const initial = saved || 'dark';
-    const apply = (t) => { root.dataset.theme = t; $('meta[name="theme-color"]').content = t === 'dark' ? '#050a14' : '#f2f7fb'; Vita.canvasColors && Vita.canvasColors(); };
+    const apply = (t) => { root.dataset.theme = t; $('meta[name="theme-color"]').content = t === 'dark' ? '#050a14' : '#f2f7fb'; Chaka.canvasColors && Chaka.canvasColors(); };
     apply(initial);
     $('#theme-toggle').addEventListener('click', () => {
       const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -65,15 +66,15 @@
       entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     items.forEach((n) => io.observe(n));
-    Vita.observeReveal = (n) => { if (n.classList.contains('reveal')) io.observe(n); };
+    Chaka.observeReveal = (n) => { if (n.classList.contains('reveal')) io.observe(n); };
   };
 
   const initCounters = () => {
     const targets = {
-      doctors: Vita.DOCTORS.filter((d) => d.spec !== 'team').length,
-      specs: Object.keys(Vita.SPECS).filter((k) => k !== 'team').length,
-      articles: Vita.ARTICLES.length,
-      aid: Vita.FIRST_AID.length,
+      doctors: Chaka.DOCTORS.filter((d) => d.spec !== 'team').length,
+      specs: Object.keys(Chaka.SPECS).filter((k) => k !== 'team').length,
+      articles: Chaka.ARTICLES.length,
+      aid: Chaka.FIRST_AID.length,
     };
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
@@ -132,7 +133,7 @@
 
   const initHeroText = () => {
     const rot = $('#rotator');
-    const words = Object.entries(Vita.SPECS).filter(([k]) => k !== 'team').map(([, s]) => s.name);
+    const words = Object.entries(Chaka.SPECS).filter(([k]) => k !== 'team').map(([, s]) => s.name);
     let i = 0;
     if (rot && !prefersReduced()) {
       setInterval(() => {
@@ -156,7 +157,7 @@
     const mouse = { x: -999, y: -999 };
     let colors = { a: '45,245,196', b: '71,184,255', c: '143,123,255' };
 
-    Vita.canvasColors = () => {
+    Chaka.canvasColors = () => {
       colors = document.documentElement.dataset.theme === 'light'
         ? { a: '0,156,120', b: '10,119,196', c: '90,68,230' }
         : { a: '45,245,196', b: '71,184,255', c: '143,123,255' };
@@ -212,9 +213,9 @@
       requestAnimationFrame(frame);
     };
 
-    Vita.canvasColors();
+    Chaka.canvasColors();
     resize();
-    window.addEventListener('resize', Vita.debounce(resize, 150));
+    window.addEventListener('resize', Chaka.debounce(resize, 150));
     canvas.parentElement.addEventListener('pointermove', (e) => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     canvas.parentElement.addEventListener('pointerleave', () => { mouse.x = mouse.y = -999; });
 
@@ -233,5 +234,5 @@
     $$('input[type="range"]').forEach((r) => { paintRange(r); r.addEventListener('input', () => paintRange(r)); });
   };
 
-  Vita.effects = { initLoader, initTheme, initNav, initReveal, initCounters, initHolo, initPointerFx, initHeroText, initCanvas, initRanges };
+  Chaka.effects = { initLoader, initTheme, initNav, initReveal, initCounters, initHolo, initPointerFx, initHeroText, initCanvas, initRanges };
 })();

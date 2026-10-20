@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const { $, setError, isEmail, isGePhone, formatGePhone, toast } = Vita;
+  const { $, setError, isEmail, isGePhone, formatGePhone, toast } = Chaka;
 
   const initContact = () => {
     const form = $('#contact-form');
@@ -59,7 +59,7 @@
         items.forEach((other) => { if (other !== item) other.open = false; });
       });
     });
-    search.addEventListener('input', Vita.debounce(() => {
+    search.addEventListener('input', Chaka.debounce(() => {
       const q = search.value.trim().toLowerCase();
       let shown = 0;
       items.forEach((item) => {
@@ -71,5 +71,5 @@
     }, 120));
   };
 
-  Vita.contact = { init() { if ($('#contact-form')) initContact(); if ($('#news-form')) initNewsletter(); if ($('#faq-search')) initFaq(); } };
+  Chaka.contact = { init() { if ($('#contact-form')) initContact(); if ($('#news-form')) initNewsletter(); if ($('#faq-search')) initFaq(); } };
 })();

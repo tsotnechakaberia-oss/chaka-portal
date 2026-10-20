@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const { $, $$, el, clamp, store, toast, todayKey, pad } = Vita;
+  const { $, $$, buildElement, clamp, store, toast, todayKey, pad } = Chaka;
 
   const tween = (node, to, { dec = 1, suffix = '' } = {}) => {
     const from = parseFloat(node.textContent) || 0, t0 = performance.now(), dur = 700;
@@ -86,9 +86,9 @@
       $('#pl-age-out').textContent = age.value; $('#pl-max').textContent = max;
       const list = $('#zones');
       list.replaceChildren(...zones.map(([n, lo, hi, c, d]) => {
-        const bar = el('i', { style: `background:${c}` });
+        const bar = buildElement('i', { style: `background:${c}` });
         requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = `${hi * 100 - 40}%`; }));
-        return el('li', { class: 'zone' }, el('span', {}, el('b', { text: n }), ' ', el('small', { text: d })), el('span', { class: 'rng', text: `${Math.round(max * lo)}–${Math.round(max * hi)}` }), el('div', { class: 'zb' }, bar));
+        return buildElement('li', { class: 'zone' }, buildElement('span', {}, buildElement('b', { text: n }), ' ', buildElement('small', { text: d })), buildElement('span', { class: 'rng', text: `${Math.round(max * lo)}–${Math.round(max * hi)}` }), buildElement('div', { class: 'zb' }, bar));
       }));
     };
     age.addEventListener('input', update);
@@ -130,8 +130,8 @@
         items = [4, 5, 6].map((c) => ({ c, t: new Date(Date.now() + (c * 90 + 15) * 60000) }));
         $('#sleep-label').textContent = 'თუ ახლავე დაწვები, ოპტიმალური გაღვიძების დრო:';
       }
-      list.replaceChildren(...items.map(({ c, t }, i) => el('li', { class: (mode === 'wake' ? i === 1 : i === 1) ? 'best' : '', style: `animation-delay:${i * 90}ms` },
-        el('b', { text: fmt(t) }), el('small', { text: `${c} ციკლი · ${(c * 1.5).toFixed(1)} სთ` }))));
+      list.replaceChildren(...items.map(({ c, t }, i) => buildElement('li', { class: (mode === 'wake' ? i === 1 : i === 1) ? 'best' : '', style: `animation-delay:${i * 90}ms` },
+        buildElement('b', { text: fmt(t) }), buildElement('small', { text: `${c} ციკლი · ${(c * 1.5).toFixed(1)} სთ` }))));
     };
     input.addEventListener('input', update);
     $$('.seg-btn').forEach((b) => b.addEventListener('click', () => {
@@ -153,9 +153,9 @@
     let built = false;
 
     const build = () => {
-      const g = $('#glasses'); g.replaceChildren(...Array.from({ length: 8 }, (_, i) => el('button', { type: 'button', class: 'glass', 'aria-label': `ჭიქა ${i + 1}`, 'aria-pressed': 'false',
+      const g = $('#glasses'); g.replaceChildren(...Array.from({ length: 8 }, (_, i) => buildElement('button', { type: 'button', class: 'glass', 'aria-label': `ჭიქა ${i + 1}`, 'aria-pressed': 'false',
         onClick: () => { const r = rec(); r.water = r.water === i + 1 ? i : i + 1; save(r); render(); } })));
-      $('#moods').replaceChildren(...MOODS.map((m, i) => el('button', { type: 'button', class: 'mood', 'aria-label': `განწყობა ${i + 1}`, text: m,
+      $('#moods').replaceChildren(...MOODS.map((m, i) => buildElement('button', { type: 'button', class: 'mood', 'aria-label': `განწყობა ${i + 1}`, text: m,
         onClick: () => { const r = rec(); r.mood = i; save(r); render(); } })));
       $('#tr-steps').addEventListener('input', (e) => { const r = rec(); r.steps = +e.target.value; save(r); render(true); });
       $('#tr-sleep').addEventListener('input', (e) => { const r = rec(); r.sleep = +e.target.value; save(r); render(true); });
@@ -167,8 +167,8 @@
       const r = rec(), s = score(r);
       $$('#glasses .glass').forEach((gl, i) => { gl.classList.toggle('is-full', i < r.water); gl.setAttribute('aria-pressed', String(i < r.water)); });
       $$('#moods .mood').forEach((m, i) => m.classList.toggle('is-active', r.mood === i));
-      if (!fromRange) { $('#tr-steps').value = r.steps; $('#tr-sleep').value = r.sleep; Vita.paintRange($('#tr-steps')); Vita.paintRange($('#tr-sleep')); }
-      $('#tr-steps-out').textContent = r.steps.toLocaleString(Vita.locale()); $('#tr-sleep-out').textContent = r.sleep;
+      if (!fromRange) { $('#tr-steps').value = r.steps; $('#tr-sleep').value = r.sleep; Chaka.paintRange($('#tr-steps')); Chaka.paintRange($('#tr-sleep')); }
+      $('#tr-steps-out').textContent = r.steps.toLocaleString(Chaka.locale()); $('#tr-sleep-out').textContent = r.sleep;
       $('#score-val').textContent = s;
       const fg = $('#ring-fg'); fg.style.strokeDashoffset = 327 * (1 - s / 100);
       fg.style.stroke = s >= 80 ? 'var(--mint)' : s >= 50 ? 'var(--amber)' : 'var(--coral)';
@@ -178,14 +178,14 @@
       bars.replaceChildren(...Array.from({ length: 7 }, (_, k) => {
         const d = new Date(); d.setDate(d.getDate() - (6 - k));
         const v = all[todayKey(d)] ? score({ water: 0, steps: 0, sleep: 0, ...all[todayKey(d)] }) : 0;
-        const bar = el('i', { style: 'height:0' });
+        const bar = buildElement('i', { style: 'height:0' });
         requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.height = `${Math.max(v * 0.62, 3)}px`; }));
-        return el('div', { class: `wb${k === 6 ? ' today' : ''}`, title: `${v}` }, bar, el('span', { text: days[d.getDay()] }));
+        return buildElement('div', { class: `wb${k === 6 ? ' today' : ''}`, title: `${v}` }, bar, buildElement('span', { text: days[d.getDay()] }));
       }));
     };
     return { render };
   })();
 
   const init = () => { initTabs(); bmi.update(); };
-  Vita.tools = { init };
+  Chaka.tools = { init };
 })();

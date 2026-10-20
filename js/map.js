@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const { el, clamp, prefersReduced } = Vita;
+  const { clamp, prefersReduced } = Chaka;
   const NS = 'http://www.w3.org/2000/svg';
   const svgEl = (tag, attrs = {}, ...kids) => {
     const n = document.createElementNS(NS, tag);
@@ -18,7 +18,7 @@
 
   class GeoMap {
     constructor(svg, { clinics = [], onSelect = () => {}, interactive = true } = {}) {
-      this.svg = svg; this.G = Vita.GEO; this.onSelect = onSelect; this.interactive = interactive;
+      this.svg = svg; this.G = Chaka.GEO; this.onSelect = onSelect; this.interactive = interactive;
       this.clinics = clinics; this.selected = null;
       this.full = { x: 0, y: 0, w: this.G.width, h: this.G.height };
       this.vb = { ...this.full }; this.raf = 0; this.anim = 0;
@@ -151,7 +151,7 @@
           };
           g.addEventListener('click', go); g.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
         } else {
-          const c = k.items[0], t = Vita.CLINIC_TYPES[c.type];
+          const c = k.items[0], t = Chaka.CLINIC_TYPES[c.type];
           g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.setAttribute('aria-label', c.name);
           if (c === this.selected) g.append(svgEl('circle', { r: 16 * u, class: 'sel-ring', 'stroke-width': 2 * u }));
           g.append(svgEl('circle', { r: 7.5 * u, class: 'dot', fill: t.color, 'stroke-width': 2 * u }), svgEl('path', { d: `M${-3.2 * u} 0H${3.2 * u}M0 ${-3.2 * u}V${3.2 * u}`, class: 'dot-plus', 'stroke-width': 1.8 * u }), svgEl('title', {}, document.createTextNode(c.name)));
@@ -167,5 +167,5 @@
     }
   }
 
-  Vita.GeoMap = GeoMap;
+  Chaka.GeoMap = GeoMap;
 })();

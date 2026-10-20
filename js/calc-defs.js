@@ -1,6 +1,6 @@
 'use strict';
 
-window.Vita = window.Vita || {};
+window.Chaka = window.Chaka || {};
 
 (() => {
   const r1 = (n) => Math.round(n * 10) / 10;
@@ -10,7 +10,7 @@ window.Vita = window.Vita || {};
   const first = (...errs) => errs.find(Boolean);
   const pad = (n) => String(n).padStart(2, '0');
   const hhmm = (d) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  const fmtDate = (d) => d.toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'long', year: 'numeric' });
+  const fmtDate = (d) => d.toLocaleDateString(Chaka.locale(), { day: 'numeric', month: 'long', year: 'numeric' });
 
   const CALCS = [
 
@@ -218,7 +218,6 @@ window.Vita = window.Vita || {};
       } },
   ];
 
-  Vita.CALCS = CALCS;
-  Vita.CALC_GROUPS = [['all', 'ყველა'], ['body', 'სხეული'], ['energy', 'ენერგია და ცხოვრების წესი'], ['heart', 'გული და თირკმელი'], ['pregnancy', 'ორსულობა']];
-  if (typeof module !== 'undefined') module.exports = CALCS;
+  Chaka.CALCS = CALCS;
+  Chaka.CALC_GROUPS = [['all', 'ყველა'], ['body', 'სხეული'], ['energy', 'ენერგია და ცხოვრების წესი'], ['heart', 'გული და თირკმელი'], ['pregnancy', 'ორსულობა']];
 })();

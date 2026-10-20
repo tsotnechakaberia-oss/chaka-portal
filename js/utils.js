@@ -1,12 +1,12 @@
 'use strict';
 
-window.Vita = window.Vita || {};
+window.Chaka = window.Chaka || {};
 
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-  const el = (tag, props = {}, ...children) => {
+  const buildElement = (tag, props = {}, ...children) => {
     const node = document.createElement(tag);
     for (const [key, val] of Object.entries(props || {})) {
       if (val === null || val === undefined || val === false) continue;
@@ -32,20 +32,34 @@ window.Vita = window.Vita || {};
 
   const store = {
     get(key, fallback) {
-      try { const raw = localStorage.getItem('vita.' + key); return raw === null ? fallback : JSON.parse(raw); }
+      try { const raw = localStorage.getItem('chaka.' + key); return raw === null ? fallback : JSON.parse(raw); }
       catch { return fallback; }
     },
     set(key, value) {
-      try { localStorage.setItem('vita.' + key, JSON.stringify(value)); } catch {  }
+      try { localStorage.setItem('chaka.' + key, JSON.stringify(value)); } catch { /* storage unavailable or full */ }
     },
+  };
+
+  const scriptLoads = new Map();
+  const loadScript = (src) => {
+    if (!scriptLoads.has(src)) {
+      scriptLoads.set(src, new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => { scriptLoads.delete(src); reject(new Error(`Failed to load ${src}`)); };
+        document.head.append(script);
+      }));
+    }
+    return scriptLoads.get(src);
   };
 
   const toast = (message, type = 'ok', ms = 3600) => {
     const host = $('#toasts');
     if (!host) return;
-    const node = el('div', { class: `toast ${type === 'error' ? 'error' : ''}`, role: 'status' },
-      el('span', { text: type === 'error' ? '⚠' : '✓', style: `color:var(--${type === 'error' ? 'coral' : 'mint'});font-weight:800` }),
-      el('span', { text: message }));
+    const node = buildElement('div', { class: `toast ${type === 'error' ? 'error' : ''}`, role: 'status' },
+      buildElement('span', { text: type === 'error' ? '⚠' : '✓', style: `color:var(--${type === 'error' ? 'coral' : 'mint'});font-weight:800` }),
+      buildElement('span', { text: message }));
     host.append(node);
     setTimeout(() => { node.classList.add('out'); setTimeout(() => node.remove(), 400); }, ms);
   };
@@ -77,7 +91,9 @@ window.Vita = window.Vita || {};
   };
 
   const lang = store.get('lang', 'ka') === 'en' ? 'en' : 'ka';
+  const t = (ka, en) => (lang === 'en' ? en : ka);
+  const pick = (text) => (lang === 'en' ? text.en : text.ka);
   const locale = () => (lang === 'en' ? 'en-GB' : 'ka-GE');
 
-  Object.assign(window.Vita, { lang, locale, $, $$, el, clamp, prefersReduced, debounce, pad, todayKey, store, toast, paintRange, setError, isEmail, isGePhone, formatGePhone });
+  Object.assign(window.Chaka, { lang, t, pick, locale, $, $$, buildElement, clamp, prefersReduced, debounce, pad, todayKey, store, loadScript, toast, paintRange, setError, isEmail, isGePhone, formatGePhone });
 })();

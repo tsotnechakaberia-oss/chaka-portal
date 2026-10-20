@@ -1,8 +1,26 @@
 'use strict';
 
-window.Vita = window.Vita || {};
+window.Chaka = window.Chaka || {};
 
-Vita.I18N_EN = {
+Chaka.I18N_EN = {
+
+  "ზრუნვა ნაბიჯ-ნაბიჯ": "Care, step by step",
+  "რატომ ჩაკა": "Why Chaka",
+  "ჯანმრთელობა — ბლოკ-ბლოკ, გასაგებად": "Health — block by block, made clear",
+  "ყველა საჭირო ინსტრუმენტი ერთ სივრცეში: ინფორმაცია, ექიმი და ყოველდღიური კონტროლი.": "Everything you need in one place: information, a doctor and daily self-monitoring.",
+  "გასაგები ენით": "In plain language",
+  "სამედიცინო ინფორმაცია ჟარგონის გარეშე.": "Medical information without the jargon.",
+  "ექიმის გვერდით, არა მის ნაცვლად": "Alongside your doctor, not instead of one",
+  "პორტალი არ სვამს დიაგნოზს — გიჩვენებს გზას სწორი სპეციალისტისკენ.": "The portal does not diagnose — it points you to the right specialist.",
+  "ყოველდღიური კონტროლი": "Daily monitoring",
+  "კალკულატორები და ჯანმრთელობის დღიური ყოველთვის ხელთ.": "Calculators and the health diary always at hand.",
+  "დაიწყე სიმპტომებით": "Start with symptoms",
+  "სწორი სპეციალისტი — პირველივე ვიზიტზე": "The right specialist — from the very first visit",
+  "გაფილტრე სპეციალობით, შეადარე ექიმები და დაჯავშნე მოსახერხებელ დროს.": "Filter by specialty, compare doctors and book a convenient time.",
+  "გაქვს შეკითხვა პორტალზე ან თანამშრომლობაზე? მოგვწერე და მალე დაგიბრუნდებით.": "Have a question about the portal or want to collaborate? Write to us and we will get back to you soon.",
+  "ექიმი აწყობს სამედიცინო სიმბოლოებიანი ბლოკების პირამიდას": "A doctor stacking a pyramid of blocks with medical symbols",
+  "სამედიცინო პერსონალი სტეტოსკოპით ხელში": "Medical staff holding a stethoscope",
+  "სტეტოსკოპი და სამედიცინო ხატულების კუბიკები ფირუზისფერ ფონზე": "A stethoscope and medical-icon cubes on a teal background",
 
   "ჩაკა": "Chaka",
   "ჩაკა — სამედიცინო პორტალი": "Chaka — Medical Portal",
@@ -495,7 +513,7 @@ Vita.I18N_EN = {
   "ექსპორტისთვის მონაცემი არ არის": "No data to export", "წაიშალოს ყველა ჩანაწერი?": "Delete all entries?", "დემო მონაცემი": "Demo entry",
 };
 
-Vita.I18N_PATTERNS = [
+Chaka.I18N_PATTERNS = [
   [/^ნაპოვნია: (\d+) \/ (\d+)$/, (m) => `Found: ${m[1]} / ${m[2]}`],
   [/^სტატია: (\d+) \/ (\d+)$/, (m) => `Articles: ${m[1]} / ${m[2]}`],
   [/^კალკულატორი: (\d+) \/ (\d+)$/, (m) => `Calculators: ${m[1]} / ${m[2]}`],

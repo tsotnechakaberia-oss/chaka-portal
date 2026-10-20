@@ -25,18 +25,18 @@
 .map-lbl.sea { font-style: italic; font-size: calc(14px * var(--u, 1)); fill: color-mix(in srgb, var(--sky) 70%, var(--muted)); letter-spacing: .2em; }
 .map-lbl.nb { font-size: calc(12px * var(--u, 1)); letter-spacing: .24em; opacity: .55; text-transform: uppercase; }
 .map-lbl.city { text-anchor: start; transform: translate(calc(17px * var(--u, 1)), calc(4px * var(--u, 1))); font-size: calc(10.5px * var(--u, 1)); fill: var(--text); opacity: .75; }
-.map-lbl.city.major { font-weight: 700; font-size: calc(12px * var(--u, 1)); opacity: 1; }
+.map-lbl.city.major { font-weight: var(--fw-bold); font-size: calc(12px * var(--u, 1)); opacity: 1; }
 .map-city { fill: var(--text); r: calc(2.2px * var(--u, 1)); opacity: .7; }
 .mk { cursor: pointer; outline: none; }
 .mk .dot { stroke: var(--bg); transition: r .2s; }
 .mk .dot-plus { stroke: var(--white); stroke-linecap: round; }
 .mk:hover .dot, .mk:focus-visible .dot { filter: drop-shadow(0 0 6px currentColor); stroke: var(--white); }
 .mk .cl-bg { fill: color-mix(in srgb, var(--mint) 85%, var(--black)); stroke: var(--white); stroke-width: calc(2px * var(--u, 1)); filter: drop-shadow(0 0 8px var(--mint)); }
-.mk .cl-n { fill: var(--on-accent); text-anchor: middle; font-weight: 800; font-family: var(--mono); pointer-events: none; }
+.mk .cl-n { fill: var(--on-accent); text-anchor: middle; font-weight: var(--fw-black); font-family: var(--mono); pointer-events: none; }
 .mk .sel-ring { fill: none; stroke: var(--coral); animation: ringPulse 1.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes ringPulse { from { transform: scale(.7); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
 .map-ctl { position: absolute; right: .7rem; top: .7rem; display: grid; gap: .4rem; z-index: 2; }
-.map-ctl button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); backdrop-filter: blur(8px); font-size:var(--fs-lg); font-weight: 700; }
+.map-ctl button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); backdrop-filter: blur(8px); font-size:var(--fs-lg); font-weight: var(--fw-bold); }
 .map-ctl button:hover { border-color: var(--mint); color: var(--mint); }
 .map-ctl .txt { font-size:var(--fs-2xs); font-family: var(--mono); letter-spacing: .04em; }
 .map-hint { background: color-mix(in srgb, var(--bg) 70%, transparent); padding: .15rem .5rem; border-radius: 999px; position: absolute; left: .8rem; bottom: .6rem; font-size:var(--fs-2xs); color: var(--muted); font-family: var(--mono); letter-spacing: .06em; pointer-events: none; }
@@ -81,7 +81,7 @@
 .calc-out .big { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
 .calc-out .big b { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.1; font-family: var(--mono); }
 .calc-out .big span { color: var(--muted); font-size:var(--fs-sm); }
-.chip-res { display: inline-block; margin-top: .4rem; padding: .25rem .8rem; border-radius: 99px; font-weight: 700; font-size:var(--fs-sm); }
+.chip-res { display: inline-block; margin-top: .4rem; padding: .25rem .8rem; border-radius: 99px; font-weight: var(--fw-bold); font-size:var(--fs-sm); }
 .tone-ok { background: color-mix(in srgb, var(--mint) 18%, transparent); color: var(--mint); }
 .tone-warn { background: color-mix(in srgb, var(--amber) 18%, transparent); color: var(--amber); }
 .tone-bad { background: color-mix(in srgb, var(--coral) 18%, transparent); color: var(--coral); }

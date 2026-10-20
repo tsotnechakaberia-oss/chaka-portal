@@ -1,15 +1,15 @@
 'use strict';
 
-window.Vita = window.Vita || {};
+window.Chaka = window.Chaka || {};
 
-Vita.CLINIC_TYPES = {
+Chaka.CLINIC_TYPES = {
   public:     { name: 'სახელმწიფო',   color: 'var(--sky)' },
   private:    { name: 'კერძო',        color: 'var(--violet)' },
   university: { name: 'საუნივერსიტეტო', color: 'var(--mint)' },
   municipal:  { name: 'რეგიონული / რეფერალური', color: 'var(--amber)' },
 };
 
-Vita.CLINICS = [
+Chaka.CLINICS = [
 
   { id: 'amc-tbilisi', name: 'ამერიკული სამედიცინო ცენტრები — თბილისი', nameEn: 'American Medical Centers Tbilisi', type: 'private', city: 'თბილისი', region: 'თბილისი', address: 'დ. არაყიშვილის ქ. 11', lat: 41.7185, lon: 44.7700, profiles: ['მრავალპროფილური', 'დიაგნოსტიკა', 'ბავშვთა'] },
   { id: 'cito', name: 'CITO სამედიცინო ცენტრი', nameEn: 'CITO Medical Center', type: 'private', city: 'თბილისი', region: 'თბილისი', address: 'ზ. ფალიაშვილის ქ. 40', lat: 41.7105, lon: 44.7830, profiles: ['თერაპია', 'დიაგნოსტიკა'] },

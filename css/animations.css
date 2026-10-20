@@ -73,8 +73,8 @@
 .pl-item { display: inline-flex; align-items: center; gap: .8rem; color: var(--muted); transition: color .3s; white-space: nowrap; }
 .pl-item:hover { color: var(--text); }
 .pl-item svg { width: 44px; height: 44px; overflow: visible; }
-.pl-item span { font-weight: 800; letter-spacing: .04em; font-size:var(--fs-base); }
-.pl-item small { display: block; font-family: var(--mono); font-weight: 400; font-size:var(--fs-2xs); letter-spacing: .22em; color: var(--muted); }
+.pl-item span { font-weight: var(--fw-black); letter-spacing: .04em; font-size:var(--fs-base); }
+.pl-item small { display: block; font-family: var(--mono); font-weight: var(--fw-normal); font-size:var(--fs-2xs); letter-spacing: .22em; color: var(--muted); }
 .pl-fill { fill: currentColor; } .pl-stroke { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .pl-item:hover .pl-fill, .pl-item:hover .pl-stroke { color: var(--mint); }
 .pl-accent { fill: var(--mint); } .pl-accent-s { fill: none; stroke: var(--mint); stroke-width: 2; }
@@ -86,7 +86,6 @@
 .pl-ripple { fill: none; stroke: var(--mint); stroke-width: 1.5; animation: ripple 1.8s ease-out infinite; }
 .pl-eye { animation: eyeBlink 4s infinite; }
 .pl-atom { animation: spin 9s linear infinite; }
-.pl-orbit-dot { animation: spinRev 3s linear infinite; }
 .pl-flow { stroke-dasharray: 8 8; animation: dashFlow 4s linear infinite; }
 
 .ok-ring { fill: none; stroke: var(--mint); stroke-width: 4; transform-origin: center; animation: ringPop .7s var(--ease) both; }

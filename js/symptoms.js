@@ -1,18 +1,18 @@
 'use strict';
 
 (() => {
-  const { $, $$, el, toast } = Vita;
+  const { $, $$, buildElement, store, toast } = Chaka;
   const selected = new Set();
   let region = null;
 
-  const allSymptoms = () => Object.values(Vita.REGIONS).flatMap((r) => r.symptoms);
+  const allSymptoms = () => Object.values(Chaka.REGIONS).flatMap((r) => r.symptoms);
   const findSymptom = (id) => allSymptoms().find((s) => s.id === id);
 
   const setRegion = (key) => {
     region = key;
     $$('.region').forEach((n) => n.classList.toggle('is-active', n.dataset.region === key));
     $('.region-general').classList.toggle('is-active', key === 'general');
-    const data = Vita.REGIONS[key];
+    const data = Chaka.REGIONS[key];
     $('#sp-title').textContent = data.title;
     $('#body-hint').textContent = `ზონა: ${data.title}`;
     renderChips();
@@ -21,10 +21,10 @@
   const renderChips = () => {
     const box = $('#symptom-chips');
     box.replaceChildren();
-    if (!region) { box.append(el('p', { class: 'empty-note', text: 'სხეულის რუკაზე დააჭირე ზონას — აქ გამოჩნდება შესაბამისი სიმპტომები.' })); return; }
-    Vita.REGIONS[region].symptoms.forEach((s) => {
+    if (!region) { box.append(buildElement('p', { class: 'empty-note', text: 'სხეულის რუკაზე დააჭირე ზონას — აქ გამოჩნდება შესაბამისი სიმპტომები.' })); return; }
+    Chaka.REGIONS[region].symptoms.forEach((s) => {
       const on = selected.has(s.id);
-      box.append(el('button', {
+      box.append(buildElement('button', {
         type: 'button', class: `chip sym${s.red ? ' red' : ''}${on ? ' is-active' : ''}`, 'aria-pressed': String(on), title: s.red ? 'საგანგებო ნიშანი' : '',
         onClick: (e) => {
           selected.has(s.id) ? selected.delete(s.id) : selected.add(s.id);
@@ -58,26 +58,36 @@
     if (hasRed) { level = 'red'; icon = '🚨'; title = 'ეს შეიძლება სასწრაფო მდგომარეობა იყოს'; text = 'დაუყოვნებლივ დარეკეთ 112-ზე. ნუ დაელოდებით დაჯავშნას.'; }
     else if (duration === 'long' || picks.length >= 3 || (duration === 'mid' && picks.length >= 2)) { level = 'amber'; icon = '🟡'; title = 'რეკომენდებულია ვიზიტი უახლოეს დღეებში'; text = 'სიმპტომების ხანგრძლივობა ან რაოდენობა ექიმის შეფასებას ითხოვს.'; }
 
+    store.set('lastCheck', {
+      date: Chaka.todayKey(),
+      symptoms: picks.map((symptom) => ({ id: symptom.id, name: symptom.name })),
+      duration,
+      child,
+      urgency: level,
+      specialists: top.map(([key]) => key),
+    });
+
     const box = $('#symptom-result');
     box.hidden = false;
-    box.replaceChildren(
-      el('div', { class: `urgency u-${level}`, role: hasRed ? 'alert' : null }, el('span', { class: 'u-ico', text: icon }), el('div', {}, title, el('small', { text: text }))),
-      hasRed ? el('a', { class: 'btn btn-primary btn-sm', href: 'tel:112', style: 'margin-bottom:1rem', text: '📞 დარეკვა 112' }) : null,
-      el('h4', { text: 'რომელ სპეციალისტს მიმართო' }),
+    box.replaceChildren(...[
+      buildElement('div', { class: `urgency u-${level}`, role: hasRed ? 'alert' : null }, buildElement('span', { class: 'u-ico', text: icon }), buildElement('div', {}, title, buildElement('small', { text: text }))),
+      hasRed ? buildElement('a', { class: 'btn btn-primary btn-sm', href: 'tel:112', style: 'margin-bottom:1rem', text: '📞 დარეკვა 112' }) : null,
+      buildElement('h4', { text: 'რომელ სპეციალისტს მიმართო' }),
       ...top.map(([key, score]) => {
-        const sp = Vita.SPECS[key];
-        const bar = el('i');
+        const sp = Chaka.SPECS[key];
+        const bar = buildElement('i');
         requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = `${Math.round((score / max) * 100)}%`; }));
-        return el('div', { class: 'spec-row' },
-          el('span', { class: 'ic', html: Vita.logos.icon(sp.icon) }),
-          el('span', { class: 'nm', text: sp.name }),
-          el('div', { class: 'bar' }, bar),
-          el('button', { type: 'button', class: 'btn btn-ghost btn-sm go', onClick: () => Vita.doctors.filterBy(key) }, 'ექიმები →'));
+        return buildElement('div', { class: 'spec-row' },
+          buildElement('span', { class: 'ic', html: Chaka.logos.icon(sp.icon) }),
+          buildElement('span', { class: 'nm', text: sp.name }),
+          buildElement('div', { class: 'bar' }, bar),
+          buildElement('button', { type: 'button', class: 'btn btn-ghost btn-sm go', onClick: () => Chaka.doctors.filterBy(key) }, 'ექიმები →'));
       }),
-      el('ul', { class: 'hint-list' }, picks.slice(0, 5).map((s) => el('li', {}, el('b', { text: s.name + ': ' }), s.hint))),
-      el('p', { class: 'note', text: 'შედეგი ინფორმაციული ხასიათისაა და არ ცვლის ექიმის კონსულტაციას.' }),
-    );
-    box.scrollIntoView({ behavior: Vita.prefersReduced() ? 'auto' : 'smooth', block: 'nearest' });
+      buildElement('ul', { class: 'hint-list' }, picks.slice(0, 5).map((s) => buildElement('li', {}, buildElement('b', { text: s.name + ': ' }), s.hint))),
+      buildElement('a', { class: 'btn btn-ghost btn-sm', href: 'prep.html' }, '📝 ვიზიტისთვის მომზადება →'),
+      buildElement('p', { class: 'note', text: 'შედეგი ინფორმაციული ხასიათისაა და არ ცვლის ექიმის კონსულტაციას.' }),
+    ].filter(Boolean));
+    box.scrollIntoView({ behavior: Chaka.prefersReduced() ? 'auto' : 'smooth', block: 'nearest' });
   };
 
   const reset = () => {
@@ -102,5 +112,5 @@
     $('#reset-symptoms').addEventListener('click', reset);
   };
 
-  Vita.symptoms = { init };
+  Chaka.symptoms = { init };
 })();

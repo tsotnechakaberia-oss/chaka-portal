@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const { $, $$, el, store, toast, setError, todayKey, clamp, prefersReduced } = Vita;
+  const { $, buildElement, store, toast, setError, todayKey, clamp, prefersReduced } = Chaka;
 
   const METRICS = {
     weight: { label: 'წონა', unit: 'კგ', series: [{ key: 'weight', name: 'წონა', color: '--mint' }], band: null },
@@ -11,7 +11,7 @@
   let entries = [], metric = 'weight', hover = null, progress = 1;
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const num = (v) => (v === '' || v === null || v === undefined ? null : Number(v));
-  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'short' });
+  const fmtDate = (iso) => new Date(iso + 'T00:00').toLocaleDateString(Chaka.locale(), { day: 'numeric', month: 'short' });
   const save = () => store.set('diary', entries);
   const valuesFor = (m) => entries.filter((e) => METRICS[m].series.some((s) => e[s.key] != null)).sort((a, b) => a.date.localeCompare(b.date));
 
@@ -62,18 +62,18 @@
         stat('ცვლილება', `${diff > 0 ? '+' : ''}${diff.toFixed(1)}`, diff === 0 ? '' : diff > 0 ? 'up' : 'down')];
     }));
   };
-  const stat = (k, v, cls = '') => el('div', { class: `d-stat ${cls}` }, el('small', { text: k }), el('b', { class: 'mono', text: v }));
+  const stat = (k, v, cls = '') => buildElement('div', { class: `d-stat ${cls}` }, buildElement('small', { text: k }), buildElement('b', { class: 'mono', text: v }));
 
   const bpNote = (e) => (e.sys == null ? '' : e.sys < 120 && e.dia < 80 ? 'ნორმა' : e.sys >= 180 || e.dia >= 120 ? 'კრიზისული ⚠' : e.sys >= 140 || e.dia >= 90 ? 'მაღალი (II ხ.)' : 'ზღვრული/მომატებული');
 
   const renderList = () => {
     const list = $('#d-list'), sorted = [...entries].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
     $('#d-count').textContent = entries.length;
-    if (!sorted.length) { list.replaceChildren(el('li', { class: 'empty-note', text: 'ჩანაწერები ჯერ არ არის. დაამატეთ პირველი გაზომვა მარცხნივ.' })); return; }
-    list.replaceChildren(...sorted.slice(0, 40).map((e) => el('li', { class: 'booking-item' },
-      el('div', {}, el('b', { text: new Date(e.date + 'T00:00').toLocaleDateString(Vita.locale(), { day: 'numeric', month: 'long', year: 'numeric' }) }),
-        el('small', { text: [e.weight != null ? `${e.weight} კგ` : null, e.sys != null ? `${e.sys}/${e.dia} (${bpNote(e)})` : null, e.pulse != null ? `${e.pulse} დ/წთ` : null, e.note || null].filter(Boolean).join(' · ') })),
-      el('button', { type: 'button', class: 'btn btn-ghost btn-sm btn-danger', 'aria-label': 'ჩანაწერის წაშლა', onClick: () => { entries = entries.filter((x) => x.id !== e.id); save(); renderAll(); toast('ჩანაწერი წაიშალა'); } }, 'წაშლა'))));
+    if (!sorted.length) { list.replaceChildren(buildElement('li', { class: 'empty-note', text: 'ჩანაწერები ჯერ არ არის. დაამატეთ პირველი გაზომვა მარცხნივ.' })); return; }
+    list.replaceChildren(...sorted.slice(0, 40).map((e) => buildElement('li', { class: 'booking-item' },
+      buildElement('div', {}, buildElement('b', { text: new Date(e.date + 'T00:00').toLocaleDateString(Chaka.locale(), { day: 'numeric', month: 'long', year: 'numeric' }) }),
+        buildElement('small', { text: [e.weight != null ? `${e.weight} კგ` : null, e.sys != null ? `${e.sys}/${e.dia} (${bpNote(e)})` : null, e.pulse != null ? `${e.pulse} დ/წთ` : null, e.note || null].filter(Boolean).join(' · ') })),
+      buildElement('button', { type: 'button', class: 'btn btn-ghost btn-sm btn-danger', 'aria-label': 'ჩანაწერის წაშლა', onClick: () => { entries = entries.filter((x) => x.id !== e.id); save(); renderAll(); toast('ჩანაწერი წაიშალა'); } }, 'წაშლა'))));
   };
 
   const exportCsv = () => {
@@ -81,7 +81,7 @@
     const esc = (t) => `"${String(t ?? '').replace(/"/g, '""')}"`;
     const rows = [['თარიღი', 'წონა_კგ', 'სისტოლური', 'დიასტოლური', 'პულსი', 'შენიშვნა'], ...[...entries].sort((a, b) => a.date.localeCompare(b.date)).map((e) => [e.date, e.weight, e.sys, e.dia, e.pulse, e.note])];
     const url = URL.createObjectURL(new Blob(['﻿' + rows.map((r) => r.map(esc).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' }));
-    const a = el('a', { href: url, download: 'chaka-diary.csv' }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const a = buildElement('a', { href: url, download: 'chaka-diary.csv' }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   const cv = () => $('#d-chart');
@@ -163,9 +163,9 @@
 
   const renderTabs = () => {
     const box = $('#d-tabs');
-    box.replaceChildren(...Object.entries(METRICS).map(([k, m]) => el('button', { type: 'button', role: 'tab', class: `tab${k === metric ? ' is-active' : ''}`, 'aria-selected': String(k === metric),
+    box.replaceChildren(...Object.entries(METRICS).map(([k, m]) => buildElement('button', { type: 'button', role: 'tab', class: `tab${k === metric ? ' is-active' : ''}`, 'aria-selected': String(k === metric),
       onClick: () => { metric = k; hover = null; renderAll(true); } }, m.label)));
-    $('#d-legend').replaceChildren(...METRICS[metric].series.map((s) => el('span', { style: `--c:var(${s.color})` }, el('i'), `${s.name} (${METRICS[metric].unit})`)));
+    $('#d-legend').replaceChildren(...METRICS[metric].series.map((s) => buildElement('span', { style: `--c:var(${s.color})` }, buildElement('i'), `${s.name} (${METRICS[metric].unit})`)));
   };
 
   const renderAll = (anim = false) => { renderTabs(); renderStats(); renderList(); anim ? animate() : draw(); };
@@ -186,5 +186,5 @@
     $('#d-clear').addEventListener('click', () => { if (entries.length && confirm('წაიშალოს ყველა ჩანაწერი?')) { entries = []; save(); renderAll(true); toast('დღიური გასუფთავდა'); } });
   };
 
-  Vita.diary = { init };
+  Chaka.diary = { init };
 })();

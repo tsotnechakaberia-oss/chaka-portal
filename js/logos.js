@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const { $, $$, el } = Vita;
+  const { $, $$, buildElement } = Chaka;
   let uid = 0;
   const nextId = (p) => `${p}${++uid}`;
 
@@ -107,7 +107,7 @@
 
     const track = $('#partner-track');
     if (track) {
-      const items = Vita.PARTNERS.map((p) => el('div', { class: 'pl-item', html: partnerSVG(p.kind) + `<span>${p.name}<small>${p.tag}</small></span>` }));
+      const items = Chaka.PARTNERS.map((p) => buildElement('div', { class: 'pl-item', html: partnerSVG(p.kind) + `<span>${p.name}<small>${p.tag}</small></span>` }));
 
       track.append(...items, ...items.map((n) => n.cloneNode(true)));
       track.lastElementChild && $$('.pl-item', track).slice(items.length).forEach((n) => n.setAttribute('aria-hidden', 'true'));
@@ -116,5 +116,5 @@
     if (strip) strip.innerHTML = ecgSVG();
   };
 
-  Vita.logos = { mark, draw, emblem, partnerSVG, icon, mount, ecgSVG };
+  Chaka.logos = { mark, draw, emblem, partnerSVG, icon, mount, ecgSVG };
 })();
