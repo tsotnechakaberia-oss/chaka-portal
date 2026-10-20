@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ანალიზის ახსნა — ჩაკა</title>
+  <meta name="description" content="ლაბორატორიული ანალიზის შედეგის ახსნა გასაგები ენით: ჰემოგლობინი, გლუკოზა, ქოლესტერინი, TSH და სხვა. ერთეულების გადაყვანით.">
+  <meta name="theme-color" content="#050a14">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+  <script>try{if(JSON.parse(localStorage.getItem('chaka.lang'))==='en')document.documentElement.classList.add('i18n-pending')}catch(e){}</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,3 57,17.5 57,46.5 32,61 7,46.5 7,17.5' fill='%23050a14' stroke='%232df5c4' stroke-width='4'/%3E%3Cpath d='M12 34H24L28 24L34 44L38 30L41 34H52' fill='none' stroke='%232df5c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Georgian:wght@400;500;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div id="loader" role="status" aria-label="იტვირთება">
+    <div class="loader-inner">
+      <div data-logo="draw" class="loader-logo"></div>
+      <div class="loader-word" aria-hidden="true">ჩ<span>ა</span>კ<span>ა</span></div>
+      <div class="loader-bar"><i></i></div>
+      <p class="loader-text mono">სისტემის დიაგნოსტიკა…</p>
+    </div>
+  </div>
+
+  <div class="bg-fx" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="grid"></i></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <a class="skip-link" href="#main">გადასვლა შინაარსზე</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-row">
+      <a href="index.html" class="brand">
+        <span data-logo="mark" class="brand-mark"></span>
+        <span class="brand-name">ჩაკა<small class="mono">MED·PORTAL</small></span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="მთავარი მენიუ">
+        <a href="index.html#symptoms">სიმპტომები</a>
+        <a href="index.html#doctors">ექიმები</a>
+        <a href="clinics.html">კლინიკები</a>
+        <a href="calculators.html">კალკულატორები</a>
+        <a href="diary.html">დღიური</a>
+        <a href="labs.html" class="current" aria-current="page">ანალიზები</a>
+        <a href="index.html#firstaid">პირველი დახმარება</a>
+        <a href="index.html#library">ბიბლიოთეკა</a>
+        <a href="index.html#contact">კონტაქტი</a>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:112" class="sos-btn" aria-label="გადაუდებელი დახმარება 112"><i class="sos-dot"></i>112</a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="თემის შეცვლა" title="ბნელი / ნათელი თემა">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="მენიუს გახსნა" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumbs mono reveal"><a href="index.html">მთავარი</a> / ანალიზები</p>
+        <h1 class="reveal" style="--d:.05s">ანალიზის <em class="grad-text">ახსნა</em></h1>
+        <p class="section-lead reveal" style="--d:.1s">აირჩიე ანალიზი, ჩაწერე შედეგი და ნახე, ნორმის რა ნაწილში ხვდება და რას შეიძლება ნიშნავდეს. ერთეულებს (მმოლ/ლ, მგ/დლ და სხვა) თავად გადავიყვანთ.</p>
+        <div class="trust-row">
+          <div class="card reveal"><b>🔁 ერთეულების გადაყვანა</b>ქართული ლაბორატორიების ბლანკზე მითითებული ერთეულით შეიყვანე.</div>
+          <div class="card reveal" style="--d:.08s"><b>🔒 კონფიდენციალურობა</b>ყველაფერი რჩება შენს ბრაუზერში და არსად იგზავნება.</div>
+          <div class="card reveal" style="--d:.16s"><b>⚕ არ არის დიაგნოზი</b>ბლანკზე მითითებული ნორმა უპირატესია. შედეგი ექიმთან განიხილე.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-compact">
+      <div class="container lab-layout">
+        <div class="lab-side">
+          <div class="card reveal">
+            <h2 class="subhead">აირჩიე ანალიზი</h2>
+            <div id="lab-picker"></div>
+          </div>
+          <div class="card reveal bookings">
+            <div class="bookings-head"><h2 class="subhead">ჩემი შენახული ანალიზები</h2><span class="mono tag" id="lab-saved-count">0</span></div>
+            <ul id="lab-saved" class="bookings-list"></ul>
+            <p class="note">შენახული ანალიზები მხოლოდ ამ მოწყობილობაზეა და გამოიყენება „ვიზიტისთვის მომზადებაში“.</p>
+          </div>
+        </div>
+        <div class="lab-main">
+          <form id="lab-form" class="card reveal" novalidate>
+            <h2 class="subhead" id="lab-title"></h2>
+            <div class="form-row" id="lab-sex-row" hidden>
+              <span class="field-label">სქესი (ნორმა სქესის მიხედვით განსხვავდება)</span>
+              <div class="radio-row">
+                <label><input type="radio" name="lab-sex" value="f"> ქალი</label>
+                <label><input type="radio" name="lab-sex" value="m"> კაცი</label>
+              </div>
+            </div>
+            <div class="form-2">
+              <div class="form-row"><label for="lab-value">შედეგი</label><input class="input" type="text" id="lab-value" inputmode="decimal" autocomplete="off" placeholder="მაგ.: 5.4"><small class="err" data-err="lab-value"></small></div>
+              <div class="form-row"><label for="lab-unit">ერთეული</label><select class="input" id="lab-unit"></select></div>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">ახსენი შედეგი</button>
+          </form>
+          <div id="lab-result" class="card lab-result" hidden aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span data-logo="mark" class="brand-mark"></span><span class="brand-name">ჩაკა<small class="mono">MED·PORTAL</small></span></a>
+        <p class="footer-text">სასწავლო პროექტი (HTML · CSS · JavaScript). არ წარმოადგენს სამედიცინო რჩევას, დიაგნოსტიკას ან მკურნალობას.</p>
+      </div>
+      <div>
+        <h2>ნავიგაცია</h2>
+        <ul class="footer-links"><li><a href="index.html#symptoms">სიმპტომები</a></li><li><a href="clinics.html">კლინიკები</a></li><li><a href="calculators.html">კალკულატორები</a></li><li><a href="index.html#doctors">ექიმები</a></li><li><a href="index.html#tools">ხელსაწყოები</a></li><li><a href="index.html#firstaid">პირველი დახმარება</a></li><li><a href="index.html#library">ბიბლიოთეკა</a></li><li><a href="labs.html">ანალიზები</a></li><li><a href="prep.html">ვიზიტის მომზადება</a></li><li><a href="emergency.html">ოფლაინ გადაუდებელი</a></li></ul>
+      </div>
+      <div>
+        <h2>გადაუდებელი</h2>
+        <p class="footer-sos mono"><a href="tel:112">112</a></p>
+        <p class="footer-text">ერთიანი სასწრაფო ნომერი საქართველოში.</p>
+      </div>
+      <form id="news-form" class="news" novalidate>
+        <h2>სიახლეები</h2>
+        <div class="news-row"><input class="input" id="news-mail" type="email" placeholder="შენი ელ-ფოსტა" aria-label="ელ-ფოსტა"><button class="btn btn-primary btn-sm" type="submit">✓</button></div>
+        <small class="err" data-err="news-mail"></small>
+      </form>
+    </div>
+    <div class="container footer-bottom mono"><span>© <span id="year">2026</span> ჩაკა · საფინალო პროექტი</span><span>Built with vanilla JS</span></div>
+  </footer>
+
+  <button id="to-top" class="to-top" type="button" aria-label="ზევით დაბრუნება">↑</button>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/logos.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/lab-defs.js" defer></script>
+  <script src="js/labs.js" defer></script>
+  <script src="js/pwa.js" defer></script>
+  <script src="js/contact.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/page.js" defer></script>
+</body>
+</html>

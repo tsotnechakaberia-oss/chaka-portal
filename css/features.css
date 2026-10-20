@@ -1,0 +1,86 @@
+/* ანალიზების გვერდი */
+.lab-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--sp-4); align-items: start; }
+.lab-side, .lab-main { display: grid; gap: var(--sp-4); }
+.lab-main { position: sticky; top: calc(var(--header-h) + var(--sp-3)); }
+.lab-group + .lab-group { margin-top: var(--sp-3); }
+.lab-group-title { margin: 0 0 var(--sp-2); font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: var(--fw-medium); }
+.radio-row { display: flex; gap: var(--sp-4); }
+.radio-row label { display: inline-flex; align-items: center; gap: var(--sp-2); font-weight: var(--fw-medium); cursor: pointer; }
+.radio-row input { accent-color: var(--mint); }
+
+.lab-result { display: grid; gap: var(--sp-3); }
+.lab-result h3, .lab-result h4, .lab-result p { margin: 0; }
+.lab-result-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-3); flex-wrap: wrap; }
+.lab-value { font-family: var(--mono); font-size: var(--fs-xl); color: var(--muted); }
+.lab-value b { font-size: var(--fs-2xl); color: var(--text); }
+.lab-result .chip-res { justify-self: start; margin: 0; }
+.lab-scale { position: relative; display: flex; height: 12px; border-radius: 999px; margin-block: var(--sp-3); }
+.lab-seg { display: block; height: 100%; opacity: .85; }
+.lab-seg:first-child { border-radius: 999px 0 0 999px; }
+.lab-seg:last-of-type { border-radius: 0 999px 999px 0; }
+.lab-seg.tone-ok { background: var(--mint); }
+.lab-seg.tone-warn { background: var(--amber); }
+.lab-seg.tone-bad { background: var(--coral); }
+.lab-seg.tone-info { background: var(--sky); }
+.lab-marker { position: absolute; top: -6px; width: 4px; height: 24px; margin-left: -2px; border-radius: 2px; background: var(--text); box-shadow: 0 0 0 3px var(--bg); }
+.lab-range { font-size: var(--fs-sm); color: var(--muted); }
+.lab-actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .lab-layout { grid-template-columns: 1fr; }
+  .lab-main { position: static; order: -1; }
+}
+
+/* ვიზიტისთვის მომზადება */
+.prep-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--sp-4); align-items: start; }
+.prep-form { display: grid; gap: var(--sp-4); }
+.prep-output { position: sticky; top: calc(var(--header-h) + var(--sp-3)); display: grid; gap: var(--sp-3); }
+.prep-actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+.check-list { display: grid; gap: var(--sp-2); }
+.check-item { display: flex; align-items: flex-start; gap: var(--sp-2); cursor: pointer; line-height: var(--lh-tight); }
+.check-item input { margin-top: .2rem; accent-color: var(--mint); flex: none; }
+
+.prep-sheet { background: var(--white); color: var(--ink); border-radius: var(--radius-sm); padding: clamp(1.2rem, 3vw, 2rem); box-shadow: var(--shadow); display: grid; gap: var(--sp-3); max-height: calc(100vh - var(--header-h) - 7rem); overflow: auto; }
+.prep-sheet h2, .prep-sheet h3, .prep-sheet p, .prep-sheet ul, .prep-sheet dl { margin: 0; color: inherit; }
+.prep-sheet h2 { font-size: var(--fs-xl); }
+.prep-sheet h3 { font-size: var(--fs-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--bg-2); opacity: .7; margin-bottom: var(--sp-1); }
+.prep-sheet ul { padding-left: 1.2rem; display: grid; gap: var(--sp-1); list-style: disc; }
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-3); border-bottom: 2px solid var(--ink); padding-bottom: var(--sp-2); }
+.sheet-brand, .sheet-muted { font-size: var(--fs-xs); opacity: .7; }
+.sheet-meta { display: grid; gap: var(--sp-1); }
+.sheet-meta div { display: flex; gap: var(--sp-2); }
+.sheet-meta dt { min-width: 6rem; opacity: .7; }
+.sheet-meta dd { margin: 0; font-weight: var(--fw-bold); }
+.sheet-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.sheet-table th, .sheet-table td { text-align: left; padding: .35rem .5rem .35rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+.sheet-checks { list-style: none; padding-left: 0 !important; }
+.sheet-checks li::before { content: "☐"; margin-right: var(--sp-2); }
+.sheet-foot { font-size: var(--fs-xs); opacity: .65; }
+.prep-sheet .empty-note { color: var(--ink); opacity: .6; }
+
+@media (max-width: 900px) {
+  .prep-layout { grid-template-columns: 1fr; }
+  .prep-output { position: static; order: -1; }
+  .prep-sheet { max-height: none; }
+}
+
+@media print {
+  .site-header, .site-footer, .no-print, .to-top, #toasts, #loader, .bg-fx, #cursor-glow, .scroll-progress, .skip-link { display: none !important; }
+  body { background: var(--white) !important; color: var(--black) !important; }
+  .section, .container, .prep-layout, .prep-output { display: block !important; padding: 0 !important; width: 100% !important; margin: 0 !important; position: static !important; }
+  .prep-sheet { box-shadow: none; max-height: none; overflow: visible; padding: 0; color: var(--black); }
+  .sheet-section { break-inside: avoid; }
+}
+
+/* გადაუდებელი რეჟიმი და PWA */
+.emergency-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; margin-block: var(--sp-4) var(--sp-3); }
+.call-112 { display: inline-flex; align-items: center; gap: var(--sp-2); padding: 1.1rem 2.4rem; border-radius: 999px; background: var(--coral); color: var(--on-accent); font-size: var(--fs-2xl); font-weight: var(--fw-black); text-decoration: none; box-shadow: 0 14px 40px -12px color-mix(in srgb, var(--coral) 80%, transparent); animation: redPulse 1.8s infinite; }
+.call-112:hover { filter: brightness(1.08); }
+.status-pill { display: inline-block; margin: 0; padding: .4rem 1rem; border-radius: 999px; font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.emergency-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--sp-4); align-items: start; }
+.install-card { display: grid; gap: var(--sp-3); }
+.install-card p { margin: 0; }
+
+@media (max-width: 900px) {
+  .emergency-grid { grid-template-columns: 1fr; }
+}
