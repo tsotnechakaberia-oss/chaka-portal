@@ -1,0 +1,105 @@
+/* ფოტო-ბლოკები: care (ფოტო 1), doctors-banner (ფოტო 2), contact-banner (ფოტო 3) */
+.photo { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow); isolation: isolate; }
+.photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.photo:hover img { transform: scale(1.04); }
+
+/* --- Care: ფოტო + ტექსტი --- */
+.care-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.care-photo { aspect-ratio: 3 / 2; }
+.care-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--bg) 55%, transparent)); pointer-events: none; }
+.care-photo .float-chip { position: absolute; z-index: 2; }
+.care-photo .chip-a { left: 1rem; bottom: 1rem; }
+.care-photo .chip-b { right: 1rem; top: 1rem; }
+.care-copy h2 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); }
+.care-list { list-style: none; margin: 1.4rem 0 1.8rem; padding: 0; display: grid; gap: .9rem; }
+.care-list li { display: grid; grid-template-columns: 2.4rem 1fr; gap: .9rem; align-items: start; }
+.care-list .ci { width: 2.4rem; height: 2.4rem; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--mint) 14%, transparent); border: 1px solid var(--line-strong); color: var(--mint); }
+.care-list b { display: block; line-height: 1.3; }
+.care-list span { color: var(--muted); font-size: var(--fs-md); }
+
+/* --- Doctors banner: ფოტო 2 --- */
+.doc-banner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 0; margin-bottom: 1.6rem; padding: 0; overflow: hidden; }
+.doc-banner .photo { border: 0; border-radius: 0; box-shadow: none; min-height: 190px; }
+.doc-banner .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 60%, var(--surface-solid)); }
+.doc-banner-copy { padding: clamp(1.2rem, 3vw, 2rem); display: grid; gap: .5rem; align-content: center; }
+.doc-banner-copy h3 { margin: 0; font-size: clamp(1.15rem, 2.2vw, 1.5rem); }
+.doc-banner-copy p { margin: 0; color: var(--muted); }
+
+/* --- Contact banner: ფოტო 3 --- */
+.contact-banner { height: clamp(220px, 28vw, 320px); margin-bottom: 2.6rem; display: grid; align-items: center; }
+.contact-banner img { position: absolute; inset: 0; z-index: -2; }
+.contact-banner::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, color-mix(in srgb, var(--scrim) 88%, transparent) 0%, color-mix(in srgb, var(--scrim) 55%, transparent) 55%, color-mix(in srgb, var(--scrim) 10%, transparent) 100%); }
+.contact-banner-copy { padding: clamp(1.4rem, 4vw, 3rem); max-width: 560px; color: var(--white); }
+.contact-banner-copy h2 { margin: 0 0 .5rem; color: var(--white); font-size: clamp(1.5rem, 3vw, 2.2rem); }
+.contact-banner-copy p { margin: 0 0 1.1rem; color: color-mix(in srgb, var(--white) 85%, transparent); }
+
+@media (max-width: 900px) {
+  .care-grid { grid-template-columns: 1fr; }
+  .doc-banner { grid-template-columns: 1fr; }
+  .doc-banner .photo { height: 190px; }
+  .doc-banner .photo::after { background: linear-gradient(180deg, transparent 55%, var(--surface-solid)); }
+}
+@media (max-width: 640px) {
+  .contact-banner::before { background: linear-gradient(180deg, color-mix(in srgb, var(--scrim) 45%, transparent), color-mix(in srgb, var(--scrim) 85%, transparent)); }
+  .contact-banner { align-items: end; }
+}
+@media (prefers-reduced-motion: reduce) { .photo img { transition: none; } .photo:hover img { transform: none; } }
+
+/* --- ბიბლიოთეკა: „ატლასი“ — ფოტო-ფანჯრები (თაღები) სხვადასხვა ზომის მოზაიკაში --- */
+.atlas { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 160px; grid-auto-flow: dense; gap: 1rem; margin-top: 1.4rem; }
+.at-tile { --r: 20px; position: relative; display: block; padding: 0; border: 0; text-align: left; color: var(--white); overflow: hidden; isolation: isolate; cursor: pointer;
+  border-radius: var(--r); background: var(--surface-solid); box-shadow: var(--shadow); outline-offset: 4px; }
+.at-tile:nth-child(6n+1) { grid-column: span 3; grid-row: span 2; --r: 190px 20px 20px 20px; }
+.at-tile:nth-child(6n+2) { grid-column: span 3; --r: 20px 110px 20px 20px; }
+.at-tile:nth-child(6n+3) { grid-column: span 3; --r: 20px 20px 110px 20px; }
+.at-tile:nth-child(6n+4), .at-tile:nth-child(6n+5), .at-tile:nth-child(6n) { grid-column: span 2; grid-row: span 2; --r: 999px 999px 20px 20px; }
+.at-photo { position: absolute; inset: 0; z-index: -2; display: block; }
+.at-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.08); transform: scale(1.02); transition: filter .6s var(--ease), transform 1s var(--ease); }
+.at-photo::after { content: ""; position: absolute; inset: 0; background: var(--c); mix-blend-mode: color; opacity: .9; transition: opacity .6s var(--ease); }
+.at-photo.no-img { display: grid; place-items: center; background: color-mix(in srgb, var(--c) 22%, var(--surface-solid)); }
+.at-photo.no-img svg { width: 38%; max-width: 110px; color: var(--c); }
+.at-photo.no-img::after { display: none; }
+.at-tile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--scrim-deep) 88%, transparent)); }
+.at-tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent); pointer-events: none; transition: box-shadow .3s; }
+.at-tile:hover .at-photo img, .at-tile:focus-visible .at-photo img { filter: none; transform: scale(1.08); }
+.at-tile:hover .at-photo::after, .at-tile:focus-visible .at-photo::after { opacity: 0; }
+.at-tile:hover::after, .at-tile:focus-visible::after { box-shadow: inset 0 0 0 3px var(--c); }
+.at-meta { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: .35rem; padding: 1.1rem 1.3rem 1.2rem; }
+.at-tile:nth-child(6n+4) .at-meta, .at-tile:nth-child(6n+5) .at-meta, .at-tile:nth-child(6n) .at-meta { text-align: center; justify-items: center; padding-inline: 1rem; }
+.at-meta strong { font-size: var(--fs-lg); line-height: 1.25; text-shadow: 0 1px 12px color-mix(in srgb, var(--black) 60%, transparent); }
+.at-tile:nth-child(6n+1) .at-meta strong { font-size: var(--fs-xl); max-width: 22ch; }
+.at-tag { justify-self: start; padding: .15rem .65rem; border-radius: 999px; font-size: var(--fs-xs); background: var(--c); color: var(--ink); font-weight: var(--fw-bold); }
+.at-tile:nth-child(6n+4) .at-tag, .at-tile:nth-child(6n+5) .at-tag, .at-tile:nth-child(6n) .at-tag { justify-self: center; }
+.at-cat { font-size: var(--fs-xs); color: color-mix(in srgb, var(--white) 78%, transparent); }
+.at-tile mark, .lib-in mark { background: var(--amber); color: var(--ink); border-radius: 3px; }
+
+/* --- სტატიის მოდალი --- */
+.lib-modal { width: min(680px, 94vw); }
+.lib-modal .modal-x { background: var(--surface-solid); }
+.lib-hero { margin: 0; height: clamp(170px, 32vw, 250px); overflow: hidden; border-radius: 0 0 50% 50% / 0 0 34px 34px; background: color-mix(in srgb, var(--mint) 18%, var(--surface-solid)); }
+.lib-hero img { width: 100%; height: 100%; object-fit: cover; }
+.lib-hero.no-img { display: grid; place-items: center; } .lib-hero.no-img svg { width: 84px; color: var(--mint); }
+.lib-in { padding-top: 1.3rem; }
+.lib-cat { display: flex; align-items: center; gap: .55rem; margin: 0 0 .5rem; font-size: var(--fs-sm); color: var(--muted); }
+.lib-cat .tag { margin-left: auto; }
+.lib-dot { width: .7rem; height: .7rem; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+.lib-in h3 { margin: 0 0 .7rem; }
+.lib-lead { margin: 0 0 1.1rem; color: var(--text); }
+.lib-in .acc-body { padding: 0; }
+
+@media (max-width: 900px) {
+  .atlas { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 190px; }
+  .at-tile:nth-child(n) { grid-column: span 1; grid-row: span 1; --r: 20px 80px 20px 20px; }
+  .at-tile:nth-child(2n) { --r: 80px 20px 20px 20px; }
+  .at-tile:nth-child(6n+1) { grid-column: span 2; grid-row: span 2; --r: 150px 20px 20px 20px; }
+  .at-tile:nth-child(n) .at-meta { text-align: left; justify-items: start; padding: .9rem 1rem; }
+  .at-tile:nth-child(n) .at-tag { justify-self: start; }
+  .at-tile:nth-child(n) .at-meta strong { font-size: var(--fs-md); max-width: none; }
+  .at-tile:nth-child(6n+1) .at-meta strong { font-size: var(--fs-lg); }
+}
+@media (max-width: 480px) {
+  .atlas { grid-template-columns: 1fr; grid-auto-rows: 210px; }
+  .at-tile:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+  .at-tile:nth-child(6n+1) { grid-row: span 1; }
+}
+@media (prefers-reduced-motion: reduce) { .at-photo img, .at-photo::after, .at-tile::after { transition: none; } .at-tile:hover .at-photo img { transform: none; } }
