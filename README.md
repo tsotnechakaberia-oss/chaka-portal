@@ -82,7 +82,7 @@ js/    utils · data · logos · effects · map · georgia-geo · clinics-data
        i18n · i18n-en · i18n-en-features (ეს სამი მხოლოდ ინგლისურ რეჟიმში იტვირთება) · main · page
 img/   ფოტოები (WebP) · lib/ ბიბლიოთეკის ილუსტრაციები · icons/ საიტის ხატულები
 sw.js · manifest.webmanifest
-docs/  პროექტის იდეისა და ტექნიკური დოკუმენტაციის ფაილები
+
 ```
 
 ## მონაცემების შეცვლა
