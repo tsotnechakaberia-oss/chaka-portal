@@ -9,7 +9,8 @@
 
 ## გამოქვეყნებული საიტი
 
-🔗 https://tsotnechakaberia-oss.github.io/chaka-portal/
+- 🔗 GitHub Pages: https://tsotnechakaberia-oss.github.io/chaka-portal/
+- 🔗 Vercel: https://chaka-portal.vercel.app/
 
 ## რა ტექნოლოგიები გამოვიყენე
 
